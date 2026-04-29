@@ -37,8 +37,17 @@ Die entwickelte Web-App „Homie“ ermöglicht es, Vorräte und Einkaufslisten 
     - Gruppierung der Vorräte nach Kategorien
     - Gemeinsame Einkaufsliste mit Hinzufügen, Abhaken und Löschen von Artikeln
     - Automatische Synchronisation innerhalb eines Haushalts (alle sehen denselben Stand)  
-- **Annahmen [Optional]:** _[welche Hypothesen werden geprüft?]_
-- **Abgrenzung [Optional]:** _[Was gehört explizit nicht zum Umfang?]_
+- **Annahmen [Optional]:**
+    - Eine einfache Lösung ohne Login wird eher genutzt als komplexe Systeme
+    - Nutzer bevorzugen eine schnelle und unkomplizierte Bedienung
+    - Ein gemeinsamer Code reicht aus, um Haushalte voneinander zu trennen
+    - Die App wird hauptsächlich mobil oder nebenbei im Alltag genutzt
+- **Abgrenzung [Optional]:**
+    - Keine Benutzerkonten oder Login-Systeme
+    - Keine detaillierte Rechteverwaltung (alle im Haushalt haben dieselben Rechte)
+    - Keine automatische Erkennung von Produkten oder Barcode-Scan
+    - Keine komplexe Lagerverwaltung oder Statistiken
+    - Fokus liegt auf einfacher Funktionalität, nicht auf Vollständigkeit
 
 ## 3. Vorgehen & Artefakte
 Die Durchführung erfolgt phasenbasiert; dokumentieren Sie die wichtigsten Ergebnisse je Phase.
