@@ -14,9 +14,9 @@
 <main>
     <div class="topbar">
         <h1>Vorrat</h1>
-        <button onclick="document.getElementById('modal').showModal()"
-            >+ Hinzufügen</button
-        >
+        <button on:click={() => document.getElementById("modal").showModal()}>
+            + Hinzufügen
+        </button>
     </div>
 
     {#each Object.entries(gruppiert) as [kat, items]}
