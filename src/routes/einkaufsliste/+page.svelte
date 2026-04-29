@@ -7,7 +7,6 @@
     <section class="container py-5">
         <div class="topbar">
             <div>
-                <p class="eyebrow">Homie</p>
                 <h1>Einkaufsliste</h1>
                 <p class="subtitle">Alles, was beim nächsten Einkauf nicht fehlen darf.</p>
             </div>
@@ -49,12 +48,6 @@
         min-height: 100vh;
         background: #faf7f5;
         color: #2b2b2b;
-    }
-
-    .eyebrow {
-        color: #d97757;
-        font-weight: 700;
-        margin-bottom: 0.4rem;
     }
 
     h1 {
