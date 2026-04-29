@@ -1,7 +1,9 @@
-import { db } from "$lib/db";
+import { getDb } from "$lib/db";
 import { ObjectId } from "mongodb";
 
 export async function load() {
+    const db = await getDb();
+
     const items = await db
         .collection("einkaufsliste")
         .find()
@@ -18,6 +20,7 @@ export async function load() {
 
 export const actions = {
     add: async ({ request }) => {
+        const db = await getDb();
         const form = await request.formData();
         const name = form.get("name");
 
@@ -31,12 +34,15 @@ export const actions = {
     },
 
     toggle: async ({ request }) => {
+        const db = await getDb();
         const form = await request.formData();
         const id = form.get("id");
 
         const item = await db
             .collection("einkaufsliste")
             .findOne({ _id: new ObjectId(id) });
+
+        if (!item) return;
 
         await db.collection("einkaufsliste").updateOne(
             { _id: new ObjectId(id) },
@@ -45,6 +51,7 @@ export const actions = {
     },
 
     delete: async ({ request }) => {
+        const db = await getDb();
         const form = await request.formData();
         const id = form.get("id");
 
