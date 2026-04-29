@@ -23,7 +23,7 @@
 
 ## 1. Ausgangslage
 Viele Menschen verlieren im Alltag den Überblick darüber, welche Produkte zuhause noch vorhanden sind. Besonders in WGs, Familien oder gemeinsamen Haushalten werden Lebensmittel, Putzmittel oder Alltagsprodukte oft doppelt gekauft oder vergessen. Einkaufslisten entstehen häufig über WhatsApp oder mündliche Absprachen, wodurch Informationen schnell verloren gehen. Das führt zu unnötigen Kosten, mehr Abfall und Stress beim Einkaufen.
-- **Problem:** _[Das Problem ist identifiziert, verständlich beschrieben und optional mit Beispielen illustriert]_
+- **Problem:** Es fehlt eine einfache, gemeinsame Lösung, um Vorräte und Einkaufslisten übersichtlich zu organisieren. Dadurch kommt es zu Doppelkäufen, fehlenden Produkten und unnötiger Verschwendung.
 - **Ziele:** _[stichwortartig oder einige Sätze]_  
 - **Primäre Zielgruppe:** _[kurz beschreiben]_  
 - **Weitere Stakeholder [Optional]:** _[z. B. Verwaltung, Geschäftsleitung]_  
