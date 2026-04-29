@@ -18,7 +18,7 @@
 </script>
 
 <main class="page">
-    <section class="container-fluid px-5 py-5">
+    <section class="container py-5">
         <div class="topbar">
             <div>
                 <h1>Vorrat</h1>
