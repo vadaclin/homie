@@ -2,7 +2,6 @@
     <section class="hero container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <p class="eyebrow">Homie App</p>
 
                 <h1>Dein Haushalt. Einfach organisiert.</h1>
 
@@ -96,17 +95,6 @@
     .hero {
         padding-top: 5rem;
         padding-bottom: 4rem;
-    }
-
-    .eyebrow {
-        display: inline-block;
-        color: #d97757;
-        background: #fff;
-        border: 1px solid #e8e2dd;
-        border-radius: 999px;
-        padding: 0.4rem 0.9rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
     }
 
     h1 {

@@ -19,9 +19,6 @@
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/vorrat">Vorrat</a>
         </li>
         <li class="nav-item">
