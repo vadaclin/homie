@@ -24,14 +24,19 @@
 ## 1. Ausgangslage
 Viele Menschen verlieren im Alltag den Überblick darüber, welche Produkte zuhause noch vorhanden sind. Besonders in WGs, Familien oder gemeinsamen Haushalten werden Lebensmittel, Putzmittel oder Alltagsprodukte oft doppelt gekauft oder vergessen. Einkaufslisten entstehen häufig über WhatsApp oder mündliche Absprachen, wodurch Informationen schnell verloren gehen. Das führt zu unnötigen Kosten, mehr Abfall und Stress beim Einkaufen.
 - **Problem:** Es fehlt eine einfache, gemeinsame Lösung, um Vorräte und Einkaufslisten übersichtlich zu organisieren. Dadurch kommt es zu Doppelkäufen, fehlenden Produkten und unnötiger Verschwendung.
-- **Ziele:** _[stichwortartig oder einige Sätze]_  
-- **Primäre Zielgruppe:** _[kurz beschreiben]_  
+- **Ziele:** Eine intuitive Web-App entwickeln, die es ermöglicht, Vorräte und Einkaufslisten gemeinsam zu verwalten. Ziel ist es, den Überblick im Haushalt zu verbessern, Doppelkäufe zu vermeiden, Lebensmittelverschwendung zu reduzieren und die Kommunikation innerhalb eines Haushalts zu vereinfachen.
+- **Primäre Zielgruppe:** Personen in gemeinsamen Haushalten wie WGs, Paare und Familien, die ihren Alltag besser organisieren möchten. Auch Einzelpersonen können die App nutzen, um ihren eigenen Vorrat im Blick zu behalten. 
 - **Weitere Stakeholder [Optional]:** _[z. B. Verwaltung, Geschäftsleitung]_  
 
 
 ## 2. Lösungsidee
-Beschreibt die Lösungsidee.
-- **Kernfunktionalität:** _[Workflows kurz nennen und optional illustrieren]_  
+Die entwickelte Web-App „Homie“ ermöglicht es, Vorräte und Einkaufslisten innerhalb eines Haushalts einfach und gemeinsam zu verwalten. Über einen vierstelligen Haushalts-Code können mehrere Personen auf dieselben Daten zugreifen, ohne ein Benutzerkonto erstellen zu müssen. Dadurch wird die Nutzung bewusst einfach gehalten und der Einstieg erleichtert.
+- **Kernfunktionalität:**
+    - Eingabe eines vierstelligen Haushalts-Codes zum Beitreten oder Erstellen eines Haushalts
+    - Gemeinsame Verwaltung von Vorräten (Artikel hinzufügen, anzeigen und löschen)
+    - Gruppierung der Vorräte nach Kategorien
+    - Gemeinsame Einkaufsliste mit Hinzufügen, Abhaken und Löschen von Artikeln
+    - Automatische Synchronisation innerhalb eines Haushalts (alle sehen denselben Stand)  
 - **Annahmen [Optional]:** _[welche Hypothesen werden geprüft?]_
 - **Abgrenzung [Optional]:** _[Was gehört explizit nicht zum Umfang?]_
 
