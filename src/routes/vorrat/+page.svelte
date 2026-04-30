@@ -3,7 +3,9 @@
 
   const KATEGORIEN = ["Lebensmittel", "Getränke", "Haushalt", "Hygiene", "Sonstiges"];
 
-  let showModal = $state(false);
+  let showAddModal = $state(false);
+  let editArtikel = $state(null);
+
   let name = $state("");
   let menge = $state("");
   let kategorie = $state(KATEGORIEN[0]);
@@ -16,8 +18,24 @@
     }, {})
   );
 
-  function openModal() { showModal = true; }
-  function closeModal() { showModal = false; }
+  function openAdd() {
+    name = "";
+    menge = "";
+    kategorie = KATEGORIEN[0];
+    showAddModal = true;
+  }
+
+  function openEdit(item) {
+    editArtikel = item;
+    name = item.name;
+    menge = item.menge;
+    kategorie = item.kategorie;
+  }
+
+  function closeModals() {
+    showAddModal = false;
+    editArtikel = null;
+  }
 </script>
 
 <main class="page">
@@ -26,19 +44,16 @@
       <h1>Vorrat</h1>
       <p>Behalte im Blick, was zuhause noch vorhanden ist.</p>
     </div>
-    <button class="add-button" onclick={openModal}>+ Hinzufügen</button>
+    <button class="add-button" onclick={openAdd}>+ Hinzufügen</button>
   </section>
 
-  {#if showModal}
-    <div class="overlay" onclick={closeModal}></div>
-
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  {#if showAddModal}
+    <div class="overlay" onclick={closeModals}></div>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="add-title">
       <form method="POST" action="?/add">
-        <h2 id="modal-title">Artikel hinzufügen</h2>
-
+        <h2 id="add-title">Artikel hinzufügen</h2>
         <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
         <input name="menge" bind:value={menge} placeholder="z. B. 2 Packungen" />
-
         <div class="select-wrapper">
           <select name="kategorie" bind:value={kategorie}>
             {#each KATEGORIEN as option}
@@ -46,11 +61,38 @@
             {/each}
           </select>
         </div>
-
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeModal}>Abbrechen</button>
+          <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
           <button type="submit">Speichern</button>
         </div>
+      </form>
+    </div>
+  {/if}
+
+  {#if editArtikel}
+    <div class="overlay" onclick={closeModals}></div>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-title">
+      <form method="POST" action="?/update">
+        <h2 id="edit-title">Artikel bearbeiten</h2>
+        <input type="hidden" name="id" value={editArtikel.id} />
+        <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
+        <input name="menge" bind:value={menge} placeholder="z. B. 2 Packungen" />
+        <div class="select-wrapper">
+          <select name="kategorie" bind:value={kategorie}>
+            {#each KATEGORIEN as option}
+              <option value={option}>{option}</option>
+            {/each}
+          </select>
+        </div>
+        <div class="actions">
+          <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
+          <button type="submit">Speichern</button>
+        </div>
+      </form>
+
+      <form method="POST" action="?/delete" class="delete-form">
+        <input type="hidden" name="id" value={editArtikel.id} />
+        <button type="submit" class="delete-btn">Artikel löschen</button>
       </form>
     </div>
   {/if}
@@ -66,10 +108,10 @@
         <div class="card">
           <h2>{gruppe}</h2>
           {#each items as item (item.id)}
-            <div class="item">
+            <button class="item" onclick={() => openEdit(item)}>
               <strong>{item.name}</strong>
               <span>{item.menge}</span>
-            </div>
+            </button>
           {/each}
         </div>
       {/each}
@@ -211,7 +253,27 @@
   .secondary {
     background: white;
     color: #242424;
-    border: 1px solid #e8e2dd;
+    border: 1px solid #e8e2dd !important;
+  }
+
+  .delete-form {
+    margin-top: 0.8rem;
+  }
+
+  .delete-btn {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 18px;
+    border: none;
+    background: none;
+    color: #c0392b;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .delete-btn:hover {
+    background: #fff0ef;
   }
 
   .empty-card {
@@ -246,10 +308,21 @@
   .item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
     padding: 0.8rem 1rem;
     border-radius: 16px;
     background: #fff4ef;
     margin-top: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    transition: 0.15s ease;
+  }
+
+  .item:hover {
+    background: #ffe8df;
   }
 
   .item span {

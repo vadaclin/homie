@@ -4,10 +4,6 @@ import { getDb } from "$lib/server/db";
 
 const COLLECTION = "vorrat";
 
-/**
- * @param {import('@sveltejs/kit').Cookies} cookies
- * @returns {ObjectId | never}
- */
 function getHaushaltId(cookies) {
   const haushalt = cookies.get("haushalt");
   if (!haushalt) redirect(303, "/");
@@ -17,8 +13,8 @@ function getHaushaltId(cookies) {
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ cookies }) {
   const haushaltId = getHaushaltId(cookies);
-
   const db = await getDb();
+
   const artikel = await db
     .collection(COLLECTION)
     .find({ haushaltId })
@@ -39,7 +35,6 @@ export async function load({ cookies }) {
 export const actions = {
   add: async ({ request, cookies }) => {
     const haushaltId = getHaushaltId(cookies);
-
     const data = await request.formData();
     const name = data.get("name")?.toString().trim();
     const menge = data.get("menge")?.toString().trim() ?? "";
@@ -57,6 +52,40 @@ export const actions = {
       kategorie,
       erstelltAm: new Date(),
     });
+
+    return { success: true };
+  },
+
+  update: async ({ request, cookies }) => {
+    getHaushaltId(cookies);
+    const data = await request.formData();
+    const id = data.get("id")?.toString();
+    const name = data.get("name")?.toString().trim();
+    const menge = data.get("menge")?.toString().trim() ?? "";
+    const kategorie = data.get("kategorie")?.toString().trim();
+
+    if (!id || !name || !kategorie) {
+      return fail(400, { error: "Name und Kategorie sind Pflicht." });
+    }
+
+    const db = await getDb();
+    await db.collection(COLLECTION).updateOne(
+      { _id: new ObjectId(id) },
+      { $set: { name, menge, kategorie } }
+    );
+
+    return { success: true };
+  },
+
+  delete: async ({ request, cookies }) => {
+    getHaushaltId(cookies);
+    const data = await request.formData();
+    const id = data.get("id")?.toString();
+
+    if (!id) return fail(400, { error: "Keine ID angegeben." });
+
+    const db = await getDb();
+    await db.collection(COLLECTION).deleteOne({ _id: new ObjectId(id) });
 
     return { success: true };
   },
