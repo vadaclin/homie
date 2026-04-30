@@ -121,7 +121,7 @@
 
   input {
     width: 100%;
-    max-width: 260px;
+    max-width: 320px;
     padding: 1rem;
     font-size: 1.5rem;
     text-align: center;
@@ -138,7 +138,8 @@
 
   button {
     width: 100%;
-    padding: 1rem;
+    max-width: 320px;
+    padding: 1.1rem;
     border-radius: 22px;
     border: none;
     background: linear-gradient(135deg, #df7b59, #cf6548);

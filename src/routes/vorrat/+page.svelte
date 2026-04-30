@@ -1,297 +1,259 @@
 <script>
-    import { enhance } from "$app/forms";
+  let { data } = $props();
 
-    let { data } = $props();
-    let modal;
+  const KATEGORIEN = ["Lebensmittel", "Getränke", "Haushalt", "Hygiene", "Sonstiges"];
 
-    let gruppiert = $derived(
-        (data?.artikel ?? []).reduce((acc, item) => {
-            const kat = (item.kategorie || "Sonstiges").trim().toLowerCase();
-            const titel = kat.charAt(0).toUpperCase() + kat.slice(1);
+  let showModal = $state(false);
+  let name = $state("");
+  let menge = $state("");
+  let kategorie = $state(KATEGORIEN[0]);
 
-            if (!acc[titel]) acc[titel] = [];
-            acc[titel].push(item);
+  let gruppiert = $derived(
+    data.artikel.reduce((gruppen, item) => {
+      gruppen[item.kategorie] ??= [];
+      gruppen[item.kategorie].push(item);
+      return gruppen;
+    }, {})
+  );
 
-            return acc;
-        }, {}),
-    );
+  function openModal() { showModal = true; }
+  function closeModal() { showModal = false; }
 </script>
 
 <main class="page">
-    <section class="container py-5">
-        <div class="topbar">
-            <div>
-                <h1>Vorrat</h1>
-                <p class="subtitle">
-                    Behalte im Blick, was zuhause noch vorhanden ist.
-                </p>
-            </div>
+  <section class="header">
+    <div>
+      <h1>Vorrat</h1>
+      <p>Behalte im Blick, was zuhause noch vorhanden ist.</p>
+    </div>
+    <button class="add-button" onclick={openModal}>+ Hinzufügen</button>
+  </section>
 
-            <button class="add-btn" onclick={() => modal.showModal()}>
-                + Hinzufügen
-            </button>
-        </div>
+  {#if showModal}
+    <div class="overlay" onclick={closeModal}></div>
 
-        {#if Object.entries(gruppiert).length === 0}
-            <div class="empty">
-                <h3>Noch kein Vorrat</h3>
-                <p>Füge deinen ersten Artikel hinzu.</p>
-            </div>
-        {/if}
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <form method="POST" action="?/add">
+        <h2 id="modal-title">Artikel hinzufügen</h2>
 
-        <div class="columns">
-            {#each Object.entries(gruppiert) as [kat, items]}
-                <section class="column">
-                    <h2>{kat}</h2>
+        <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
+        <input name="menge" bind:value={menge} placeholder="z. B. 2 Packungen" />
 
-                    <div class="cards">
-                        {#each items as item}
-                            <div class="karte">
-                                <div class="card-top">
-                                    <div>
-                                        <p class="name">{item.name}</p>
-                                        <p class="menge">
-                                            {item.menge}
-                                            {item.einheit}
-                                        </p>
-                                    </div>
-
-                                    <form
-                                        method="POST"
-                                        action="?/loeschen"
-                                        use:enhance
-                                    >
-                                        <input
-                                            type="hidden"
-                                            name="id"
-                                            value={item._id}
-                                        />
-                                        <button type="submit" class="del"
-                                            >×</button
-                                        >
-                                    </form>
-                                </div>
-                            </div>
-                        {/each}
-                    </div>
-                </section>
+        <div class="select-wrapper">
+          <select name="kategorie" bind:value={kategorie}>
+            {#each KATEGORIEN as option}
+              <option value={option}>{option}</option>
             {/each}
+          </select>
         </div>
+
+        <div class="actions">
+          <button type="button" class="secondary" onclick={closeModal}>Abbrechen</button>
+          <button type="submit">Speichern</button>
+        </div>
+      </form>
+    </div>
+  {/if}
+
+  {#if data.artikel.length === 0}
+    <section class="empty-card">
+      <h2>Noch kein Vorrat</h2>
+      <p>Füge deinen ersten Artikel hinzu.</p>
     </section>
+  {:else}
+    <section class="grid">
+      {#each Object.entries(gruppiert) as [gruppe, items]}
+        <div class="card">
+          <h2>{gruppe}</h2>
+          {#each items as item (item.id)}
+            <div class="item">
+              <strong>{item.name}</strong>
+              <span>{item.menge}</span>
+            </div>
+          {/each}
+        </div>
+      {/each}
+    </section>
+  {/if}
 </main>
 
-<dialog bind:this={modal} id="modal">
-    <h3>Artikel hinzufügen</h3>
-
-    <form
-        method="POST"
-        action="?/hinzufuegen"
-        use:enhance
-        onsubmit={() => modal.close()}
-    >
-        <input name="name" placeholder="Name z.B. WC Papier" required />
-        <input name="menge" type="number" placeholder="Menge z.B. 3" required />
-        <input name="einheit" placeholder="Einheit z.B. Rollen" required />
-        <input name="kategorie" placeholder="Kategorie z.B. Bad" required />
-
-        <div class="btns">
-            <button type="button" class="cancel" onclick={() => modal.close()}>
-                Abbrechen
-            </button>
-            <button type="submit" class="save">Speichern</button>
-        </div>
-    </form>
-</dialog>
-
 <style>
-    .page {
-        min-height: 100vh;
-        background: #faf7f5;
-        color: #2b2b2b;
-    }
+  .page {
+    padding: 3rem 7%;
+    background:
+      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+      radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
+      linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
+    min-height: calc(100vh - 72px);
+  }
 
-    .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 1rem;
-        margin-bottom: 3rem;
-    }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
 
-    h1 {
-        font-size: 3rem;
-        font-weight: 800;
-        margin: 0;
-    }
+  h1 {
+    margin: 0 0 0.4rem;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
 
-    .subtitle {
-        color: #8f8179;
-        margin-top: 0.5rem;
-    }
+  .header p {
+    margin: 0;
+    color: #8f8179;
+    font-weight: 600;
+  }
 
-    .add-btn,
-    .save {
-        background: #d97757;
-        color: white;
-        border: none;
-        border-radius: 16px;
-        padding: 0.85rem 1.2rem;
-        font-weight: 700;
-        cursor: pointer;
-    }
+  .add-button {
+    padding: 0.9rem 1.4rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, #df7b59, #cf6548);
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(217, 119, 87, 0.28);
+    transition: 0.2s ease;
+  }
 
-    .add-btn:hover,
-    .save:hover {
-        background: #c96545;
-    }
+  .add-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(217, 119, 87, 0.34);
+  }
 
-    .columns {
-        display: flex;
-        align-items: flex-start;
-        gap: 2rem;
-        overflow-x: auto;
-        padding-bottom: 1rem;
-    }
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    z-index: 10;
+  }
 
-    .column {
-        min-width: 220px;
-        max-width: 220px;
-        flex: 0 0 220px;
-    }
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    width: 90%;
+    max-width: 420px;
+    padding: 2rem;
+    border-radius: 32px;
+    background: white;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+  }
 
-    h2 {
-        font-size: 0.85rem;
-        color: #9a8f87;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-weight: 800;
-        margin-bottom: 0.8rem;
-    }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
 
-    .cards {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
+  input,
+  select {
+    padding: 1rem;
+    border-radius: 18px;
+    border: 1.5px solid #e8e2dd;
+    font: inherit;
+    outline: none;
+  }
 
-    .karte,
-    .empty {
-        background: white;
-        border: 1px solid #e8e2dd;
-        border-radius: 26px;
-        box-shadow: 0 14px 35px rgba(43, 43, 43, 0.06);
-    }
+  input:focus,
+  select:focus {
+    border-color: #d97757;
+    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
+  }
 
-    .karte {
-        width: 100%;
-        padding: 1.2rem;
-        min-height: 120px;
-    }
+  .select-wrapper {
+    position: relative;
+  }
 
-    .card-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 0.5rem;
-    }
+  .select-wrapper select {
+    appearance: none;
+    width: 100%;
+    background: white;
+    cursor: pointer;
+  }
 
-    .name {
-        font-size: 1.2rem;
-        font-weight: 800;
-        margin: 0;
-    }
+  .select-wrapper::after {
+    content: "▾";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #8f8179;
+  }
 
-    .menge {
-        font-size: 1rem;
-        color: #9a8f87;
-        margin: 0.4rem 0 0;
-    }
+  .actions {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+  }
 
-    .del {
-        border: none;
-        background: transparent;
-        color: #9a8f87;
-        font-size: 1.6rem;
-        cursor: pointer;
-        line-height: 1;
-    }
+  .actions button {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 22px;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+  }
 
-    .del:hover {
-        color: #d9534f;
-    }
+  .actions button[type="submit"] {
+    background: linear-gradient(135deg, #df7b59, #cf6548);
+    color: white;
+  }
 
-    .empty {
-        padding: 2rem;
-        text-align: center;
-        color: #8f8179;
-    }
+  .secondary {
+    background: white;
+    color: #242424;
+    border: 1px solid #e8e2dd;
+  }
 
-    .empty h3 {
-        color: #2b2b2b;
-        font-weight: 800;
-    }
+  .empty-card {
+    padding: 3rem 2rem;
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.86);
+    text-align: center;
+  }
 
-    dialog {
-        border: 1px solid #e8e2dd;
-        border-radius: 26px;
-        padding: 1.5rem;
-        width: min(360px, calc(100% - 2rem));
-        box-shadow: 0 24px 70px rgba(43, 43, 43, 0.2);
-    }
+  .empty-card p {
+    color: #8f8179;
+    font-weight: 600;
+  }
 
-    dialog::backdrop {
-        background: rgba(43, 43, 43, 0.35);
-    }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
 
-    dialog h3 {
-        font-weight: 800;
-        margin-bottom: 1rem;
-    }
+  .card {
+    padding: 1.5rem;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 18px 50px rgba(95, 65, 50, 0.1);
+  }
 
-    dialog input {
-        display: block;
-        width: 100%;
-        margin: 0.65rem 0;
-        padding: 0.8rem;
-        border: 1px solid #e8e2dd;
-        border-radius: 14px;
-        font-size: 0.95rem;
-        box-sizing: border-box;
-    }
+  .card h2 {
+    margin: 0 0 1rem;
+  }
 
-    .btns {
-        display: flex;
-        gap: 0.8rem;
-        justify-content: flex-end;
-        margin-top: 1rem;
-    }
+  .item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    border-radius: 16px;
+    background: #fff4ef;
+    margin-top: 0.5rem;
+  }
 
-    .cancel {
-        background: #faf7f5;
-        color: #2b2b2b;
-        border: 1px solid #e8e2dd;
-        border-radius: 14px;
-        padding: 0.8rem 1rem;
-        font-weight: 700;
-        cursor: pointer;
-    }
-
-    @media (max-width: 600px) {
-        .topbar {
-            flex-direction: column;
-        }
-
-        h1 {
-            font-size: 2.4rem;
-        }
-
-        .add-btn {
-            width: 100%;
-        }
-
-        .column {
-            min-width: 190px;
-            max-width: 190px;
-            flex-basis: 190px;
-        }
-    }
+  .item span {
+    color: #8f8179;
+    font-weight: 700;
+  }
 </style>

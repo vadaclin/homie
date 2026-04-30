@@ -1,52 +1,63 @@
 <script>
-  import "bootstrap/dist/css/bootstrap.min.css";
-  let { children } = $props();
+  let { data, children } = $props();
+
+  const NAV_LINKS = [
+    { href: "/vorrat", label: "Vorrat" },
+    { href: "/einkaufsliste", label: "Einkaufsliste" },
+  ];
 </script>
 
-<nav class="navbar navbar-expand-lg custom-nav">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="/"> Homie </a>
-
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#nav"
-    >
-      ☰
-    </button>
-
-    <div class="collapse navbar-collapse" id="nav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/vorrat">Vorrat</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/einkaufsliste">Einkaufsliste</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+{#if data.haushalt}
+  <header class="topbar">
+    <a href="/vorrat" class="brand">Homie</a>
+    <nav>
+      {#each NAV_LINKS as { href, label }}
+        <a {href}>{label}</a>
+      {/each}
+    </nav>
+  </header>
+{/if}
 
 {@render children()}
 
 <style>
-  .custom-nav {
+  :global(body) {
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
     background: #faf7f5;
-    border-bottom: 1px solid #e8e2dd;
+    color: #242424;
   }
 
-  .navbar-brand {
+  .topbar {
+    height: 72px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee4df;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(14px);
+  }
+
+  .brand {
     color: #d97757;
+    font-size: 1.35rem;
+    font-weight: 900;
+    text-decoration: none;
   }
 
-  .nav-link {
-    color: #2b2b2b;
-    font-weight: 500;
+  nav {
+    display: flex;
+    gap: 1.5rem;
   }
 
-  .nav-link:hover {
+  nav a {
+    color: #242424;
+    text-decoration: none;
+    font-weight: 800;
+  }
+
+  nav a:hover {
     color: #d97757;
   }
 </style>
