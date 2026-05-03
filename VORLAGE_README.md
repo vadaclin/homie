@@ -50,11 +50,38 @@ Die entwickelte Web-App „Homie“ ermöglicht es, Vorräte und Einkaufslisten 
     - Fokus liegt auf einfacher Funktionalität, nicht auf Vollständigkeit
 
 ## 3. Vorgehen & Artefakte
-Die Durchführung erfolgt phasenbasiert; dokumentieren Sie die wichtigsten Ergebnisse je Phase.
+Die Entwicklung des Projekts erfolgte in mehreren Phasen. Zuerst wurde das Problem im Alltag analysiert. Danach wurden mögliche Lösungsansätze skizziert, bewertet und schliesslich als Prototyp umgesetzt.
+Das Vorgehen orientierte sich an einem Design-Thinking-ähnlichen Prozess. Dabei standen die Bedürfnisse der Nutzerinnen und Nutzer im Mittelpunkt. Ziel war es, eine Lösung zu entwickeln, die nicht nur technisch funktioniert, sondern auch im Alltag verständlich und nützlich ist.
 
 ### 3.1 Understand & Define
-- **Zielgruppenverständnis:** _[Problemraumanalyse, Recherche, (Proto-)Personas]_
-- **Wesentliche Erkenntnisse:** _[Stichpunkte]_
+- **Zielgruppenverständnis:**In der ersten Phase wurde untersucht, in welchen Alltagssituationen Menschen den Überblick über ihre Haushaltsprodukte verlieren. Dabei zeigte sich, dass das Problem nicht nur in gemeinsamen Haushalten vorkommt.
+Bei Einzelpersonen entsteht das Problem häufig dadurch, dass Einkäufe spontan geplant werden und vorhandene Produkte nicht bewusst überprüft werden. Man kauft zum Beispiel ein Produkt nochmals, obwohl es zuhause noch vorhanden ist, oder vergisst wichtige Dinge, weil keine aktuelle Einkaufsliste geführt wird.
+In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Personen Produkte verbrauchen oder einkaufen. Dadurch entstehen Missverständnisse: Eine Person geht davon aus, dass ein Produkt noch vorhanden ist, während eine andere es bereits aufgebraucht hat. Einkaufslisten werden oft über verschiedene Kanäle geführt, wodurch der aktuelle Stand nicht für alle klar ersichtlich ist.
+**Proto-Persona 1: Einzelperson**
+Name: Thomas
+Alter: 35 Jahre
+Situation: Lebt alleine in einer Wohnung
+Bedürfnis: Thomas möchte beim Einkaufen besser wissen, welche Produkte er noch zuhause hat.
+Problem: Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt.
+Ziel: Eine einfache App nutzen, mit der er Vorräte und fehlende Produkte schnell erfassen kann.
+
+**Proto-Persona 2: Gemeinsamer Haushalt**
+Name: Lara
+Alter: 24 Jahre
+Situation: Lebt in einer WG mit drei Mitbewohnerinnen und Mitbewohnern
+Bedürfnis: Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind und was noch gekauft werden muss.
+Problem: In ihrer WG werden Einkaufslisten oft über WhatsApp geführt. Dadurch gehen Nachrichten unter oder Produkte werden mehrfach gekauft.
+Ziel: Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand sehen.
+- **Wesentliche Erkenntnisse:**
+- Die App muss für Einzelpersonen und Gruppen funktionieren.
+Die Bedienung muss sehr einfach sein.
+Ein Login könnte für eine kleine Haushalts-App unnötig kompliziert wirken.
+Eine gemeinsame Nutzung über einen Code senkt die Einstiegshürde.
+Vorräte und Einkaufsliste sollten klar getrennt sein.
+Kategorien verbessern die Übersichtlichkeit.
+Die App sollte auch auf mobilen Geräten gut nutzbar sein.
+Der Fokus soll auf Alltagstauglichkeit liegen.
+Wenige, gut funktionierende Kernfunktionen sind wichtiger als viele Zusatzfunktionen.
 
 ### 3.2 Sketch
 - **Variantenüberblick:** _[kurz]_
