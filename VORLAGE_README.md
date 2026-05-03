@@ -54,7 +54,7 @@ Die Entwicklung des Projekts erfolgte in mehreren Phasen. Zuerst wurde das Probl
 Das Vorgehen orientierte sich an einem Design-Thinking-ähnlichen Prozess. Dabei standen die Bedürfnisse der Nutzerinnen und Nutzer im Mittelpunkt. Ziel war es, eine Lösung zu entwickeln, die nicht nur technisch funktioniert, sondern auch im Alltag verständlich und nützlich ist.
 
 ### 3.1 Understand & Define
-- **Zielgruppenverständnis:**In der ersten Phase wurde untersucht, in welchen Alltagssituationen Menschen den Überblick über ihre Haushaltsprodukte verlieren. Dabei zeigte sich, dass das Problem nicht nur in gemeinsamen Haushalten vorkommt.
+**Zielgruppenverständnis:** In der ersten Phase wurde untersucht, in welchen Alltagssituationen Menschen den Überblick über ihre Haushaltsprodukte verlieren. Dabei zeigte sich, dass das Problem nicht nur in gemeinsamen Haushalten vorkommt.
 Bei Einzelpersonen entsteht das Problem häufig dadurch, dass Einkäufe spontan geplant werden und vorhandene Produkte nicht bewusst überprüft werden. Man kauft zum Beispiel ein Produkt nochmals, obwohl es zuhause noch vorhanden ist, oder vergisst wichtige Dinge, weil keine aktuelle Einkaufsliste geführt wird.
 In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Personen Produkte verbrauchen oder einkaufen. Dadurch entstehen Missverständnisse: Eine Person geht davon aus, dass ein Produkt noch vorhanden ist, während eine andere es bereits aufgebraucht hat. Einkaufslisten werden oft über verschiedene Kanäle geführt, wodurch der aktuelle Stand nicht für alle klar ersichtlich ist.
 **Proto-Persona 1: Einzelperson**
@@ -72,20 +72,62 @@ Situation: Lebt in einer WG mit drei Mitbewohnerinnen und Mitbewohnern
 Bedürfnis: Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind und was noch gekauft werden muss.
 Problem: In ihrer WG werden Einkaufslisten oft über WhatsApp geführt. Dadurch gehen Nachrichten unter oder Produkte werden mehrfach gekauft.
 Ziel: Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand sehen.
-- **Wesentliche Erkenntnisse:**
+**Wesentliche Erkenntnisse:**
 - Die App muss für Einzelpersonen und Gruppen funktionieren.
-Die Bedienung muss sehr einfach sein.
-Ein Login könnte für eine kleine Haushalts-App unnötig kompliziert wirken.
-Eine gemeinsame Nutzung über einen Code senkt die Einstiegshürde.
-Vorräte und Einkaufsliste sollten klar getrennt sein.
-Kategorien verbessern die Übersichtlichkeit.
-Die App sollte auch auf mobilen Geräten gut nutzbar sein.
-Der Fokus soll auf Alltagstauglichkeit liegen.
-Wenige, gut funktionierende Kernfunktionen sind wichtiger als viele Zusatzfunktionen.
+- Die Bedienung muss sehr einfach sein.
+- Ein Login könnte für eine kleine Haushalts-App unnötig kompliziert wirken.
+- Eine gemeinsame Nutzung über einen Code senkt die Einstiegshürde.
+- Vorräte und Einkaufsliste sollten klar getrennt sein.
+- Kategorien verbessern die Übersichtlichkeit.
+- Die App sollte auch auf mobilen Geräten gut nutzbar sein.
+- Der Fokus soll auf Alltagstauglichkeit liegen.
+- Wenige, gut funktionierende Kernfunktionen sind wichtiger als viele Zusatzfunktionen.
 
 ### 3.2 Sketch
-- **Variantenüberblick:** _[kurz]_
-- **Skizzen:** _[Mehrere Varianten; Unterschiede kurz dokumentieren.]_
+**Variantenüberblick:** In der Sketch-Phase wurden verschiedene Möglichkeiten überlegt, wie die App aufgebaut sein könnte. Dabei wurde besonders darauf geachtet, dass die App sowohl für Einzelpersonen als auch für gemeinsame Haushalte verständlich bleibt.
+
+**Variante 1: Einfache Listenansicht**
+In dieser Variante werden alle Artikel in einer einfachen Liste dargestellt. Nutzerinnen und Nutzer können Produkte hinzufügen und löschen.
+**Vorteile:**
+- Sehr einfach verständlich
+- Schneller Einstieg
+- Wenig Ablenkung
+**Nachteile:**
+- Bei vielen Produkten schnell unübersichtlich
+- Keine klare Trennung zwischen Vorräten und Einkaufsliste
+- Für gemeinsame Haushalte weniger strukturiert
+
+**Variante 2: Getrennte Bereiche für Vorrat und Einkaufsliste**
+Diese Variante trennt die App in zwei Hauptbereiche: Vorräte und Einkaufsliste. Dadurch ist klar ersichtlich, welche Produkte bereits vorhanden sind und welche noch gekauft werden müssen.
+**Vorteile:**
+- Gute Übersicht
+- Klare Struktur
+- Für Einzelpersonen und Gruppen geeignet
+- Einfache Bedienung
+**Nachteile:**
+- Etwas mehr Navigation notwendig als bei einer einzigen Liste
+
+**Variante 3: Haushalts-Dashboard mit Code-Zugang**
+Bei dieser Variante gelangen Nutzerinnen und Nutzer zuerst über einen vierstelligen Code in ihren Haushalt. Danach sehen sie eine übersichtliche Ansicht mit den Bereichen Vorräte und Einkaufsliste.
+**Vorteile:**
+- Gemeinsame Nutzung ohne Login möglich
+- Auch Einzelpersonen können einen eigenen Haushalt verwenden
+- Klare Trennung der Funktionen
+- Einfacher Einstieg
+- Gut erweiterbar
+**Nachteile:**
+- Der Code muss bekannt sein oder gemerkt werden
+Keine individuelle Benutzerverwaltung
+
+**Skizzen:** _[Mehrere Varianten; Unterschiede kurz dokumentieren.]_
+Für die App wurden mehrere grobe Skizzen erstellt. Die wichtigsten Ansichten waren:
+- Startseite mit Eingabe eines Haushalts-Codes
+- Übersicht nach dem Beitritt zu einem Haushalt
+- Vorratsansicht mit Kategorien
+- Formular zum Hinzufügen neuer Produkte
+- Einkaufsliste mit Abhak-Funktion
+- Möglichkeit zum Löschen erledigter oder falscher Einträge
+Die Skizzen halfen dabei, die Struktur der App früh zu überprüfen. Besonders wichtig war, dass die Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen und wo sie fehlende Artikel eintragen können.
 
 ### 3.3 Decide
 - **Gewählte Variante & Begründung:** _[Entscheidkriterien nennen]_  
