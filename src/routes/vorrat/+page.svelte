@@ -1,20 +1,12 @@
 <script>
   import { enhance } from "$app/forms";
 
+  const KATEGORIEN = ["Lebensmittel", "Getränke", "Haushalt", "Hygiene", "Sonstiges"];
+
   let { data } = $props();
-
-  const KATEGORIEN = [
-    "Lebensmittel",
-    "Getränke",
-    "Haushalt",
-    "Hygiene",
-    "Sonstiges",
-  ];
-
   let showAddModal = $state(false);
   let editArtikel = $state(null);
   let suche = $state("");
-
   let name = $state("");
   let menge = $state("0");
   let kategorie = $state(KATEGORIEN[0]);
@@ -22,9 +14,7 @@
   let gefilterteArtikel = $derived(
     suche.trim() === ""
       ? data.artikel
-      : data.artikel.filter((item) =>
-          item.name.toLowerCase().includes(suche.toLowerCase()),
-        ),
+      : data.artikel.filter((item) => item.name.toLowerCase().includes(suche.toLowerCase()))
   );
 
   let gruppiert = $derived(
@@ -32,7 +22,7 @@
       gruppen[item.kategorie] ??= [];
       gruppen[item.kategorie].push(item);
       return gruppen;
-    }, {}),
+    }, {})
   );
 
   function openAdd() {
@@ -68,26 +58,11 @@
 
   {#if showAddModal}
     <div class="overlay" onclick={closeModals}></div>
-    <div
-      class="modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="add-title"
-    >
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="add-title">
       <form method="POST" action="?/add">
         <h2 id="add-title">Artikel hinzufügen</h2>
-        <input
-          name="name"
-          bind:value={name}
-          placeholder="z. B. Nudeln"
-          required
-        />
-        <input
-          name="menge"
-          bind:value={menge}
-          placeholder="0"
-          inputmode="numeric"
-        />
+        <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
+        <input name="menge" bind:value={menge} placeholder="0" inputmode="numeric" />
         <div class="select-wrapper">
           <select name="kategorie" bind:value={kategorie}>
             {#each KATEGORIEN as option}
@@ -96,9 +71,7 @@
           </select>
         </div>
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeModals}
-            >Abbrechen</button
-          >
+          <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
           <button type="submit">Speichern</button>
         </div>
       </form>
@@ -107,27 +80,12 @@
 
   {#if editArtikel}
     <div class="overlay" onclick={closeModals}></div>
-    <div
-      class="modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="edit-title"
-    >
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-title">
       <form method="POST" action="?/update">
         <h2 id="edit-title">Artikel bearbeiten</h2>
         <input type="hidden" name="id" value={editArtikel.id} />
-        <input
-          name="name"
-          bind:value={name}
-          placeholder="z. B. Nudeln"
-          required
-        />
-        <input
-          name="menge"
-          bind:value={menge}
-          placeholder="0"
-          inputmode="numeric"
-        />
+        <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
+        <input name="menge" bind:value={menge} placeholder="0" inputmode="numeric" />
         <div class="select-wrapper">
           <select name="kategorie" bind:value={kategorie}>
             {#each KATEGORIEN as option}
@@ -136,13 +94,10 @@
           </select>
         </div>
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeModals}
-            >Abbrechen</button
-          >
+          <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
           <button type="submit">Speichern</button>
         </div>
       </form>
-
       <form method="POST" action="?/delete" class="delete-form">
         <input type="hidden" name="id" value={editArtikel.id} />
         <button type="submit" class="delete-btn">Artikel löschen</button>
@@ -167,52 +122,31 @@
           <h2>{gruppe}</h2>
           {#each items as item (item.id)}
             <div class="item" class:low={parseInt(item.menge) === 1}>
-              <button
-                class="edit-btn"
-                onclick={() => openEdit(item)}
-                aria-label="Bearbeiten">✎</button
-              >
-
-              <strong class:low-text={parseInt(item.menge) === 1}
-                >{item.name}</strong
-              >
-
+              <button class="edit-btn" onclick={() => openEdit(item)} aria-label="Bearbeiten">✎</button>
+              <strong class:low-text={parseInt(item.menge) === 1}>{item.name}</strong>
               <div class="item-controls">
                 <form method="POST" action="?/updateMenge">
                   <input type="hidden" name="id" value={item.id} />
                   <input type="hidden" name="delta" value="-1" />
                   <button type="submit" class="menge-btn">−</button>
                 </form>
-                <span class="menge" class:low-text={parseInt(item.menge) === 1}
-                  >{item.menge}</span
-                >
+                <span class="menge" class:low-text={parseInt(item.menge) === 1}>{item.menge}</span>
                 <form method="POST" action="?/updateMenge">
                   <input type="hidden" name="id" value={item.id} />
                   <input type="hidden" name="delta" value="1" />
                   <button type="submit" class="menge-btn">+</button>
                 </form>
               </div>
-
               {#if parseInt(item.menge) === 1}
                 <form
                   method="POST"
                   action="/einkaufsliste?/add"
                   class="einkauf-form"
-                  use:enhance={() => {
-                    return async ({ update }) => {
-                      await update({ reset: false });
-                    };
-                  }}
+                  use:enhance={() => async ({ update }) => { await update({ reset: false }); }}
                 >
                   <input type="hidden" name="name" value={item.name} />
-                  <input
-                    type="hidden"
-                    name="kategorie"
-                    value={item.kategorie}
-                  />
-                  <button type="submit" class="einkauf-btn"
-                    >+ Einkaufsliste</button
-                  >
+                  <input type="hidden" name="kategorie" value={item.kategorie} />
+                  <button type="submit" class="einkauf-btn">+ Einkaufsliste</button>
                 </form>
               {/if}
             </div>
@@ -226,7 +160,8 @@
 <style>
   .page {
     padding: 3rem 7%;
-    background: radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+    background:
+      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);
@@ -530,8 +465,6 @@
   }
 
   @media (max-width: 700px) {
-    h1 {
-      font-size: 2.5rem;
-    }
+    h1 { font-size: 2.5rem; }
   }
 </style>

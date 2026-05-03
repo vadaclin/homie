@@ -10,16 +10,10 @@ function getHaushaltId(cookies) {
   return new ObjectId(haushalt);
 }
 
-/** @type {import('./$types').PageServerLoad} */
 export async function load({ cookies }) {
   const haushaltId = getHaushaltId(cookies);
   const db = await getDb();
-
-  const artikel = await db
-    .collection(COLLECTION)
-    .find({ haushaltId })
-    .sort({ kategorie: 1, name: 1 })
-    .toArray();
+  const artikel = await db.collection(COLLECTION).find({ haushaltId }).sort({ kategorie: 1, name: 1 }).toArray();
 
   return {
     artikel: artikel.map((item) => ({
@@ -31,7 +25,6 @@ export async function load({ cookies }) {
   };
 }
 
-/** @type {import('./$types').Actions} */
 export const actions = {
   add: async ({ request, cookies }) => {
     const haushaltId = getHaushaltId(cookies);
@@ -40,19 +33,10 @@ export const actions = {
     const menge = data.get("menge")?.toString().trim() ?? "0";
     const kategorie = data.get("kategorie")?.toString().trim();
 
-    if (!name || !kategorie) {
-      return fail(400, { error: "Name und Kategorie sind Pflicht." });
-    }
+    if (!name || !kategorie) return fail(400, { error: "Name und Kategorie sind Pflicht." });
 
     const db = await getDb();
-    await db.collection(COLLECTION).insertOne({
-      haushaltId,
-      name,
-      menge,
-      kategorie,
-      erstelltAm: new Date(),
-    });
-
+    await db.collection(COLLECTION).insertOne({ haushaltId, name, menge, kategorie, erstelltAm: new Date() });
     return { success: true };
   },
 
@@ -64,16 +48,10 @@ export const actions = {
     const menge = data.get("menge")?.toString().trim() ?? "0";
     const kategorie = data.get("kategorie")?.toString().trim();
 
-    if (!id || !name || !kategorie) {
-      return fail(400, { error: "Name und Kategorie sind Pflicht." });
-    }
+    if (!id || !name || !kategorie) return fail(400, { error: "Name und Kategorie sind Pflicht." });
 
     const db = await getDb();
-    await db.collection(COLLECTION).updateOne(
-      { _id: new ObjectId(id) },
-      { $set: { name, menge, kategorie } }
-    );
-
+    await db.collection(COLLECTION).updateOne({ _id: new ObjectId(id) }, { $set: { name, menge, kategorie } });
     return { success: true };
   },
 
@@ -86,34 +64,26 @@ export const actions = {
     if (!id) return fail(400, { error: "Keine ID angegeben." });
 
     const db = await getDb();
-    const item = await db.collection(COLLECTION).findOne({ _id: new ObjectId(id) });
-
+    const oid = new ObjectId(id);
+    const item = await db.collection(COLLECTION).findOne({ _id: oid });
     if (!item) return fail(404, { error: "Artikel nicht gefunden." });
 
     const neueMenge = (parseInt(item.menge) || 0) + delta;
-
     if (neueMenge <= 0) {
-      await db.collection(COLLECTION).deleteOne({ _id: new ObjectId(id) });
+      await db.collection(COLLECTION).deleteOne({ _id: oid });
     } else {
-      await db.collection(COLLECTION).updateOne(
-        { _id: new ObjectId(id) },
-        { $set: { menge: neueMenge.toString() } }
-      );
+      await db.collection(COLLECTION).updateOne({ _id: oid }, { $set: { menge: neueMenge.toString() } });
     }
-
     return { success: true };
   },
 
   delete: async ({ request, cookies }) => {
     getHaushaltId(cookies);
-    const data = await request.formData();
-    const id = data.get("id")?.toString();
-
+    const id = (await request.formData()).get("id")?.toString();
     if (!id) return fail(400, { error: "Keine ID angegeben." });
 
     const db = await getDb();
     await db.collection(COLLECTION).deleteOne({ _id: new ObjectId(id) });
-
     return { success: true };
   },
 };

@@ -1,16 +1,9 @@
 <script>
   import { enhance } from "$app/forms";
 
-  const KATEGORIEN = [
-    "Lebensmittel",
-    "Getränke",
-    "Haushalt",
-    "Hygiene",
-    "Sonstiges",
-  ];
+  const KATEGORIEN = ["Lebensmittel", "Getränke", "Haushalt", "Hygiene", "Sonstiges"];
 
   let { data } = $props();
-
   let text = $state("");
   let vorratModal = $state(null);
   let vorratMenge = $state("1");
@@ -34,31 +27,19 @@
   </section>
 
   <form method="POST" action="?/add" class="add-card">
-    <input
-      name="name"
-      bind:value={text}
-      placeholder="Was brauchst du? z. B. Milch"
-      required
-    />
+    <input name="name" bind:value={text} placeholder="Was brauchst du? z. B. Milch" required />
     <button type="submit">+</button>
   </form>
 
   {#if vorratModal}
     <div class="overlay" onclick={closeVorratModal}></div>
-    <div
-      class="modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="vorrat-title"
-    >
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="vorrat-title">
       <form
         method="POST"
         action="?/addToVorrat"
-        use:enhance={() => {
-          return async ({ update }) => {
-            await update({ reset: false });
-            closeVorratModal();
-          };
+        use:enhance={() => async ({ update }) => {
+          await update({ reset: false });
+          closeVorratModal();
         }}
       >
         <h2 id="vorrat-title">In Vorrat übernehmen</h2>
@@ -66,13 +47,7 @@
 
         <input type="hidden" name="name" value={vorratModal.name} />
         <input type="hidden" name="einkaufId" value={vorratModal._id} />
-
-        <input
-          name="menge"
-          bind:value={vorratMenge}
-          placeholder="1"
-          inputmode="numeric"
-        />
+        <input name="menge" bind:value={vorratMenge} placeholder="1" inputmode="numeric" />
 
         <div class="select-wrapper">
           <select name="kategorie" bind:value={vorratKategorie}>
@@ -83,9 +58,7 @@
         </div>
 
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeVorratModal}>
-            Abbrechen
-          </button>
+          <button type="button" class="secondary" onclick={closeVorratModal}>Abbrechen</button>
           <button type="submit">In Vorrat</button>
         </div>
       </form>
@@ -101,14 +74,8 @@
     <section class="grid">
       {#each data.items as item (item._id)}
         <article class="item-card">
-          <button
-            class="check"
-            class:checked={item.done}
-            onclick={() => openVorratModal(item)}
-          ></button>
-
+          <button class="check" class:checked={item.done} onclick={() => openVorratModal(item)}></button>
           <strong class:done={item.done}>{item.name}</strong>
-
           <form method="POST" action="?/delete">
             <input type="hidden" name="id" value={item._id} />
             <button class="delete" type="submit">×</button>
@@ -122,7 +89,8 @@
 <style>
   .page {
     padding: 3rem 7%;
-    background: radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+    background:
+      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);
@@ -346,12 +314,7 @@
   }
 
   @media (max-width: 700px) {
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    .add-card {
-      border-radius: 24px;
-    }
+    h1 { font-size: 2.5rem; }
+    .add-card { border-radius: 24px; }
   }
 </style>

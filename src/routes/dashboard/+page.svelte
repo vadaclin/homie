@@ -14,10 +14,8 @@
 
 <main class="page">
   <section class="header">
-    <div>
-      <h1>{getGreeting()}, {data.haushaltsname} 👋</h1>
-      <p>Hier ist dein Überblick.</p>
-    </div>
+    <h1>{getGreeting()}, {data.haushaltsname} 👋</h1>
+    <p>Hier ist dein Überblick.</p>
   </section>
 
   <div class="grid">
@@ -25,23 +23,17 @@
       <div class="card-header">
         <h2>✅ To-dos</h2>
       </div>
+
       <form
         method="POST"
         action="?/addTodo"
         class="todo-add"
-        use:enhance={() => {
-          return async ({ update }) => {
-            todoText = "";
-            await update();
-          };
+        use:enhance={() => async ({ update }) => {
+          todoText = "";
+          await update();
         }}
       >
-        <input
-          name="text"
-          bind:value={todoText}
-          placeholder="Neue Aufgabe..."
-          required
-        />
+        <input name="text" bind:value={todoText} placeholder="Neue Aufgabe..." required />
         <button type="submit">+</button>
       </form>
 
@@ -112,50 +104,60 @@
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);
   }
+
   .header {
     margin-bottom: 2.5rem;
   }
-  h1 {
+
+  .header h1 {
     margin: 0 0 0.4rem;
     font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: -0.04em;
   }
+
   .header p {
     margin: 0;
     color: #8f8179;
     font-weight: 600;
   }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.2rem;
   }
+
   .card {
     padding: 1.5rem;
     border-radius: 28px;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 18px 50px rgba(95, 65, 50, 0.1);
   }
+
   .card-wide {
     grid-column: 1 / -1;
   }
+
   .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
   }
+
   .card-header h2 {
     margin: 0;
     font-size: 1.1rem;
   }
+
   .card-link {
     font-size: 0.85rem;
     color: #d97757;
     text-decoration: none;
     font-weight: 700;
   }
+
   ul {
     list-style: none;
     padding: 0;
@@ -164,6 +166,7 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+
   ul li {
     display: flex;
     justify-content: space-between;
@@ -174,6 +177,7 @@
     font-weight: 600;
     font-size: 0.95rem;
   }
+
   .tag {
     font-size: 0.75rem;
     color: #9a8f87;
@@ -181,16 +185,19 @@
     padding: 0.2rem 0.6rem;
     border-radius: 999px;
   }
+
   .empty {
     color: #9a8f87;
     font-size: 0.9rem;
     font-weight: 600;
   }
+
   .todo-add {
     display: flex;
     gap: 0.6rem;
     margin-bottom: 1rem;
   }
+
   .todo-add input {
     flex: 1;
     padding: 0.7rem 1rem;
@@ -200,10 +207,12 @@
     font-weight: 600;
     outline: none;
   }
+
   .todo-add input:focus {
     border-color: #d97757;
     box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
   }
+
   .todo-add button {
     width: 42px;
     height: 42px;
@@ -215,11 +224,13 @@
     font-weight: 700;
     cursor: pointer;
   }
+
   .todo-list {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
+
   .todo-list li {
     display: flex;
     align-items: center;
@@ -228,10 +239,12 @@
     border-radius: 12px;
     background: #fff4ef;
   }
+
   .todo-list li.done span {
     text-decoration: line-through;
     color: #9a8f87;
   }
+
   .check {
     width: 22px;
     height: 22px;
@@ -241,14 +254,17 @@
     cursor: pointer;
     flex-shrink: 0;
   }
+
   .check.checked {
     background: #d97757;
   }
+
   .todo-list li span {
     flex: 1;
     font-weight: 600;
     font-size: 0.95rem;
   }
+
   .delete {
     border: none;
     background: none;
@@ -258,8 +274,9 @@
     cursor: pointer;
     line-height: 1;
   }
+
   @media (max-width: 700px) {
-    h1 { font-size: 2rem; }
+    .header h1 { font-size: 2rem; }
     .card-wide { grid-column: 1; }
   }
 </style>

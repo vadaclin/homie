@@ -11,19 +11,17 @@ export const actions = {
     const haushaltsname = data.get("haushaltsname")?.toString().trim();
     const isWG = data.get("isWG") === "true";
 
-    if (!code || !CODE_REGEX.test(code)) {
+    if (!code || !CODE_REGEX.test(code))
       return fail(400, { error: "Code muss 4-stellig sein" });
-    }
-    if (!haushaltsname) {
+
+    if (!haushaltsname)
       return fail(400, { error: "Bitte gib einen Haushaltsnamen ein" });
-    }
 
     const db = await getDb();
     const haushalte = db.collection("haushalte");
-    const codeExists = await haushalte.findOne({ code });
-    if (codeExists) {
+
+    if (await haushalte.findOne({ code }))
       return fail(400, { error: "Dieser Code existiert bereits" });
-    }
 
     const { insertedId } = await haushalte.insertOne({
       code,

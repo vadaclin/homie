@@ -48,7 +48,6 @@
 
         <div class="toggle-wrapper">
           <span class:active={!isWG}>Einzelperson</span>
-
           <button
             type="button"
             class="toggle"
@@ -58,7 +57,6 @@
           >
             <span class="knob"></span>
           </button>
-
           <span class:active={isWG}>WG / Familie</span>
         </div>
 
@@ -120,7 +118,6 @@
     backdrop-filter: blur(18px);
     box-shadow: 0 28px 80px rgba(95, 65, 50, 0.14);
     box-sizing: border-box;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -164,30 +161,26 @@
     align-items: center;
   }
 
-  input[name="code"] {
-    width: 100%;
-    max-width: 320px;
-    padding: 1rem;
-    font-size: 1.5rem;
-    text-align: center;
-    letter-spacing: 0.3rem;
-    border-radius: 22px;
-    border: 1.5px solid #e9b19f;
-    outline: none;
-    box-sizing: border-box;
-  }
-
+  input[name="code"],
   input[name="haushaltsname"] {
     width: 100%;
     max-width: 320px;
     padding: 1rem;
-    font-size: 1rem;
-    text-align: center;
     border-radius: 22px;
     border: 1.5px solid #e9b19f;
     outline: none;
-    font-family: inherit;
     box-sizing: border-box;
+    text-align: center;
+    font-family: inherit;
+  }
+
+  input[name="code"] {
+    font-size: 1.5rem;
+    letter-spacing: 0.3rem;
+  }
+
+  input[name="haushaltsname"] {
+    font-size: 1rem;
   }
 
   input:focus {
