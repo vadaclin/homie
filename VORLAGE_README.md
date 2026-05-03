@@ -1,4 +1,4 @@
-# Projektdokumentation - [Projekttitel]
+# Projektdokumentation - [Homie]
 
 ## Inhaltsverzeichnis
 
