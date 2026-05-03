@@ -1,26 +1,43 @@
 <script>
+  import { enhance } from "$app/forms";
+
   let { data } = $props();
 
-  const KATEGORIEN = ["Lebensmittel", "Getränke", "Haushalt", "Hygiene", "Sonstiges"];
+  const KATEGORIEN = [
+    "Lebensmittel",
+    "Getränke",
+    "Haushalt",
+    "Hygiene",
+    "Sonstiges",
+  ];
 
   let showAddModal = $state(false);
   let editArtikel = $state(null);
+  let suche = $state("");
 
   let name = $state("");
-  let menge = $state("");
+  let menge = $state("0");
   let kategorie = $state(KATEGORIEN[0]);
 
+  let gefilterteArtikel = $derived(
+    suche.trim() === ""
+      ? data.artikel
+      : data.artikel.filter((item) =>
+          item.name.toLowerCase().includes(suche.toLowerCase()),
+        ),
+  );
+
   let gruppiert = $derived(
-    data.artikel.reduce((gruppen, item) => {
+    gefilterteArtikel.reduce((gruppen, item) => {
       gruppen[item.kategorie] ??= [];
       gruppen[item.kategorie].push(item);
       return gruppen;
-    }, {})
+    }, {}),
   );
 
   function openAdd() {
     name = "";
-    menge = "";
+    menge = "0";
     kategorie = KATEGORIEN[0];
     showAddModal = true;
   }
@@ -47,13 +64,30 @@
     <button class="add-button" onclick={openAdd}>+ Hinzufügen</button>
   </section>
 
+  <input class="suche" bind:value={suche} placeholder="Artikel suchen…" />
+
   {#if showAddModal}
     <div class="overlay" onclick={closeModals}></div>
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="add-title">
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-title"
+    >
       <form method="POST" action="?/add">
         <h2 id="add-title">Artikel hinzufügen</h2>
-        <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
-        <input name="menge" bind:value={menge} placeholder="z. B. 2 Packungen" />
+        <input
+          name="name"
+          bind:value={name}
+          placeholder="z. B. Nudeln"
+          required
+        />
+        <input
+          name="menge"
+          bind:value={menge}
+          placeholder="0"
+          inputmode="numeric"
+        />
         <div class="select-wrapper">
           <select name="kategorie" bind:value={kategorie}>
             {#each KATEGORIEN as option}
@@ -62,7 +96,9 @@
           </select>
         </div>
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
+          <button type="button" class="secondary" onclick={closeModals}
+            >Abbrechen</button
+          >
           <button type="submit">Speichern</button>
         </div>
       </form>
@@ -71,12 +107,27 @@
 
   {#if editArtikel}
     <div class="overlay" onclick={closeModals}></div>
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-title">
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="edit-title"
+    >
       <form method="POST" action="?/update">
         <h2 id="edit-title">Artikel bearbeiten</h2>
         <input type="hidden" name="id" value={editArtikel.id} />
-        <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
-        <input name="menge" bind:value={menge} placeholder="z. B. 2 Packungen" />
+        <input
+          name="name"
+          bind:value={name}
+          placeholder="z. B. Nudeln"
+          required
+        />
+        <input
+          name="menge"
+          bind:value={menge}
+          placeholder="0"
+          inputmode="numeric"
+        />
         <div class="select-wrapper">
           <select name="kategorie" bind:value={kategorie}>
             {#each KATEGORIEN as option}
@@ -85,7 +136,9 @@
           </select>
         </div>
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
+          <button type="button" class="secondary" onclick={closeModals}
+            >Abbrechen</button
+          >
           <button type="submit">Speichern</button>
         </div>
       </form>
@@ -102,16 +155,67 @@
       <h2>Noch kein Vorrat</h2>
       <p>Füge deinen ersten Artikel hinzu.</p>
     </section>
+  {:else if Object.keys(gruppiert).length === 0}
+    <section class="empty-card">
+      <h2>Keine Treffer</h2>
+      <p>Kein Artikel entspricht deiner Suche.</p>
+    </section>
   {:else}
-    <section class="grid">
+    <section class="kategorien-grid">
       {#each Object.entries(gruppiert) as [gruppe, items]}
-        <div class="card">
+        <div class="kategorie-card">
           <h2>{gruppe}</h2>
           {#each items as item (item.id)}
-            <button class="item" onclick={() => openEdit(item)}>
-              <strong>{item.name}</strong>
-              <span>{item.menge}</span>
-            </button>
+            <div class="item" class:low={parseInt(item.menge) === 1}>
+              <button
+                class="edit-btn"
+                onclick={() => openEdit(item)}
+                aria-label="Bearbeiten">✎</button
+              >
+
+              <strong class:low-text={parseInt(item.menge) === 1}
+                >{item.name}</strong
+              >
+
+              <div class="item-controls">
+                <form method="POST" action="?/updateMenge">
+                  <input type="hidden" name="id" value={item.id} />
+                  <input type="hidden" name="delta" value="-1" />
+                  <button type="submit" class="menge-btn">−</button>
+                </form>
+                <span class="menge" class:low-text={parseInt(item.menge) === 1}
+                  >{item.menge}</span
+                >
+                <form method="POST" action="?/updateMenge">
+                  <input type="hidden" name="id" value={item.id} />
+                  <input type="hidden" name="delta" value="1" />
+                  <button type="submit" class="menge-btn">+</button>
+                </form>
+              </div>
+
+              {#if parseInt(item.menge) === 1}
+                <form
+                  method="POST"
+                  action="/einkaufsliste?/add"
+                  class="einkauf-form"
+                  use:enhance={() => {
+                    return async ({ update }) => {
+                      await update({ reset: false });
+                    };
+                  }}
+                >
+                  <input type="hidden" name="name" value={item.name} />
+                  <input
+                    type="hidden"
+                    name="kategorie"
+                    value={item.kategorie}
+                  />
+                  <button type="submit" class="einkauf-btn"
+                    >+ Einkaufsliste</button
+                  >
+                </form>
+              {/if}
+            </div>
           {/each}
         </div>
       {/each}
@@ -122,8 +226,7 @@
 <style>
   .page {
     padding: 3rem 7%;
-    background:
-      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+    background: radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);
@@ -133,7 +236,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 
   h1 {
@@ -147,6 +250,25 @@
     margin: 0;
     color: #8f8179;
     font-weight: 600;
+  }
+
+  .suche {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem 1.2rem;
+    border-radius: 20px;
+    border: 1.5px solid #e8e2dd;
+    font: inherit;
+    font-weight: 600;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 24px rgba(95, 65, 50, 0.07);
+  }
+
+  .suche:focus {
+    border-color: #d97757;
+    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
   }
 
   .add-button {
@@ -288,45 +410,128 @@
     font-weight: 600;
   }
 
-  .grid {
+  .kategorien-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.2rem;
   }
 
-  .card {
+  .kategorie-card {
     padding: 1.5rem;
     border-radius: 28px;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 18px 50px rgba(95, 65, 50, 0.1);
   }
 
-  .card h2 {
+  .kategorie-card h2 {
     margin: 0 0 1rem;
   }
 
   .item {
+    position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    flex-direction: column;
+    gap: 0.4rem;
     padding: 0.8rem 1rem;
     border-radius: 16px;
     background: #fff4ef;
     margin-top: 0.5rem;
+    transition: background 0.2s ease;
+  }
+
+  .item.low {
+    background: #fff3e0;
+  }
+
+  .edit-btn {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
     border: none;
+    background: none;
+    color: #c4b8b1;
+    font-size: 0.9rem;
     cursor: pointer;
-    font: inherit;
-    text-align: left;
+    padding: 0;
+  }
+
+  .edit-btn:hover {
+    color: #d97757;
+  }
+
+  .item strong {
+    font-size: 1rem;
+    padding-right: 1.5rem;
+  }
+
+  .low-text {
+    color: #e67e22;
+  }
+
+  .item-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .item-controls form {
+    display: contents;
+  }
+
+  .menge {
+    min-width: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: #8f8179;
+  }
+
+  .menge-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: white;
+    color: #d97757;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: 0.15s ease;
   }
 
-  .item:hover {
-    background: #ffe8df;
+  .menge-btn:hover {
+    background: #d97757;
+    color: white;
   }
 
-  .item span {
-    color: #8f8179;
+  .einkauf-form {
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  .einkauf-btn {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 12px;
+    border: none;
+    background: #fff0e6;
+    color: #e67e22;
     font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.15s ease;
+  }
+
+  .einkauf-btn:hover {
+    background: #e67e22;
+    color: white;
+  }
+
+  @media (max-width: 700px) {
+    h1 {
+      font-size: 2.5rem;
+    }
   }
 </style>

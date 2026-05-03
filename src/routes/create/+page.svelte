@@ -2,6 +2,13 @@
   const MAX_CODE_LENGTH = 4;
 
   let code = $state("");
+  let haushaltsname = $state("");
+  let isWG = $state(false);
+  let { form } = $props();
+
+  let isValid = $derived(
+    code.length === MAX_CODE_LENGTH && haushaltsname.trim().length > 0
+  );
 
   function sanitizeCode() {
     code = code.replace(/\D/g, "").slice(0, MAX_CODE_LENGTH);
@@ -9,9 +16,6 @@
 </script>
 
 <main class="page">
-  <div class="background-shape shape-one"></div>
-  <div class="background-shape shape-two"></div>
-
   <section class="hero">
     <div class="card">
       <div class="logo" aria-hidden="true">
@@ -22,7 +26,7 @@
       </div>
 
       <h1>Homie</h1>
-      <p class="subtitle">Dein Haushalt. Einfach organisiert.</p>
+      <p class="subtitle">Erstelle deinen Haushalt.</p>
 
       <form method="POST">
         <input
@@ -34,20 +38,48 @@
           placeholder="1234"
           required
         />
-        <button type="submit" disabled={code.length !== MAX_CODE_LENGTH}>
-          Beitreten <span aria-hidden="true">→</span>
+
+        <input
+          name="haushaltsname"
+          bind:value={haushaltsname}
+          placeholder="z. B. WG Zürich"
+          required
+        />
+
+        <div class="toggle-wrapper">
+          <span class:active={!isWG}>Einzelperson</span>
+
+          <button
+            type="button"
+            class="toggle"
+            class:wg={isWG}
+            onclick={() => (isWG = !isWG)}
+            aria-label="WG Modus"
+          >
+            <span class="knob"></span>
+          </button>
+
+          <span class:active={isWG}>WG / Familie</span>
+        </div>
+
+        <input type="hidden" name="isWG" value={isWG ? "true" : "false"} />
+
+        <div class="error-slot">
+          {#if form?.error}
+            <p class="error">{form.error}</p>
+          {/if}
+        </div>
+
+        <button type="submit" disabled={!isValid}>
+          Haushalt erstellen <span aria-hidden="true">→</span>
         </button>
       </form>
 
-      <p class="hint">Gib den Code deines Haushalts ein</p>
+      <p class="hint" class:visible={isWG}>
+        Wähle einen 4-stelligen Code und teile ihn mit deinen Mitbewohnern.
+      </p>
 
-      <div class="divider" aria-hidden="true">
-        <span></span>
-        oder
-        <span></span>
-      </div>
-
-      <a href="/create" class="create">Haushalt erstellen</a>
+      <a href="/" class="back">← Zurück</a>
     </div>
   </section>
 </main>
@@ -60,7 +92,7 @@
   }
 
   .page {
-    min-height: 100vh;
+    min-height: calc(100vh - 72px);
     background:
       radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
@@ -71,15 +103,27 @@
     padding: 2rem;
   }
 
+  .hero {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   .card {
     width: 100%;
-    max-width: 380px;
+    max-width: 420px;
+    min-height: 650px;
     text-align: center;
     padding: 2.6rem 2.4rem;
     border-radius: 36px;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(18px);
     box-shadow: 0 28px 80px rgba(95, 65, 50, 0.14);
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .logo {
@@ -91,6 +135,7 @@
     border-radius: 50%;
     background: #fdece5;
     color: #d97757;
+    flex-shrink: 0;
   }
 
   .logo svg {
@@ -119,7 +164,7 @@
     align-items: center;
   }
 
-  input {
+  input[name="code"] {
     width: 100%;
     max-width: 320px;
     padding: 1rem;
@@ -129,6 +174,20 @@
     border-radius: 22px;
     border: 1.5px solid #e9b19f;
     outline: none;
+    box-sizing: border-box;
+  }
+
+  input[name="haushaltsname"] {
+    width: 100%;
+    max-width: 320px;
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 22px;
+    border: 1.5px solid #e9b19f;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
   }
 
   input:focus {
@@ -136,7 +195,71 @@
     box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
   }
 
-  button {
+  .toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0.3rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #9a8f87;
+  }
+
+  .toggle-wrapper span.active {
+    color: #d97757;
+  }
+
+  .toggle {
+    width: 52px;
+    height: 28px;
+    border-radius: 999px;
+    border: none;
+    background: #e8e2dd;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .toggle.wg {
+    background: linear-gradient(135deg, #df7b59, #cf6548);
+  }
+
+  .knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.25s ease;
+    display: block;
+  }
+
+  .toggle.wg .knob {
+    transform: translateX(24px);
+  }
+
+  .error-slot {
+    width: 100%;
+    max-width: 320px;
+    min-height: 0;
+  }
+
+  .error {
+    color: #c0392b;
+    font-size: 0.85rem;
+    background: #fdecea;
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  button[type="submit"] {
     width: 100%;
     max-width: 320px;
     padding: 1.1rem;
@@ -146,40 +269,39 @@
     color: white;
     font-weight: 800;
     cursor: pointer;
+    font-size: 1rem;
+    margin-top: 0.3rem;
   }
 
-  button:disabled {
+  button[type="submit"]:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
   .hint {
+    min-height: 2.4em;
     font-size: 0.85rem;
     color: #9a8f87;
-    margin-top: 0.5rem;
+    margin: 0.5rem 0 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
   }
 
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 1.5rem 0;
-    color: #8f8179;
+  .hint.visible {
+    opacity: 1;
+    visibility: visible;
   }
 
-  .divider span {
-    flex: 1;
-    height: 1px;
-    background: #eadfd9;
-  }
-
-  .create {
+  .back {
     display: block;
-    padding: 1rem;
-    border-radius: 22px;
-    border: 1px solid #e8e2dd;
+    margin-top: 1.2rem;
+    color: #9a8f87;
     text-decoration: none;
-    color: #2b2b2b;
-    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .back:hover {
+    color: #d97757;
   }
 </style>

@@ -25,7 +25,7 @@ export async function load({ cookies }) {
     artikel: artikel.map((item) => ({
       id: item._id.toString(),
       name: item.name,
-      menge: item.menge,
+      menge: (parseInt(item.menge) || 0).toString(),
       kategorie: item.kategorie,
     })),
   };
@@ -37,7 +37,7 @@ export const actions = {
     const haushaltId = getHaushaltId(cookies);
     const data = await request.formData();
     const name = data.get("name")?.toString().trim();
-    const menge = data.get("menge")?.toString().trim() ?? "";
+    const menge = data.get("menge")?.toString().trim() ?? "0";
     const kategorie = data.get("kategorie")?.toString().trim();
 
     if (!name || !kategorie) {
@@ -61,7 +61,7 @@ export const actions = {
     const data = await request.formData();
     const id = data.get("id")?.toString();
     const name = data.get("name")?.toString().trim();
-    const menge = data.get("menge")?.toString().trim() ?? "";
+    const menge = data.get("menge")?.toString().trim() ?? "0";
     const kategorie = data.get("kategorie")?.toString().trim();
 
     if (!id || !name || !kategorie) {
@@ -73,6 +73,33 @@ export const actions = {
       { _id: new ObjectId(id) },
       { $set: { name, menge, kategorie } }
     );
+
+    return { success: true };
+  },
+
+  updateMenge: async ({ request, cookies }) => {
+    getHaushaltId(cookies);
+    const data = await request.formData();
+    const id = data.get("id")?.toString();
+    const delta = parseInt(data.get("delta")?.toString() ?? "0");
+
+    if (!id) return fail(400, { error: "Keine ID angegeben." });
+
+    const db = await getDb();
+    const item = await db.collection(COLLECTION).findOne({ _id: new ObjectId(id) });
+
+    if (!item) return fail(404, { error: "Artikel nicht gefunden." });
+
+    const neueMenge = (parseInt(item.menge) || 0) + delta;
+
+    if (neueMenge <= 0) {
+      await db.collection(COLLECTION).deleteOne({ _id: new ObjectId(id) });
+    } else {
+      await db.collection(COLLECTION).updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { menge: neueMenge.toString() } }
+      );
+    }
 
     return { success: true };
   },

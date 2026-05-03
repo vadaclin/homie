@@ -1,7 +1,30 @@
 <script>
+  import { enhance } from "$app/forms";
+
+  const KATEGORIEN = [
+    "Lebensmittel",
+    "Getränke",
+    "Haushalt",
+    "Hygiene",
+    "Sonstiges",
+  ];
+
   let { data } = $props();
 
   let text = $state("");
+  let vorratModal = $state(null);
+  let vorratMenge = $state("1");
+  let vorratKategorie = $state(KATEGORIEN[0]);
+
+  function openVorratModal(item) {
+    vorratModal = item;
+    vorratMenge = "1";
+    vorratKategorie = item.kategorie ?? KATEGORIEN[0];
+  }
+
+  function closeVorratModal() {
+    vorratModal = null;
+  }
 </script>
 
 <main class="page">
@@ -20,6 +43,55 @@
     <button type="submit">+</button>
   </form>
 
+  {#if vorratModal}
+    <div class="overlay" onclick={closeVorratModal}></div>
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="vorrat-title"
+    >
+      <form
+        method="POST"
+        action="?/addToVorrat"
+        use:enhance={() => {
+          return async ({ update }) => {
+            await update({ reset: false });
+            closeVorratModal();
+          };
+        }}
+      >
+        <h2 id="vorrat-title">In Vorrat übernehmen</h2>
+        <p class="modal-subtitle">„{vorratModal.name}"</p>
+
+        <input type="hidden" name="name" value={vorratModal.name} />
+        <input type="hidden" name="einkaufId" value={vorratModal._id} />
+
+        <input
+          name="menge"
+          bind:value={vorratMenge}
+          placeholder="1"
+          inputmode="numeric"
+        />
+
+        <div class="select-wrapper">
+          <select name="kategorie" bind:value={vorratKategorie}>
+            {#each KATEGORIEN as option}
+              <option value={option}>{option}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="secondary" onclick={closeVorratModal}>
+            Abbrechen
+          </button>
+          <button type="submit">In Vorrat</button>
+        </div>
+      </form>
+    </div>
+  {/if}
+
   {#if data.items.length === 0}
     <section class="empty-card">
       <h2>Noch nichts auf der Liste</h2>
@@ -29,10 +101,11 @@
     <section class="grid">
       {#each data.items as item (item._id)}
         <article class="item-card">
-          <form method="POST" action="?/toggle">
-            <input type="hidden" name="id" value={item._id} />
-            <button class="check" class:checked={item.done} type="submit"></button>
-          </form>
+          <button
+            class="check"
+            class:checked={item.done}
+            onclick={() => openVorratModal(item)}
+          ></button>
 
           <strong class:done={item.done}>{item.name}</strong>
 
@@ -49,8 +122,7 @@
 <style>
   .page {
     padding: 3rem 7%;
-    background:
-      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+    background: radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);
@@ -110,6 +182,102 @@
     font-weight: 700;
     cursor: pointer;
     box-shadow: 0 10px 24px rgba(217, 119, 87, 0.28);
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    z-index: 10;
+  }
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    width: 90%;
+    max-width: 420px;
+    padding: 2rem;
+    border-radius: 32px;
+    background: white;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal-subtitle {
+    margin: 0 0 0.5rem;
+    color: #8f8179;
+    font-weight: 600;
+  }
+
+  .modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .modal input,
+  .modal select {
+    padding: 1rem;
+    border-radius: 18px;
+    border: 1.5px solid #e8e2dd;
+    font: inherit;
+    outline: none;
+  }
+
+  .modal input:focus,
+  .modal select:focus {
+    border-color: #d97757;
+    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
+  }
+
+  .select-wrapper {
+    position: relative;
+  }
+
+  .select-wrapper select {
+    appearance: none;
+    width: 100%;
+    background: white;
+    cursor: pointer;
+  }
+
+  .select-wrapper::after {
+    content: "▾";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #8f8179;
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+  }
+
+  .actions button {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 22px;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .actions button[type="submit"] {
+    background: linear-gradient(135deg, #df7b59, #cf6548);
+    color: white;
+  }
+
+  .secondary {
+    background: white;
+    color: #242424;
+    border: 1px solid #e8e2dd !important;
   }
 
   .empty-card {

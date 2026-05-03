@@ -2,16 +2,30 @@
   const MAX_CODE_LENGTH = 4;
 
   let code = $state("");
+  let haushaltInfo = $state(null);
+  let { form } = $props();
 
   function sanitizeCode() {
     code = code.replace(/\D/g, "").slice(0, MAX_CODE_LENGTH);
   }
+
+  async function checkCode() {
+    if (code.length !== MAX_CODE_LENGTH) {
+      haushaltInfo = null;
+      return;
+    }
+
+    const res = await fetch(`/api/haushalt?code=${code}`);
+
+    if (res.ok) {
+      haushaltInfo = await res.json();
+    } else {
+      haushaltInfo = null;
+    }
+  }
 </script>
 
 <main class="page">
-  <div class="background-shape shape-one"></div>
-  <div class="background-shape shape-two"></div>
-
   <section class="hero">
     <div class="card">
       <div class="logo" aria-hidden="true">
@@ -28,12 +42,33 @@
         <input
           name="code"
           bind:value={code}
-          oninput={sanitizeCode}
+          oninput={() => {
+            sanitizeCode();
+            checkCode();
+          }}
           maxlength={MAX_CODE_LENGTH}
           inputmode="numeric"
           placeholder="1234"
           required
         />
+
+        <div class="preview-slot">
+          <div class="haushalt-preview" class:visible={haushaltInfo}>
+            {#if haushaltInfo}
+              <span class="haushalt-icon">
+                {haushaltInfo.isWG ? "👥" : "👤"}
+              </span>
+              <span>{haushaltInfo.haushaltsname}</span>
+            {/if}
+          </div>
+        </div>
+
+        <div class="error-slot">
+          {#if form?.error}
+            <p class="error">{form.error}</p>
+          {/if}
+        </div>
+
         <button type="submit" disabled={code.length !== MAX_CODE_LENGTH}>
           Beitreten <span aria-hidden="true">→</span>
         </button>
@@ -60,7 +95,7 @@
   }
 
   .page {
-    min-height: 100vh;
+    min-height: calc(100vh - 72px);
     background:
       radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
@@ -71,15 +106,23 @@
     padding: 2rem;
   }
 
+  .hero {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   .card {
     width: 100%;
-    max-width: 380px;
+    max-width: 420px;
+    min-height: 650px;
     text-align: center;
     padding: 2.6rem 2.4rem;
     border-radius: 36px;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(18px);
     box-shadow: 0 28px 80px rgba(95, 65, 50, 0.14);
+    box-sizing: border-box;
   }
 
   .logo {
@@ -121,7 +164,7 @@
 
   input {
     width: 100%;
-    max-width: 260px;
+    max-width: 320px;
     padding: 1rem;
     font-size: 1.5rem;
     text-align: center;
@@ -129,6 +172,7 @@
     border-radius: 22px;
     border: 1.5px solid #e9b19f;
     outline: none;
+    box-sizing: border-box;
   }
 
   input:focus {
@@ -136,15 +180,63 @@
     box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
   }
 
+  .preview-slot {
+    width: 100%;
+    max-width: 320px;
+    min-height: 44px;
+  }
+
+  .haushalt-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 14px;
+    background: #fdece5;
+    color: #d97757;
+    font-weight: 700;
+    font-size: 0.95rem;
+    width: 100%;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+  }
+
+  .haushalt-preview.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .error-slot {
+    width: 100%;
+    max-width: 320px;
+    min-height: 0;
+  }
+
+  .error {
+    color: #c0392b;
+    font-size: 0.85rem;
+    background: #fdecea;
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   button {
     width: 100%;
-    padding: 1rem;
+    max-width: 320px;
+    padding: 1.1rem;
     border-radius: 22px;
     border: none;
     background: linear-gradient(135deg, #df7b59, #cf6548);
     color: white;
     font-weight: 800;
     cursor: pointer;
+    font-size: 1rem;
   }
 
   button:disabled {
@@ -180,5 +272,10 @@
     text-decoration: none;
     color: #2b2b2b;
     font-weight: 700;
+  }
+
+  .create:hover {
+    border-color: #d97757;
+    color: #d97757;
   }
 </style>
