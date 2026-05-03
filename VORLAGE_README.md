@@ -57,6 +57,7 @@ Das Vorgehen orientierte sich an einem Design-Thinking-ähnlichen Prozess. Dabei
 **Zielgruppenverständnis:** In der ersten Phase wurde untersucht, in welchen Alltagssituationen Menschen den Überblick über ihre Haushaltsprodukte verlieren. Dabei zeigte sich, dass das Problem nicht nur in gemeinsamen Haushalten vorkommt.
 Bei Einzelpersonen entsteht das Problem häufig dadurch, dass Einkäufe spontan geplant werden und vorhandene Produkte nicht bewusst überprüft werden. Man kauft zum Beispiel ein Produkt nochmals, obwohl es zuhause noch vorhanden ist, oder vergisst wichtige Dinge, weil keine aktuelle Einkaufsliste geführt wird.
 In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Personen Produkte verbrauchen oder einkaufen. Dadurch entstehen Missverständnisse: Eine Person geht davon aus, dass ein Produkt noch vorhanden ist, während eine andere es bereits aufgebraucht hat. Einkaufslisten werden oft über verschiedene Kanäle geführt, wodurch der aktuelle Stand nicht für alle klar ersichtlich ist.
+
 **Proto-Persona 1: Einzelperson**
 Name: Thomas
 Alter: 35 Jahre
@@ -72,6 +73,7 @@ Situation: Lebt in einer WG mit drei Mitbewohnerinnen und Mitbewohnern
 Bedürfnis: Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind und was noch gekauft werden muss.
 Problem: In ihrer WG werden Einkaufslisten oft über WhatsApp geführt. Dadurch gehen Nachrichten unter oder Produkte werden mehrfach gekauft.
 Ziel: Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand sehen.
+
 **Wesentliche Erkenntnisse:**
 - Die App muss für Einzelpersonen und Gruppen funktionieren.
 - Die Bedienung muss sehr einfach sein.
@@ -119,7 +121,7 @@ Bei dieser Variante gelangen Nutzerinnen und Nutzer zuerst über einen vierstell
 - Der Code muss bekannt sein oder gemerkt werden
 Keine individuelle Benutzerverwaltung
 
-**Skizzen:** _[Mehrere Varianten; Unterschiede kurz dokumentieren.]_
+**Skizzen:**
 Für die App wurden mehrere grobe Skizzen erstellt. Die wichtigsten Ansichten waren:
 - Startseite mit Eingabe eines Haushalts-Codes
 - Übersicht nach dem Beitritt zu einem Haushalt
