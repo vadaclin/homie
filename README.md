@@ -103,22 +103,26 @@ In dieser Variante werden alle Artikel in einer einfachen Liste dargestellt. Nut
 
 **Variante 2: Getrennte Bereiche für Vorrat und Einkaufsliste**
 Diese Variante trennt die App in zwei Hauptbereiche: Vorräte und Einkaufsliste. Dadurch ist klar ersichtlich, welche Produkte bereits vorhanden sind und welche noch gekauft werden müssen.
+
 **Vorteile:**
 - Gute Übersicht
 - Klare Struktur
 - Für Einzelpersonen und Gruppen geeignet
 - Einfache Bedienung
+  
 **Nachteile:**
 - Etwas mehr Navigation notwendig als bei einer einzigen Liste
 
 **Variante 3: Haushalts-Dashboard mit Code-Zugang**
 Bei dieser Variante gelangen Nutzerinnen und Nutzer zuerst über einen vierstelligen Code in ihren Haushalt. Danach sehen sie eine übersichtliche Ansicht mit den Bereichen Vorräte und Einkaufsliste.
+
 **Vorteile:**
 - Gemeinsame Nutzung ohne Login möglich
 - Auch Einzelpersonen können einen eigenen Haushalt verwenden
 - Klare Trennung der Funktionen
 - Einfacher Einstieg
 - Gut erweiterbar
+
 **Nachteile:**
 - Der Code muss bekannt sein oder gemerkt werden
 Keine individuelle Benutzerverwaltung
