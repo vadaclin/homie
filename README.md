@@ -189,7 +189,7 @@ Diese Struktur wurde gewählt, weil sie den Alltag in einem Haushalt einfach abb
 
 **User Interface Design:** Die folgenden Screenshots zeigen die wichtigsten Ansichten der Homie-App.
 
-![Startseite](mockup/FirstPage.png)
+![Startseite](prototype/FirstPage.png)
 *Startseite der App, auf der Nutzerinnen und Nutzer einem Haushalt per Code beitreten können.*
 
 ![Haushalt erstellen](prototype/CreateHaushalt.png)
