@@ -6,13 +6,11 @@ export async function load({ cookies }) {
   if (!haushalt) return { haushalt: null };
 
   const db = await getDb();
-  const haushaltDoc = await db
-    .collection("haushalte")
-    .findOne({ _id: new ObjectId(haushalt) });
+  const doc = await db.collection("haushalte").findOne({ _id: new ObjectId(haushalt) });
 
   return {
     haushalt,
-    haushaltsname: haushaltDoc?.haushaltsname ?? "Haushalt",
-    haushaltCode: haushaltDoc?.code ?? "????",
+    haushaltsname: doc?.haushaltsname ?? "Haushalt",
+    haushaltCode: doc?.code ?? "????",
   };
 }

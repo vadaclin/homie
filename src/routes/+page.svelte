@@ -14,14 +14,13 @@
       haushaltInfo = null;
       return;
     }
-
     const res = await fetch(`/api/haushalt?code=${code}`);
+    haushaltInfo = res.ok ? await res.json() : null;
+  }
 
-    if (res.ok) {
-      haushaltInfo = await res.json();
-    } else {
-      haushaltInfo = null;
-    }
+  function oninput() {
+    sanitizeCode();
+    checkCode();
   }
 </script>
 
@@ -42,10 +41,7 @@
         <input
           name="code"
           bind:value={code}
-          oninput={() => {
-            sanitizeCode();
-            checkCode();
-          }}
+          {oninput}
           maxlength={MAX_CODE_LENGTH}
           inputmode="numeric"
           placeholder="1234"
@@ -55,9 +51,7 @@
         <div class="preview-slot">
           <div class="haushalt-preview" class:visible={haushaltInfo}>
             {#if haushaltInfo}
-              <span class="haushalt-icon">
-                {haushaltInfo.isWG ? "👥" : "👤"}
-              </span>
+              <span class="haushalt-icon">{haushaltInfo.isWG ? "👥" : "👤"}</span>
               <span>{haushaltInfo.haushaltsname}</span>
             {/if}
           </div>

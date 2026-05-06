@@ -3,7 +3,6 @@
   import { enhance } from "$app/forms";
 
   let { data, children } = $props();
-
   let menuOpen = $state(false);
   let copied = $state(false);
 
@@ -32,11 +31,7 @@
     </nav>
 
     <div class="household-menu">
-      <button
-        class="household-button"
-        onclick={() => (menuOpen = !menuOpen)}
-        aria-label="Haushaltsmenü"
-      >
+      <button class="household-button" onclick={() => (menuOpen = !menuOpen)} aria-label="Haushaltsmenü">
         <span>{data.haushaltsname ?? "Haushalt"}</span>
         <span class="chevron">▾</span>
       </button>
@@ -47,18 +42,13 @@
             <span>Code</span>
             <strong>{data.haushaltCode}</strong>
           </div>
-
           <button class="dropdown-action" onclick={copyCode}>
             {copied ? "✓ Kopiert!" : "Code kopieren"}
           </button>
-
           <form method="POST" action="/leave" use:enhance>
-            <button class="dropdown-action danger" type="submit">
-              Haushalt verlassen
-            </button>
+            <button class="dropdown-action danger" type="submit">Haushalt verlassen</button>
           </form>
         </div>
-
         <div
           class="overlay"
           role="button"
@@ -80,6 +70,7 @@
     background: #faf7f5;
     color: #242424;
   }
+
   .topbar {
     height: 72px;
     padding: 0 7%;
@@ -92,31 +83,37 @@
     position: relative;
     z-index: 10;
   }
+
   .brand {
     color: #d97757;
     font-size: 1.35rem;
     font-weight: 900;
     text-decoration: none;
   }
+
   nav {
     display: flex;
     gap: 1.5rem;
     margin-left: auto;
     margin-right: 1.5rem;
   }
+
   nav a {
     color: #242424;
     text-decoration: none;
     font-weight: 800;
     transition: color 0.15s ease;
   }
+
   nav a:hover,
   nav a.active {
     color: #d97757;
   }
+
   .household-menu {
     position: relative;
   }
+
   .household-button {
     display: flex;
     align-items: center;
@@ -131,15 +128,18 @@
     cursor: pointer;
     transition: 0.2s ease;
   }
+
   .household-button:hover {
     background: #fdece5;
     border-color: #d97757;
   }
+
   .chevron {
     font-size: 0.75rem;
     color: #9a8f87;
     line-height: 1;
   }
+
   .dropdown {
     position: absolute;
     right: 0;
@@ -152,6 +152,7 @@
     border: 1px solid #eadfd9;
     z-index: 30;
   }
+
   .dropdown-code {
     display: flex;
     justify-content: space-between;
@@ -164,11 +165,13 @@
     font-size: 0.85rem;
     font-weight: 700;
   }
+
   .dropdown-code strong {
     color: #d97757;
     font-size: 1rem;
     letter-spacing: 0.04em;
   }
+
   .dropdown-action {
     width: 100%;
     padding: 0.75rem 0.8rem;
@@ -181,17 +184,21 @@
     text-align: left;
     cursor: pointer;
   }
+
   .dropdown-action:hover {
     background: #fdece5;
     color: #d97757;
   }
+
   .dropdown-action.danger {
     color: #9a5142;
   }
+
   .dropdown-action.danger:hover {
     background: #fdecea;
     color: #c0392b;
   }
+
   .overlay {
     position: fixed;
     inset: 0;
