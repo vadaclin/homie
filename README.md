@@ -167,9 +167,29 @@ Wenn die Anzahl eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur E
 12. In der To-do-Liste können zusätzliche Haushaltsaufgaben eingetragen werden.
 13. Alle Personen im Haushalt sehen denselben aktuellen Stand und können gemeinsam Vorräte, Einkäufe und Aufgaben verwalten.
 
-- **Mockup:**
-![Startseite](mockup/FirstPage.png)
+**Mockup:**
+Die folgenden Screenshots zeigen die wichtigsten Ansichten der Homie-App.
 
+![Startseite](mockup/FirstPage.png)
+*Startseite der App, auf der Nutzerinnen und Nutzer einem Haushalt per Code beitreten können.*
+
+![Haushalt erstellen](mockup/CreateHaushalt.png)
+ *Ansicht zum Erstellen eines neuen Haushalts.*
+
+![Dashboard](mockup/Dashboard.png)
+*Dashboard mit Übersicht über Vorräte, Einkaufsliste und To-do-Bereich.*
+
+![Vorratsübersicht](mockup/Vorrat.png)
+*Übersicht über vorhandene Produkte im Vorrat mit Name, Kategorie und Anzahl.*
+
+![Vorrat hinzufügen](mockup/VorratHinzufuegen.png)
+*Maske zum Hinzufügen neuer Produkte in den Vorrat.*
+
+![Vorrat übernehmen](mockup/Vorratuebernehmen.png)
+*Ansicht zum Übernehmen oder Aktualisieren von Vorratsprodukten.*
+
+![Einkaufsliste](mockup/Einkaufsliste.png)
+*Einkaufsliste mit fehlenden Produkten, die abgehakt oder verwaltet werden können.*
 
 ### 3.4 Prototype
 
