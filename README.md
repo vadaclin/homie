@@ -168,6 +168,7 @@ Wenn die Anzahl eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur E
 13. Alle Personen im Haushalt sehen denselben aktuellen Stand und können gemeinsam Vorräte, Einkäufe und Aufgaben verwalten.
 
 - **Mockup:**
+![Startseite](mockup/FirstPage.png)
 
 
 ### 3.4 Prototype
