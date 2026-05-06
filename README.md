@@ -125,7 +125,7 @@ Bei dieser Variante gelangen Nutzerinnen und Nutzer zuerst über einen vierstell
 
 **Nachteile:**
 - Der Code muss bekannt sein oder gemerkt werden
-Keine individuelle Benutzerverwaltung
+- Keine individuelle Benutzerverwaltung
 
 **Skizzen:**
 Für die App wurden mehrere grobe Skizzen erstellt. Die wichtigsten Ansichten waren:
@@ -138,9 +138,37 @@ Für die App wurden mehrere grobe Skizzen erstellt. Die wichtigsten Ansichten wa
 Die Skizzen halfen dabei, die Struktur der App früh zu überprüfen. Besonders wichtig war, dass die Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen und wo sie fehlende Artikel eintragen können.
 
 ### 3.3 Decide
-- **Gewählte Variante & Begründung:** _[Entscheidkriterien nennen]_  
-- **End-to-End-Ablauf:** _[Beschreibung inkl. User Journey Map]_  
-- **Mockup:** _[URL, z. B. Figma; Screenshots mit kurzen Beschreibungen]_  
+- **Gewählte Variante & Begründung:** Nach dem Vergleich der verschiedenen Varianten wurde die Variante "Haushalts-Dashboard mit Code-Zugang" ausgewählt. Diese Lösung verbindet die Vorteile einer einfachen Bedienung mit der Möglichkeit, die App gemeinsam in einem Haushalt zu nutzen. Der vierstellige Haushalts-Code wurde gewählt, weil dadurch kein klassisches Login-System notwendig ist. Das senkt die Einstiegshürde und macht die App besonders schnell nutzbar.
+
+Die Entscheidung fiel auf diese Variante, weil sie die wichtigsten Anforderungen des Projekts am besten erfüllt:
+- einfache Nutzung ohne Registrierung
+- gemeinsamer Zugriff für mehrere Personen
+- klare Trennung zwischen Vorräten und Einkaufsliste
+- gute Übersicht durch Kategorien
+- einfache Erweiterbarkeit für spätere Funktionen
+- geeignet für mobile Nutzung im Alltag
+
+- **End-to-End-Ablauf:** Der typische Ablauf beginnt damit, dass eine Nutzerin oder ein Nutzer die Web-App öffnet. Auf der Startseite wird ein vierstelliger Haushalts-Code eingegeben. Falls der Haushalt bereits existiert, tritt die Person diesem Haushalt bei. Falls die Person noch keinen Code hat, muss zuerst ein neuer Haushalt erstellt werden.
+Nach dem Beitritt gelangt die Person zur Hauptansicht, dem Dashboard. Dort sind die wichtigsten Bereiche sichtbar: Vorräte, Einkaufsliste und To-do-Liste. Im Vorratsbereich können vorhandene Produkte mit Namen, Kategorie und Anzahl hinzugefügt werden. Die Produkte werden danach übersichtlich angezeigt und können bei Bedarf wieder gelöscht werden.
+Wenn die Anzahl eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur Einkaufsliste hinzugefügt werden. Wird der Artikel in der Einkaufsliste abgehakt, kann er wieder dem Vorrat hinzugefügt werden. Dadurch bleibt der aktuelle Stand des Haushalts übersichtlich und einfach nachvollziehbar.
+
+**User Journey:** 
+1. Nutzerin oder Nutzer öffnet die Web-App.
+2. Auf der Startseite wird ein vierstelliger Haushalts-Code eingegeben.
+3. Falls der Haushalt bereits existiert, tritt die Person diesem Haushalt bei.
+4. Falls noch kein Code vorhanden ist, erstellt die Person zuerst einen neuen Haushalt.
+5. Nach dem Beitritt gelangt die Person zum Dashboard.
+6. Im Dashboard sieht die Person die Bereiche Vorräte, Einkaufsliste und To-do-Liste.
+7. Im Vorratsbereich können Produkte mit Name, Kategorie und Anzahl hinzugefügt werden.
+8. Die vorhandenen Produkte werden übersichtlich angezeigt und können bei Bedarf gelöscht werden.
+9. Wenn die Anzahl eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur Einkaufsliste hinzugefügt werden.
+10. In der Einkaufsliste können fehlende Produkte angezeigt, abgehakt oder gelöscht werden.
+11. Wenn ein Produkt in der Einkaufsliste abgehakt wird, kann es wieder dem Vorrat hinzugefügt werden.
+12. In der To-do-Liste können zusätzliche Haushaltsaufgaben eingetragen werden.
+13. Alle Personen im Haushalt sehen denselben aktuellen Stand und können gemeinsam Vorräte, Einkäufe und Aufgaben verwalten.
+
+- **Mockup:**
+
 
 ### 3.4 Prototype
 
