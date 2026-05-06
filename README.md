@@ -168,7 +168,26 @@ Wenn die Anzahl eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur E
 13. Alle Personen im Haushalt sehen denselben aktuellen Stand und können gemeinsam Vorräte, Einkäufe und Aufgaben verwalten.
 
 **Mockup:**
-Die folgenden Screenshots zeigen die wichtigsten Ansichten der Homie-App.
+
+
+### 3.4 Prototype
+
+#### 3.4.1. Entwurf (Design)
+Der Prototyp von Homie wurde so gestaltet, dass die wichtigsten Funktionen schnell verständlich und einfach erreichbar sind. Der Fokus liegt auf einer klaren Struktur, damit Nutzerinnen und Nutzer ohne lange Erklärung wissen, wo sie Vorräte, Einkaufslisten und Aufgaben verwalten können.
+**Informationsarchitektur:** Die App ist in wenige zentrale Bereiche aufgeteilt. Nach dem Öffnen der Web-App gelangen Nutzerinnen und Nutzer zuerst zur Startseite. Dort können sie entweder einen bestehenden vierstelligen Haushalts-Code eingeben oder einen neuen Haushalt erstellen.
+
+Nach dem Beitritt zu einem Haushalt öffnet sich das Dashboard. Dieses bildet die Hauptansicht der App. Von dort aus sind die wichtigsten Bereiche erreichbar:
+- Vorräte
+- Einkaufsliste
+- To-do-Liste
+
+Der Bereich **Vorräte** dient dazu, vorhandene Haushaltsprodukte zu verwalten. Produkte können mit Name, Kategorie und Anzahl erfasst werden.  
+Die **Einkaufsliste** zeigt Produkte, die gekauft werden müssen. Artikel können hinzugefügt, abgehakt oder gelöscht werden.  
+Die **To-do-Liste** ermöglicht es, zusätzliche Aufgaben im Haushalt einzutragen.
+
+Diese Struktur wurde gewählt, weil sie den Alltag in einem Haushalt einfach abbildet: Was ist vorhanden, was muss gekauft werden und was muss erledigt werden?
+
+**User Interface Design:** Die folgenden Screenshots zeigen die wichtigsten Ansichten der Homie-App.
 
 ![Startseite](mockup/FirstPage.png)
 *Startseite der App, auf der Nutzerinnen und Nutzer einem Haushalt per Code beitreten können.*
@@ -185,66 +204,168 @@ Die folgenden Screenshots zeigen die wichtigsten Ansichten der Homie-App.
 ![Vorrat hinzufügen](mockup/VorratHinzufuegen.png)
 *Maske zum Hinzufügen neuer Produkte in den Vorrat.*
 
-![Vorrat übernehmen](mockup/Vorratuebernehmen.png)
-*Ansicht zum Übernehmen oder Aktualisieren von Vorratsprodukten.*
-
 ![Einkaufsliste](mockup/Einkaufsliste.png)
 *Einkaufsliste mit fehlenden Produkten, die abgehakt oder verwaltet werden können.*
 
-### 3.4 Prototype
+![Vorrat übernehmen](mockup/Vorratuebernehmen.png)
+*Ansicht zum Übernehmen oder Aktualisieren von Vorratsprodukten aus der Einkaufsliste, nachdem ein Produkt abgehakt wurde.*
 
-#### 3.4.1. Entwurf (Design)
-Beschreibt die Gestaltung und Interaktion.
-> **Hinweis:** Hier wird der **Prototyp** beschrieben, nicht das **Mockup**.
-- **Informationsarchitektur:** _[z. B. Seiten/Navigation: Konzept, nicht die technische Umsetzung]_
-- **User Interface Design:** _[wichtige Screens: Screenshots mit kurzen Erläuterungen]_  
-- **Designentscheidungen:** _[zentrale Entscheidungen und Begründungen]_
+**Designentscheidungen:** Eine zentrale Designentscheidung war die Nutzung eines vierstelligen Haushalts-Codes anstelle eines klassischen Logins. Dadurch können Nutzerinnen und Nutzer schnell starten, ohne ein Konto erstellen zu müssen.
+
+Die Bereiche Vorräte, Einkaufsliste und To-do-Liste wurden klar getrennt, damit keine Verwirrung entsteht. Vorräte zeigen, was bereits vorhanden ist. Die Einkaufsliste zeigt, was noch gekauft werden muss. Die To-do-Liste zeigt zusätzliche Aufgaben im Haushalt.
+
+Ausserdem wurde entschieden, Produkte mit einer Anzahl zu speichern. Dadurch kann besser nachvollzogen werden, wie viel von einem Produkt noch vorhanden ist. Wenn die Anzahl eines Produkts auf 1 sinkt, kann es mit einem Klick zur Einkaufsliste hinzugefügt werden. Wird ein Produkt in der Einkaufsliste abgehakt, kann es wieder dem Vorrat hinzugefügt werden.
+
+Diese Entscheidungen unterstützen das Hauptziel der App: den Haushalt übersichtlich, einfach und gemeinsam zu organisieren.
 
 #### 3.4.2. Umsetzung (Technik)
-Fasst die technische Realisierung zusammen.
-- **Technologie-Stack:** _[SvelteKit, Bibliotheken falls genutzt]_
-- **Tooling:** _[IDE/Erweiterungen, lokale/Cloud-Tools; den Einsatz von KI beschreiben Sie im Kapitel **KI-Deklaration**]_  
-- **Struktur & Komponenten:** _[Seiten, Routen, State/Stores, wichtige Komponenten]_
-- **Daten & Schnittstellen:** _[Wie werden Daten gespeichert, verwaltet, abgerufen?]_
-- **Deployment:** _[URL]_  
-- **Besondere Entscheidungen:** _[z. B. Trade-offs, Vereinfachungen]_  
+Der Prototyp wurde als Web-App umgesetzt. Ziel war es, die wichtigsten Funktionen funktionsfähig darzustellen und eine einfache gemeinsame Nutzung pro Haushalt zu ermöglichen.
+- **Technologie-Stack:** Für die Umsetzung wurde SvelteKit verwendet. SvelteKit eignet sich gut für moderne Web-Apps, da Seiten, Komponenten und Logik übersichtlich strukturiert werden können. Die App wurde mit HTML, CSS und JavaScript beziehungsweise Svelte umgesetzt.
 
+Verwendete Technologien:
+- SvelteKit
+- JavaScript / Svelte
+- HTML
+- CSS
+- MongoDB
+
+- **Tooling:** Für die Entwicklung wurde eine lokale Entwicklungsumgebung verwendet. Der Code wurde in einer IDE bearbeitet und über den lokalen Entwicklungsserver getestet.
+
+Verwendete Tools:
+- Visual Studio Code
+- Terminal
+- Node.js / npm
+- Browser-Entwicklertools zum Testen und Debuggen
+- Git / GitHub zur Versionsverwaltung
+- Netlify
+
+- **Struktur & Komponenten:** Die App wurde in mehrere Bereiche und Komponenten aufgeteilt. Dadurch bleibt der Code übersichtlich und die einzelnen Funktionen können einfacher angepasst werden.
+
+Wichtige Bestandteile:
+- Startseite für Haushalts-Code und Haushaltserstellung
+- Dashboard als Hauptansicht
+- Vorratsbereich zur Verwaltung vorhandener Produkte
+- Einkaufsliste zur Verwaltung fehlender Produkte
+- To-do-Liste für Haushaltsaufgaben
+- Formulare zum Hinzufügen neuer Einträge
+- Buttons zum Löschen, Abhaken oder Verschieben von Einträgen
+
+Die Navigation ist bewusst einfach gehalten. Nach dem Beitritt zu einem Haushalt befindet sich die Nutzerin oder der Nutzer direkt im Dashboard und kann von dort aus alle Hauptfunktionen verwenden.
+
+**Daten & Schnittstellen:** Alle Daten der App werden in MongoDB gespeichert. Dazu gehören die Haushalte, Vorratsprodukte, Einkaufslisten-Einträge und To-do-Einträge. Der vierstellige Haushalts-Code dient dazu, die Daten eindeutig einem Haushalt zuzuordnen. Wenn mehrere Personen denselben Code verwenden, greifen sie auf dieselben gespeicherten Daten in MongoDB zu.
+
+Für jeden Haushalt werden die relevanten Informationen gespeichert:
+- Haushalts-Code
+- Vorratsprodukte mit Name, Kategorie und Anzahl
+- Artikel auf der Einkaufsliste
+- Status von Einkaufslisten-Artikeln, zum Beispiel offen oder abgehakt
+- To-do-Einträge
+
+Die App ruft die Daten aus MongoDB ab und zeigt sie im jeweiligen Bereich an. Wenn ein Produkt, ein Einkaufslisten-Eintrag oder eine To-do-Aufgabe hinzugefügt wird, wird dieser Eintrag in MongoDB gespeichert. Änderungen wie Abhaken, Löschen oder Verschieben zwischen Vorrat und Einkaufsliste werden ebenfalls in MongoDB aktualisiert.
+
+**Deployment:** https://homie-appl.netlify.app
+**Besondere Entscheidungen:** Eine wichtige Entscheidung war der Verzicht auf ein klassisches Login-System. Stattdessen wird ein vierstelliger Haushalts-Code verwendet. Diese Lösung ist einfacher und passt besser zum Ziel der App, da Nutzerinnen und Nutzer möglichst schnell starten können.
+
+Alle Personen mit demselben Haushalts-Code haben dieselben Rechte. Es gibt keine Rollen wie Admin oder Mitglied. Diese Vereinfachung reduziert die Komplexität des Prototyps und macht die Bedienung verständlicher.
+
+Ausserdem wurde der Funktionsumfang bewusst begrenzt. Der Prototyp konzentriert sich auf die wichtigsten Funktionen: Vorräte verwalten, Einkaufsliste nutzen, To-do-Einträge erfassen und Daten pro Haushalt speichern. Weitere Funktionen wie Benutzerkonten, Barcode-Scan oder Benachrichtigungen wurden bewusst nicht umgesetzt, da sie den Prototyp komplexer gemacht hätten.
+ 
 ### 3.5 Validate
-- **URL der getesteten Version** (separat deployt)
-- **Ziele der Prüfung:** _[welche Fragen sollen beantwortet werden?]_  
-- **Vorgehen:** _[moderiert/unmoderiert; remote/on-site]_  
-- **Stichprobe:** _[Mit wem wurde getestet? Profil; Anzahl]_  
-- **Aufgaben/Szenarien:** _[Ausformulierte Testaufgaben]_  
-- **Kennzahlen & Beobachtungen:** _[z. B. Erfolgsquote, Zeitbedarf, qualitative Findings]_  
-- **Zusammenfassung der Resultate:** _[Wichtigste Erkenntnisse; 2-4 Sätze]_  
-- **Abgeleitete Verbesserungen:** _[Anforderungen, die als nächstes umgesetzt werden sollten, priorisiert, kurz begründet; falls Verbesserungen im Prototyp konkret umgesetzt wurden: In Kap. 4 dokumentieren]_  
+**URL der getesteten Version** https://homie-appl.netlify.app
+**Ziele der Prüfung:** Mit der Validierung sollte überprüft werden, ob der Prototyp verständlich, nützlich und einfach bedienbar ist. Besonders wichtig war die Frage, ob Nutzerinnen und Nutzer die wichtigsten Funktionen ohne lange Erklärung verwenden können.
 
-## 4. Erweiterungen [Optional]
-Dokumentiert Erweiterungen über den Mindestumfang hinaus.
-> **Hinweis:** Jede Erweiterung ist separat nach dem folgenden Schema zu beschreiben.
+Geprüft wurden folgende Fragen:
+- Ist der Einstieg über den Haushalts-Code verständlich?
+- Ist klar, wie ein neuer Haushalt erstellt wird?
+- Finden Nutzerinnen und Nutzer das Dashboard schnell?
+- Ist die Trennung zwischen Vorrat, Einkaufsliste und To-do-Liste verständlich?
+- Können Produkte einfach hinzugefügt, gelöscht und verwaltet werden?
+- Ist die Anzahl-Funktion bei Vorratsprodukten verständlich?
+- Ist klar, wie ein Produkt zur Einkaufsliste hinzugefügt werden kann?
+- Ist verständlich, dass abgehakte Einkaufslisten-Produkte wieder in den Vorrat übernommen werden können?
+- Funktioniert die App auch auf mobilen Geräten übersichtlich?
+ 
+**Vorgehen:** Die Tests wurden mit einfachen Nutzungsszenarien durchgeführt. Die Testpersonen erhielten konkrete Aufgaben und sollten diese möglichst selbstständig lösen. Währenddessen wurde beobachtet, ob sie die Funktionen finden, verstehen und korrekt verwenden können.
 
-### _[4.x Kurzbeschreibung / Titel]_  
+Das Vorgehen war leicht moderiert. Falls eine Testperson nicht weiterkam, wurde notiert, an welcher Stelle das Problem auftrat. Es wurde aber möglichst wenig geholfen, damit sichtbar wurde, ob die App auch ohne Erklärung verständlich ist.
+
+- **Stichprobe:** Getestet wurde mit Personen, die zur Zielgruppe der App passen. Dazu gehören Personen, die alleine wohnen, sowie Personen aus gemeinsamen Haushalten wie WGs oder Familien.
+
+Stichprobe:
+- Anzahl Testpersonen: 6
+- Profil: Einzelpersonen und Personen aus gemeinsamen Haushalten
+- Alter: 25-45
+- Technische Erfahrung: gemischt
+
+**Aufgaben/Szenarien:** Für die Validierung wurden typische Alltagssituationen getestet. 
+Testaufgaben:
+1. Öffne die Web-App.
+2. Erstelle einen neuen Haushalt oder tritt einem bestehenden Haushalt mit einem vierstelligen Code bei.
+3. Öffne das Dashboard.
+4. Füge ein neues Produkt zum Vorrat hinzu.
+5. Gib dem Produkt einen Namen, eine Kategorie und eine Anzahl.
+6. Prüfe, ob das Produkt korrekt im Vorrat angezeigt wird.
+7. Füge ein Produkt mit niedriger Anzahl zur Einkaufsliste hinzu.
+8. Hake ein Produkt in der Einkaufsliste ab.
+9. Füge ein abgehaktes Produkt wieder zum Vorrat hinzu.
+10. Erstelle einen Eintrag in der To-do-Liste.
+11. Lösche einen nicht mehr benötigten Eintrag.
+
+**Kennzahlen & Beobachtungen:** Während der Tests wurde beobachtet, ob die Aufgaben erfolgreich abgeschlossen werden konnten und an welchen Stellen Unsicherheiten entstanden.
+
+Beobachtungen:
+- Der Einstieg über den Haushalts-Code wurde grundsätzlich verstanden.
+- Das Dashboard half dabei, die drei Bereiche Vorrat, Einkaufsliste und To-do-Liste schnell zu finden.
+- Das Hinzufügen von Produkten war verständlich.
+- Die Speicherung der Daten in MongoDB funktionierte zuverlässig, da Einträge auch nach dem Neuladen der Seite erhalten blieben.
+- Die Anzahl-Funktion wurde als nützlich wahrgenommen.
+- Die mobile Nutzung ist wichtig, weil die Einkaufsliste oft direkt beim Einkaufen verwendet wird.
+- Bei gemeinsamen Haushalten wie WGs oder Familien war nicht klar ersichtlich, welche Person einen Eintrag erstellt hat. Dadurch kann es schwierig sein nachzuvollziehen, wer ein Produkt, einen Einkaufslisten-Eintrag oder eine To-do-Aufgabe hinzugefügt hat.
+
+Kennzahlen:
+- Erfolgsquote: 11 von 11 Aufgaben erfolgreich gelöst
+- Durchschnittlicher Zeitbedarf: 2-5 Minuten pro Testperson
+- Häufigste Schwierigkeit: In gemeinsamen Haushalten wie WGs oder Familien ist nicht ersichtlich, von welcher Person ein Eintrag stammt.
+
+**Zusammenfassung der Resultate:** Die Validierung zeigte, dass die Grundidee von Homie verständlich ist und die wichtigsten Funktionen sinnvoll zusammenarbeiten. Besonders positiv bewertet wurden der einfache Einstieg über den Haushalts-Code, die klare Aufteilung in Vorräte, Einkaufsliste und To-do-Liste sowie die zuverlässige Speicherung der Daten in MongoDB. Alle getesteten Aufgaben konnten erfolgreich abgeschlossen werden.
+
+Verbesserungspotenzial gibt es vor allem bei der Nutzung in gemeinsamen Haushalten wie WGs oder Familien. Dort wäre es hilfreich, wenn sichtbar wäre, welche Person einen Eintrag erstellt hat. Zusätzlich wurde von Testpersonen der Wunsch geäussert, dass die App in Zukunft Rezeptvorschläge machen soll. Diese Rezeptvorschläge sollen auf den Produkten basieren, die man bereits zuhause im Vorrat hat.
+
+**Abgeleitete Verbesserungen:** Aus der Validierung wurden mehrere Verbesserungen abgeleitet, die in einer nächsten Version umgesetzt werden sollten.
+
+1. **Anzeige, wer einen Eintrag erstellt hat**  
+   In gemeinsamen Haushalten wie WGs oder Familien wäre es hilfreich zu sehen, welche Person einen Eintrag erstellt hat. So könnten Haushaltsmitglieder besser nachvollziehen, wer ein Produkt zur Einkaufsliste hinzugefügt, eine Aufgabe erstellt oder einen Vorratsartikel eingetragen hat. Das würde die Transparenz und Kommunikation im Haushalt verbessern.
+
+2. **Rezeptvorschläge anhand vorhandener Vorräte**  
+   Nutzerinnen und Nutzer wünschten sich eine Funktion, mit der aus vorhandenen Produkten passende Rezeptideen vorgeschlagen werden. Dadurch könnte die App nicht nur beim Einkaufen helfen, sondern auch dabei, vorhandene Lebensmittel sinnvoll zu verwenden und Lebensmittelverschwendung zu reduzieren.
+
+## 4. Erweiterungen
+
+### 4.1 Verknüpfung Einkaufsliste ↔ Vorrat
+**Beschreibung & Nutzen:** Artikel aus dem Vorrat können direkt zur Einkaufsliste hinzugefügt werden, sobald die Anzahl auf 1 gesunken ist. Nach dem Einkauf kann ein Artikel in der Einkaufsliste abgehakt und mit einem Klick automatisch in den Vorrat übernommen werden — inklusive Menge und Kategorie. Die ursprüngliche Kategorie wird dabei mitgespeichert und beim Zurückübernehmen automatisch vorausgefüllt. So entfällt doppelte Dateneingabe und der reale Einkaufsablauf wird vollständig abgebildet.
+**Wo umgesetzt:**
+- Frontend: Vorrat-Seite mit „+ Einkaufsliste"-Button; Einkaufsliste mit Modal „In Vorrat übernehmen" (Mengen- und Kategorieauswahl vorausgefüllt)
+- Backend: Form Action die einen Einkaufslisten-Eintrag als erledigt markiert und gleichzeitig einen Vorrats-Eintrag erstellt oder aktualisiert
+- Datenbank: Collections einkaufsliste und vorrat in MongoDB, verknüpft über den Haushalts-Code
+**Referenz:** Beschrieben in Kap. 3.3 (User Journey, Schritte 9–11) und Kap. 3.4.1 (User Interface Design)
+**Aus Evaluation abgeleitet?:** Ja, die Funktion wurde erst später ergänzt, weil in der Validierung deutlich wurde, dass die Verbindung zwischen Vorrat und Einkaufsliste klarer und praktischer sein sollte.
+
+### 4.2 To-do-Liste für Haushaltsaufgaben  
 - **Beschreibung & Nutzen:** _[Was wurde erweitert? Warum?]_  
 - **Wo umgesetzt:** _[Wie und wo wurde es gemacht? Frontend, Backend, Datenbank?]_  
 - **Referenz:** _[Wo wird die Erweiterung auch noch beschrieben, z.B. Screenshot oder Beschreibung in einem anderen Kapitel]_  
 - **Aus Evaluation abgeleitet?:** _[Wurde diese Erweiterung als Folge eines in der Evaluation identifizierten Issues implementiert?]_  
 
-> Das folgende **Beispiel** wurde bewusst kurz gehalten. Erweiterungen dürfen auch ausführlicher beschrieben werden.
+### 4.3 Artikelsuche im Vorrat
+- **Beschreibung & Nutzen:** _[Was wurde erweitert? Warum?]_  
+- **Wo umgesetzt:** _[Wie und wo wurde es gemacht? Frontend, Backend, Datenbank?]_  
+- **Referenz:** _[Wo wird die Erweiterung auch noch beschrieben, z.B. Screenshot oder Beschreibung in einem anderen Kapitel]_  
+- **Aus Evaluation abgeleitet?:** _[Wurde diese Erweiterung als Folge eines in der Evaluation identifizierten Issues implementiert?]_  
 
-### 4.1 Tabelle nach Kategorien filtern
-- **Beschreibung & Nutzen:** Tabelle X kann nach Kategorie gefiltert werden, weil User typischerweise nur an einer bestimmten Kategorie interessiert sind.  
-- **Wo umgesetzt:** 
-  - **Frontend:** Tabelle mit Dropdown in Datei ...
-  - **Backend:** Form Action ... in Datei ...
-  - **Datenbank:** MongoDB-Query in Datei ...
-- **Referenz:** Screenshot in Kap. x.y
-- **Aus Evaluation abgeleitet?:** Ja, Issue x.y
-
-## 5. Projektorganisation [Optional]
-Beispiele:
-- **Repository & Struktur:** _[Link; kurze Strukturübersicht]_  
-- **Issue-Management:** _[Vorgehen kurz beschreiben]_  
-- **Commit-Praxis:** _[z. B. sprechende Commits]_
+## 5. Projektorganisation
+**Repository & Struktur:** https://github.com/vadaclin/homie
+Das Repository enthält die Ordner src (SvelteKit-App mit Seiten und Komponenten), static (statische Assets) sowie Konfigurationsdateien wie svelte.config.js, vite.config.js und netlify.toml.
+**Commit-Praxis:** Es wurden teilweise sprechende Commits verwendet, die grob beschreiben, was geändert wurde. Insgesamt wurden 34 Commits gemacht, wodurch die schrittweise Entwicklung von der Grundstruktur bis zum fertigen Prototyp grundsätzlich nachvollziehbar ist. Die Commit-Nachrichten waren jedoch nicht immer einheitlich oder sehr detailliert. Deshalb lässt sich der Entwicklungsverlauf zwar erkennen, aber nicht bei jedem Commit genau nachvollziehen.
 
 ## 6. KI-Deklaration
 Die folgende Deklaration ist verpflichtend und beschreibt den Einsatz von KI im Projekt.
