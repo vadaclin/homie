@@ -192,22 +192,22 @@ Diese Struktur wurde gewählt, weil sie den Alltag in einem Haushalt einfach abb
 ![Startseite](mockup/FirstPage.png)
 *Startseite der App, auf der Nutzerinnen und Nutzer einem Haushalt per Code beitreten können.*
 
-![Haushalt erstellen](mockup/CreateHaushalt.png)
+![Haushalt erstellen](prototype/CreateHaushalt.png)
  *Ansicht zum Erstellen eines neuen Haushalts.*
 
-![Dashboard](mockup/Dashboard.png)
+![Dashboard](prototype/Dashboard.png)
 *Dashboard mit Übersicht über Vorräte, Einkaufsliste und To-do-Bereich.*
 
-![Vorratsübersicht](mockup/Vorrat.png)
+![Vorratsübersicht](prototype/Vorrat.png)
 *Übersicht über vorhandene Produkte im Vorrat mit Name, Kategorie und Anzahl.*
 
-![Vorrat hinzufügen](mockup/VorratHinzufuegen.png)
+![Vorrat hinzufügen](prototype/VorratHinzufuegen.png)
 *Maske zum Hinzufügen neuer Produkte in den Vorrat.*
 
-![Einkaufsliste](mockup/Einkaufsliste.png)
+![Einkaufsliste](prototype/Einkaufsliste.png)
 *Einkaufsliste mit fehlenden Produkten, die abgehakt oder verwaltet werden können.*
 
-![Vorrat übernehmen](mockup/Vorratuebernehmen.png)
+![Vorrat übernehmen](prototype/Vorratuebernehmen.png)
 *Ansicht zum Übernehmen oder Aktualisieren von Vorratsprodukten aus der Einkaufsliste, nachdem ein Produkt abgehakt wurde.*
 
 **Designentscheidungen:** Eine zentrale Designentscheidung war die Nutzung eines vierstelligen Haushalts-Codes anstelle eines klassischen Logins. Dadurch können Nutzerinnen und Nutzer schnell starten, ohne ein Konto erstellen zu müssen.
