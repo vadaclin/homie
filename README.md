@@ -90,10 +90,12 @@ Ziel: Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen 
 
 **Variante 1: Einfache Listenansicht**
 In dieser Variante werden alle Artikel in einer einfachen Liste dargestellt. Nutzerinnen und Nutzer können Produkte hinzufügen und löschen.
+
 **Vorteile:**
 - Sehr einfach verständlich
 - Schneller Einstieg
 - Wenig Ablenkung
+
 **Nachteile:**
 - Bei vielen Produkten schnell unübersichtlich
 - Keine klare Trennung zwischen Vorräten und Einkaufsliste
