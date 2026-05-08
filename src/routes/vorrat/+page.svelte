@@ -47,14 +47,14 @@
 
 <main class="page">
   <section class="header">
-    <div>
-      <h1>Vorrat</h1>
-      <p>Behalte im Blick, was zuhause noch vorhanden ist.</p>
-    </div>
-    <button class="add-button" onclick={openAdd}>+ Hinzufügen</button>
+    <h1>Vorrat</h1>
+    <p>Behalte im Blick, was zuhause noch vorhanden ist.</p>
   </section>
 
-  <input class="suche" bind:value={suche} placeholder="Artikel suchen…" />
+  <div class="add-card">
+    <input class="suche" bind:value={suche} placeholder="Artikel suchen…" />
+    <button type="button" onclick={openAdd} aria-label="Artikel hinzufügen">+</button>
+  </div>
 
   {#if showAddModal}
     <div class="overlay" onclick={closeModals}></div>
@@ -63,6 +63,7 @@
         <h2 id="add-title">Artikel hinzufügen</h2>
         <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
         <input name="menge" bind:value={menge} placeholder="0" inputmode="numeric" />
+
         <div class="select-wrapper">
           <select name="kategorie" bind:value={kategorie}>
             {#each KATEGORIEN as option}
@@ -70,6 +71,7 @@
             {/each}
           </select>
         </div>
+
         <div class="actions">
           <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
           <button type="submit">Speichern</button>
@@ -86,6 +88,7 @@
         <input type="hidden" name="id" value={editArtikel.id} />
         <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
         <input name="menge" bind:value={menge} placeholder="0" inputmode="numeric" />
+
         <div class="select-wrapper">
           <select name="kategorie" bind:value={kategorie}>
             {#each KATEGORIEN as option}
@@ -93,11 +96,13 @@
             {/each}
           </select>
         </div>
+
         <div class="actions">
           <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
           <button type="submit">Speichern</button>
         </div>
       </form>
+
       <form method="POST" action="?/delete" class="delete-form">
         <input type="hidden" name="id" value={editArtikel.id} />
         <button type="submit" class="delete-btn">Artikel löschen</button>
@@ -120,29 +125,37 @@
       {#each Object.entries(gruppiert) as [gruppe, items]}
         <div class="kategorie-card">
           <h2>{gruppe}</h2>
+
           {#each items as item (item.id)}
             <div class="item" class:low={parseInt(item.menge) === 1}>
               <button class="edit-btn" onclick={() => openEdit(item)} aria-label="Bearbeiten">✎</button>
+
               <strong class:low-text={parseInt(item.menge) === 1}>{item.name}</strong>
+
               <div class="item-controls">
                 <form method="POST" action="?/updateMenge">
                   <input type="hidden" name="id" value={item.id} />
                   <input type="hidden" name="delta" value="-1" />
                   <button type="submit" class="menge-btn">−</button>
                 </form>
+
                 <span class="menge" class:low-text={parseInt(item.menge) === 1}>{item.menge}</span>
+
                 <form method="POST" action="?/updateMenge">
                   <input type="hidden" name="id" value={item.id} />
                   <input type="hidden" name="delta" value="1" />
                   <button type="submit" class="menge-btn">+</button>
                 </form>
               </div>
+
               {#if parseInt(item.menge) === 1}
                 <form
                   method="POST"
                   action="/einkaufsliste?/add"
                   class="einkauf-form"
-                  use:enhance={() => async ({ update }) => { await update({ reset: false }); }}
+                  use:enhance={() => async ({ update }) => {
+                    await update({ reset: false });
+                  }}
                 >
                   <input type="hidden" name="name" value={item.name} />
                   <input type="hidden" name="kategorie" value={item.kategorie} />
@@ -168,10 +181,7 @@
   }
 
   .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
   }
 
   h1 {
@@ -187,40 +197,43 @@
     font-weight: 600;
   }
 
-  .suche {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 1rem 1.2rem;
-    border-radius: 20px;
-    border: 1.5px solid #e8e2dd;
+  .add-card {
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    margin-bottom: 2.5rem;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(232, 226, 221, 0.9);
+    box-shadow: 0 18px 50px rgba(95, 65, 50, 0.1);
+  }
+
+  .add-card input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 1rem;
     font: inherit;
     font-weight: 600;
     outline: none;
-    background: rgba(255, 255, 255, 0.9);
-    margin-bottom: 2rem;
-    box-shadow: 0 8px 24px rgba(95, 65, 50, 0.07);
+    color: #242424;
   }
 
-  .suche:focus {
-    border-color: #d97757;
-    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
+  .add-card input::placeholder {
+    color: #aaa19c;
   }
 
-  .add-button {
-    padding: 0.9rem 1.4rem;
-    border-radius: 999px;
+  .add-card button {
+    width: 56px;
+    height: 56px;
+    border-radius: 20px;
     border: none;
     background: linear-gradient(135deg, #df7b59, #cf6548);
     color: white;
-    font-weight: 800;
+    font-size: 2rem;
+    font-weight: 700;
     cursor: pointer;
     box-shadow: 0 10px 24px rgba(217, 119, 87, 0.28);
-    transition: 0.2s ease;
-  }
-
-  .add-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba(217, 119, 87, 0.34);
   }
 
   .overlay {
@@ -245,14 +258,14 @@
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
   }
 
-  form {
+  .modal form {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
   }
 
-  input,
-  select {
+  .modal input,
+  .modal select {
     padding: 1rem;
     border-radius: 18px;
     border: 1.5px solid #e8e2dd;
@@ -260,8 +273,8 @@
     outline: none;
   }
 
-  input:focus,
-  select:focus {
+  .modal input:focus,
+  .modal select:focus {
     border-color: #d97757;
     box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
   }
@@ -465,6 +478,12 @@
   }
 
   @media (max-width: 700px) {
-    h1 { font-size: 2.5rem; }
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .add-card {
+      border-radius: 24px;
+    }
   }
 </style>
