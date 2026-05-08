@@ -206,4 +206,35 @@
     background: transparent;
     cursor: default;
   }
+
+  @media (max-width: 700px) {
+    .topbar {
+      padding: 0 1rem;
+      justify-content: flex-start;
+      gap: 1rem;
+      overflow-x: auto;
+    }
+
+    .brand {
+      flex: 0 0 auto;
+      font-size: 1.25rem;
+      margin-right: 0.5rem;
+    }
+
+    nav {
+      flex: 0 0 auto;
+      gap: 1.1rem;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    nav a {
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .household-menu {
+      display: none;
+    }
+  }
 </style>

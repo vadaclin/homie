@@ -21,7 +21,7 @@
   <div class="grid">
     <div class="card card-wide">
       <div class="card-header">
-        <h2>✅ To-dos</h2>
+        <h2>✅ To-do's</h2>
       </div>
 
       <form
