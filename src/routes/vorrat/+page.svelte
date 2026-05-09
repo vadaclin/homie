@@ -1,7 +1,14 @@
 <script>
   import { enhance } from "$app/forms";
 
-  const KATEGORIEN = ["Lebensmittel", "Getränke", "Haushalt", "Hygiene", "Sonstiges"];
+  const KATEGORIEN = [
+    "Lebensmittel",
+    "Tiefkühler",
+    "Getränke",
+    "Haushalt",
+    "Hygiene",
+    "Sonstiges"
+  ];
 
   let { data } = $props();
   let showAddModal = $state(false);
@@ -14,7 +21,9 @@
   let gefilterteArtikel = $derived(
     suche.trim() === ""
       ? data.artikel
-      : data.artikel.filter((item) => item.name.toLowerCase().includes(suche.toLowerCase()))
+      : data.artikel.filter((item) =>
+          item.name.toLowerCase().includes(suche.toLowerCase())
+        )
   );
 
   let gruppiert = $derived(
@@ -23,6 +32,19 @@
       gruppen[item.kategorie].push(item);
       return gruppen;
     }, {})
+  );
+
+  let sortierteGruppen = $derived(
+    Object.entries(gruppiert).sort(([a], [b]) => {
+      const indexA = KATEGORIEN.indexOf(a);
+      const indexB = KATEGORIEN.indexOf(b);
+
+      if (indexA === -1 && indexB === -1) return a.localeCompare(b, "de");
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+
+      return indexA - indexB;
+    })
   );
 
   function openAdd() {
@@ -52,15 +74,17 @@
   </section>
 
   <div class="add-card">
-    <input class="suche" bind:value={suche} placeholder="Artikel suchen…" />
+    <input class="suche" bind:value={suche} placeholder="Artikel suchen..." />
     <button type="button" onclick={openAdd} aria-label="Artikel hinzufügen">+</button>
   </div>
 
   {#if showAddModal}
     <div class="overlay" onclick={closeModals}></div>
+
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="add-title">
       <form method="POST" action="?/add">
         <h2 id="add-title">Artikel hinzufügen</h2>
+
         <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
         <input name="menge" bind:value={menge} placeholder="0" inputmode="numeric" />
 
@@ -82,9 +106,11 @@
 
   {#if editArtikel}
     <div class="overlay" onclick={closeModals}></div>
+
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-title">
       <form method="POST" action="?/update">
         <h2 id="edit-title">Artikel bearbeiten</h2>
+
         <input type="hidden" name="id" value={editArtikel.id} />
         <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
         <input name="menge" bind:value={menge} placeholder="0" inputmode="numeric" />
@@ -115,14 +141,14 @@
       <h2>Noch kein Vorrat</h2>
       <p>Füge deinen ersten Artikel hinzu.</p>
     </section>
-  {:else if Object.keys(gruppiert).length === 0}
+  {:else if sortierteGruppen.length === 0}
     <section class="empty-card">
       <h2>Keine Treffer</h2>
       <p>Kein Artikel entspricht deiner Suche.</p>
     </section>
   {:else}
     <section class="kategorien-grid">
-      {#each Object.entries(gruppiert) as [gruppe, items]}
+      {#each sortierteGruppen as [gruppe, items]}
         <div class="kategorie-card">
           <h2>{gruppe}</h2>
 
@@ -130,7 +156,9 @@
             <div class="item" class:low={parseInt(item.menge) === 1}>
               <button class="edit-btn" onclick={() => openEdit(item)} aria-label="Bearbeiten">✎</button>
 
-              <strong class:low-text={parseInt(item.menge) === 1}>{item.name}</strong>
+              <strong class:low-text={parseInt(item.menge) === 1}>
+                {item.name}
+              </strong>
 
               <div class="item-controls">
                 <form method="POST" action="?/updateMenge">
@@ -139,7 +167,9 @@
                   <button type="submit" class="menge-btn">−</button>
                 </form>
 
-                <span class="menge" class:low-text={parseInt(item.menge) === 1}>{item.menge}</span>
+                <span class="menge" class:low-text={parseInt(item.menge) === 1}>
+                  {item.menge}
+                </span>
 
                 <form method="POST" action="?/updateMenge">
                   <input type="hidden" name="id" value={item.id} />
@@ -360,11 +390,13 @@
 
   .kategorien-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.2rem;
+    align-items: stretch;
   }
 
   .kategorie-card {
+    min-height: 380px;
     padding: 1.5rem;
     border-radius: 28px;
     background: rgba(255, 255, 255, 0.9);
@@ -373,6 +405,7 @@
 
   .kategorie-card h2 {
     margin: 0 0 1rem;
+    font-size: 1.35rem;
   }
 
   .item {

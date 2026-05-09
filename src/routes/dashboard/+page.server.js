@@ -13,19 +13,24 @@ export async function load({ cookies }) {
   if (!haushaltDoc) redirect(303, "/");
 
   const [einkaufItems, baldLeer, todos] = await Promise.all([
-    db.collection("einkaufsliste")
+    db
+      .collection("einkaufsliste")
       .find({ haushaltId, done: false })
       .sort({ createdAt: -1 })
       .limit(5)
       .toArray(),
-    db.collection("vorrat")
+
+    db
+      .collection("vorrat")
       .find({ haushaltId, menge: "1" })
       .sort({ name: 1 })
       .toArray(),
-    db.collection("todos")
-      .find({ haushaltId })
+
+    db
+      .collection("todos")
+      .find({ haushaltId, done: false })
       .sort({ createdAt: -1 })
-      .toArray(),
+      .toArray()
   ]);
 
   return {
@@ -33,9 +38,23 @@ export async function load({ cookies }) {
     haushaltCode: haushaltDoc.code ?? "",
     isWG: haushaltDoc.isWG ?? false,
     name: cookies.get("name") ?? null,
-    einkaufItems: einkaufItems.map((i) => ({ id: i._id.toString(), name: i.name })),
-    baldLeer: baldLeer.map((i) => ({ id: i._id.toString(), name: i.name, kategorie: i.kategorie })),
-    todos: todos.map((i) => ({ id: i._id.toString(), text: i.text, done: i.done })),
+
+    einkaufItems: einkaufItems.map((i) => ({
+      id: i._id.toString(),
+      name: i.name
+    })),
+
+    baldLeer: baldLeer.map((i) => ({
+      id: i._id.toString(),
+      name: i.name,
+      kategorie: i.kategorie
+    })),
+
+    todos: todos.map((i) => ({
+      id: i._id.toString(),
+      text: i.text,
+      done: i.done
+    }))
   };
 }
 
@@ -53,11 +72,12 @@ export const actions = {
     if (!text) return;
 
     const db = await getDb();
+
     await db.collection("todos").insertOne({
       haushaltId,
       text,
       done: false,
-      createdAt: new Date(),
+      createdAt: new Date()
     });
   },
 
@@ -69,16 +89,11 @@ export const actions = {
     if (!id) return;
 
     const db = await getDb();
-    const todo = await db.collection("todos").findOne({
-      _id: new ObjectId(id),
-      haushaltId,
-    });
-    if (!todo) return;
 
-    await db.collection("todos").updateOne(
-      { _id: new ObjectId(id), haushaltId },
-      { $set: { done: !todo.done } }
-    );
+    await db.collection("todos").deleteOne({
+      _id: new ObjectId(id),
+      haushaltId
+    });
   },
 
   deleteTodo: async ({ request, cookies }) => {
@@ -89,12 +104,16 @@ export const actions = {
     if (!id) return;
 
     const db = await getDb();
-    await db.collection("todos").deleteOne({ _id: new ObjectId(id), haushaltId });
+
+    await db.collection("todos").deleteOne({
+      _id: new ObjectId(id),
+      haushaltId
+    });
   },
 
   switchHousehold: async ({ cookies }) => {
     cookies.delete("haushalt", { path: "/" });
     cookies.delete("name", { path: "/" });
     redirect(303, "/");
-  },
+  }
 };

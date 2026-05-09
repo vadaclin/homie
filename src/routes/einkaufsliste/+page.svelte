@@ -1,7 +1,14 @@
 <script>
   import { enhance } from "$app/forms";
 
-  const KATEGORIEN = ["Lebensmittel", "Getränke", "Haushalt", "Hygiene", "Sonstiges"];
+  const KATEGORIEN = [
+    "Lebensmittel",
+    "Tiefkühler",
+    "Getränke",
+    "Haushalt",
+    "Hygiene",
+    "Sonstiges"
+  ];
 
   let { data } = $props();
   let text = $state("");
@@ -26,13 +33,22 @@
     <p>Alles, was beim nächsten Einkauf nicht fehlen darf.</p>
   </section>
 
-  <form method="POST" action="?/add" class="add-card">
+  <form
+    method="POST"
+    action="?/add"
+    class="add-card"
+    use:enhance={() => async ({ update }) => {
+      await update();
+      text = "";
+    }}
+  >
     <input name="name" bind:value={text} placeholder="Was brauchst du? z. B. Milch" required />
     <button type="submit">+</button>
   </form>
 
   {#if vorratModal}
     <div class="overlay" onclick={closeVorratModal}></div>
+
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="vorrat-title">
       <form
         method="POST"
@@ -43,10 +59,11 @@
         }}
       >
         <h2 id="vorrat-title">In Vorrat übernehmen</h2>
-        <p class="modal-subtitle">„{vorratModal.name}"</p>
+        <p class="modal-subtitle">„{vorratModal.name}”</p>
 
         <input type="hidden" name="name" value={vorratModal.name} />
         <input type="hidden" name="einkaufId" value={vorratModal._id} />
+
         <input name="menge" bind:value={vorratMenge} placeholder="1" inputmode="numeric" />
 
         <div class="select-wrapper">
@@ -74,11 +91,24 @@
     <section class="grid">
       {#each data.items as item (item._id)}
         <article class="item-card">
-          <button class="check" class:checked={item.done} onclick={() => openVorratModal(item)}></button>
-          <strong class:done={item.done}>{item.name}</strong>
+          <button
+            class="check"
+            class:checked={item.done}
+            onclick={() => openVorratModal(item)}
+            aria-label="In Vorrat übernehmen"
+          ></button>
+
+          <div class="item-content">
+            <strong class:done={item.done}>{item.name}</strong>
+
+            {#if item.kategorie}
+              <span class="badge">{item.kategorie}</span>
+            {/if}
+          </div>
+
           <form method="POST" action="?/delete">
             <input type="hidden" name="id" value={item._id} />
-            <button class="delete" type="submit">×</button>
+            <button class="delete" type="submit" aria-label="Löschen">×</button>
           </form>
         </article>
       {/each}
@@ -150,6 +180,7 @@
     font-weight: 700;
     cursor: pointer;
     box-shadow: 0 10px 24px rgba(217, 119, 87, 0.28);
+    flex-shrink: 0;
   }
 
   .overlay {
@@ -262,14 +293,14 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.2rem;
   }
 
   .item-card {
     position: relative;
-    min-height: 80px;
-    padding: 1rem;
+    min-height: 92px;
+    padding: 1rem 3rem 1rem 1rem;
     border-radius: 28px;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 18px 50px rgba(95, 65, 50, 0.1);
@@ -278,8 +309,26 @@
     gap: 1rem;
   }
 
+  .item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
   .item-card strong {
     font-size: 1.05rem;
+    word-break: break-word;
+  }
+
+  .badge {
+    width: fit-content;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    background: #fff0e6;
+    color: #d97757;
+    font-size: 0.72rem;
+    font-weight: 800;
   }
 
   .done {
@@ -313,8 +362,21 @@
     cursor: pointer;
   }
 
+  .delete:hover {
+    color: #c0392b;
+  }
+
   @media (max-width: 700px) {
-    h1 { font-size: 2.5rem; }
-    .add-card { border-radius: 24px; }
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .add-card {
+      border-radius: 24px;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

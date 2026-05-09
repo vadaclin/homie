@@ -5,6 +5,15 @@ import { ObjectId } from "mongodb";
 const COL_EINKAUF = "einkaufsliste";
 const COL_VORRAT = "vorrat";
 
+const KATEGORIEN = [
+  "Lebensmittel",
+  "Tiefkühler",
+  "Getränke",
+  "Haushalt",
+  "Hygiene",
+  "Sonstiges"
+];
+
 function parseObjectId(id) {
   try {
     return new ObjectId(id);
@@ -18,8 +27,16 @@ function getHaushaltId(cookies) {
   return haushalt ? parseObjectId(haushalt) : null;
 }
 
+function istGueltigeKategorie(kategorie) {
+  return KATEGORIEN.includes(kategorie);
+}
+
 function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function normalizeName(name) {
+  return name.trim().toLowerCase();
 }
 
 export async function load({ cookies }) {
@@ -39,7 +56,8 @@ export async function load({ cookies }) {
       ...item,
       _id: item._id.toString(),
       haushaltId: item.haushaltId?.toString?.() ?? null,
-    })),
+      kategorie: item.kategorie || null
+    }))
   };
 }
 
@@ -49,20 +67,39 @@ export const actions = {
     if (!haushaltId) return;
 
     const form = await request.formData();
+
     const name = form.get("name")?.toString().trim();
+
+    // Wichtig:
+    // Direkt eingetragene Sachen bekommen keine Kategorie.
+    // Nur wenn aus dem Vorrat eine Kategorie mitgeschickt wird, wird sie gespeichert.
     const kategorie = form.get("kategorie")?.toString().trim() || null;
 
     if (!name) return;
 
+    if (kategorie && !istGueltigeKategorie(kategorie)) return;
+
     const db = await getDb();
+
+    const vorhandenesItem = await db.collection(COL_EINKAUF).findOne({
+      haushaltId,
+      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") }
+    });
+
+    if (vorhandenesItem) {
+      return { alreadyExists: true };
+    }
 
     await db.collection(COL_EINKAUF).insertOne({
       haushaltId,
       name,
+      normalizedName: normalizeName(name),
       done: false,
       kategorie,
-      createdAt: new Date(),
+      createdAt: new Date()
     });
+
+    return { success: true };
   },
 
   toggle: async ({ request, cookies }) => {
@@ -78,7 +115,7 @@ export const actions = {
 
     const item = await db.collection(COL_EINKAUF).findOne({
       _id: id,
-      haushaltId,
+      haushaltId
     });
 
     if (!item) return;
@@ -102,7 +139,7 @@ export const actions = {
 
     await db.collection(COL_EINKAUF).deleteOne({
       _id: id,
-      haushaltId,
+      haushaltId
     });
   },
 
@@ -118,12 +155,13 @@ export const actions = {
     const einkaufId = parseObjectId(form.get("einkaufId")?.toString());
 
     if (!name || !kategorie) return;
+    if (!istGueltigeKategorie(kategorie)) return;
 
     const db = await getDb();
 
     const existing = await db.collection(COL_VORRAT).findOne({
       haushaltId,
-      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") },
+      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") }
     });
 
     if (existing) {
@@ -134,8 +172,8 @@ export const actions = {
         {
           $set: {
             menge: neueMenge.toString(),
-            kategorie,
-          },
+            kategorie
+          }
         }
       );
     } else {
@@ -144,15 +182,15 @@ export const actions = {
         name,
         menge: menge.toString(),
         kategorie,
-        erstelltAm: new Date(),
+        erstelltAm: new Date()
       });
     }
 
     if (einkaufId) {
       await db.collection(COL_EINKAUF).deleteOne({
         _id: einkaufId,
-        haushaltId,
+        haushaltId
       });
     }
-  },
+  }
 };
