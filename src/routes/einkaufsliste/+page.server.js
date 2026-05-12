@@ -31,6 +31,12 @@ function istGueltigeKategorie(kategorie) {
   return KATEGORIEN.includes(kategorie);
 }
 
+function bereinigeEinheit(einheit) {
+  const value = einheit?.toString().trim() ?? "";
+  if (!value) return "";
+  return value.slice(0, 30);
+}
+
 function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -56,6 +62,8 @@ export async function load({ cookies }) {
       ...item,
       _id: item._id.toString(),
       haushaltId: item.haushaltId?.toString?.() ?? null,
+      menge: item.menge ?? "",
+      einheit: item.einheit ?? "",
       kategorie: item.kategorie || null
     }))
   };
@@ -69,24 +77,41 @@ export const actions = {
     const form = await request.formData();
 
     const name = form.get("name")?.toString().trim();
-
-    // Wichtig:
-    // Direkt eingetragene Sachen bekommen keine Kategorie.
-    // Nur wenn aus dem Vorrat eine Kategorie mitgeschickt wird, wird sie gespeichert.
+    const menge = form.get("menge")?.toString().trim() ?? "";
+    const einheit = bereinigeEinheit(form.get("einheit"));
     const kategorie = form.get("kategorie")?.toString().trim() || null;
 
     if (!name) return;
-
     if (kategorie && !istGueltigeKategorie(kategorie)) return;
 
     const db = await getDb();
 
     const vorhandenesItem = await db.collection(COL_EINKAUF).findOne({
       haushaltId,
-      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") }
+      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") },
+      einheit
     });
 
     if (vorhandenesItem) {
+      const aktuelleMenge = parseInt(vorhandenesItem.menge, 10) || 0;
+      const neueMenge = parseInt(menge, 10) || 0;
+
+      if (neueMenge > 0) {
+        await db.collection(COL_EINKAUF).updateOne(
+          {
+            _id: vorhandenesItem._id,
+            haushaltId
+          },
+          {
+            $set: {
+              menge: (aktuelleMenge + neueMenge).toString(),
+              einheit,
+              kategorie: kategorie ?? vorhandenesItem.kategorie ?? null
+            }
+          }
+        );
+      }
+
       return { alreadyExists: true };
     }
 
@@ -94,6 +119,8 @@ export const actions = {
       haushaltId,
       name,
       normalizedName: normalizeName(name),
+      menge,
+      einheit,
       done: false,
       kategorie,
       createdAt: new Date()
@@ -150,7 +177,8 @@ export const actions = {
     const form = await request.formData();
 
     const name = form.get("name")?.toString().trim();
-    const menge = parseInt(form.get("menge")?.toString() ?? "1", 10);
+    const menge = parseInt(form.get("menge")?.toString() ?? "1", 10) || 1;
+    const einheit = bereinigeEinheit(form.get("einheit"));
     const kategorie = form.get("kategorie")?.toString().trim();
     const einkaufId = parseObjectId(form.get("einkaufId")?.toString());
 
@@ -161,7 +189,8 @@ export const actions = {
 
     const existing = await db.collection(COL_VORRAT).findOne({
       haushaltId,
-      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") }
+      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") },
+      einheit
     });
 
     if (existing) {
@@ -172,6 +201,7 @@ export const actions = {
         {
           $set: {
             menge: neueMenge.toString(),
+            einheit,
             kategorie
           }
         }
@@ -181,6 +211,7 @@ export const actions = {
         haushaltId,
         name,
         menge: menge.toString(),
+        einheit,
         kategorie,
         erstelltAm: new Date()
       });

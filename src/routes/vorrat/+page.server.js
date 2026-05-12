@@ -23,6 +23,12 @@ function istGueltigeKategorie(kategorie) {
   return KATEGORIEN.includes(kategorie);
 }
 
+function bereinigeEinheit(einheit) {
+  const value = einheit?.toString().trim() ?? "";
+  if (!value) return "";
+  return value.slice(0, 30);
+}
+
 function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -51,6 +57,7 @@ export async function load({ cookies }) {
         id: item._id.toString(),
         name: item.name,
         menge: (parseInt(item.menge) || 0).toString(),
+        einheit: item.einheit ?? "",
         kategorie: item.kategorie
       }))
       .sort(sortiereArtikel)
@@ -64,6 +71,7 @@ export const actions = {
 
     const name = data.get("name")?.toString().trim();
     const menge = data.get("menge")?.toString().trim() ?? "0";
+    const einheit = bereinigeEinheit(data.get("einheit"));
     const kategorie = data.get("kategorie")?.toString().trim();
 
     if (!name || !kategorie) {
@@ -80,7 +88,8 @@ export const actions = {
 
     const existing = await db.collection(COLLECTION).findOne({
       haushaltId,
-      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") }
+      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") },
+      einheit
     });
 
     if (existing) {
@@ -95,6 +104,7 @@ export const actions = {
         {
           $set: {
             menge: gesamtMenge.toString(),
+            einheit,
             kategorie
           }
         }
@@ -107,6 +117,7 @@ export const actions = {
       haushaltId,
       name,
       menge: neueMenge.toString(),
+      einheit,
       kategorie,
       erstelltAm: new Date()
     });
@@ -121,6 +132,7 @@ export const actions = {
     const id = data.get("id")?.toString();
     const name = data.get("name")?.toString().trim();
     const menge = data.get("menge")?.toString().trim() ?? "0";
+    const einheit = bereinigeEinheit(data.get("einheit"));
     const kategorie = data.get("kategorie")?.toString().trim();
 
     if (!id || !name || !kategorie) {
@@ -142,6 +154,7 @@ export const actions = {
         $set: {
           name,
           menge,
+          einheit,
           kategorie
         }
       }

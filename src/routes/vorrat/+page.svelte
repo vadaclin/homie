@@ -7,23 +7,50 @@
     "Getränke",
     "Haushalt",
     "Hygiene",
-    "Sonstiges"
+    "Sonstiges",
   ];
 
+  const EINHEITEN = [
+    { label: "Keine Angabe", value: "" },
+    { label: "Stück", value: "Stück" },
+    { label: "Pack", value: "Pack" },
+    { label: "Packung", value: "Packung" },
+    { label: "Flasche", value: "Flasche" },
+    { label: "Dose", value: "Dose" },
+    { label: "Glas", value: "Glas" },
+    { label: "Beutel", value: "Beutel" },
+    { label: "Rolle", value: "Rolle" },
+    { label: "Tube", value: "Tube" },
+    { label: "kg", value: "kg" },
+    { label: "Eigene Eingabe...", value: "__custom__" },
+  ];
+
+  const STANDARD_EINHEITEN = EINHEITEN.filter(
+    (option) => option.value && option.value !== "__custom__",
+  ).map((option) => option.value);
+
   let { data } = $props();
+
   let showAddModal = $state(false);
   let editArtikel = $state(null);
+
   let suche = $state("");
   let name = $state("");
-  let menge = $state("0");
+  let menge = $state("");
+  let einheitAuswahl = $state("");
+  let eigeneEinheit = $state("");
   let kategorie = $state(KATEGORIEN[0]);
+
+  let gespeicherteEinheit = $derived(
+    einheitAuswahl === "__custom__" ? eigeneEinheit.trim() : einheitAuswahl,
+  );
 
   let gefilterteArtikel = $derived(
     suche.trim() === ""
       ? data.artikel
       : data.artikel.filter((item) =>
-          item.name.toLowerCase().includes(suche.toLowerCase())
-        )
+          item.name.toLowerCase().includes(suche.toLowerCase()),
+        ),
   );
 
   let gruppiert = $derived(
@@ -31,7 +58,7 @@
       gruppen[item.kategorie] ??= [];
       gruppen[item.kategorie].push(item);
       return gruppen;
-    }, {})
+    }, {}),
   );
 
   let sortierteGruppen = $derived(
@@ -44,12 +71,14 @@
       if (indexB === -1) return -1;
 
       return indexA - indexB;
-    })
+    }),
   );
 
   function openAdd() {
     name = "";
-    menge = "0";
+    menge = "";
+    einheitAuswahl = "";
+    eigeneEinheit = "";
     kategorie = KATEGORIEN[0];
     showAddModal = true;
   }
@@ -59,11 +88,26 @@
     name = item.name;
     menge = item.menge;
     kategorie = item.kategorie;
+
+    if (!item.einheit) {
+      einheitAuswahl = "";
+      eigeneEinheit = "";
+    } else if (STANDARD_EINHEITEN.includes(item.einheit)) {
+      einheitAuswahl = item.einheit;
+      eigeneEinheit = "";
+    } else {
+      einheitAuswahl = "__custom__";
+      eigeneEinheit = item.einheit;
+    }
   }
 
   function closeModals() {
     showAddModal = false;
     editArtikel = null;
+  }
+
+  function mengeLabel(item) {
+    return item.einheit ? `${item.menge} ${item.einheit}` : item.menge;
   }
 </script>
 
@@ -75,18 +119,56 @@
 
   <div class="add-card">
     <input class="suche" bind:value={suche} placeholder="Artikel suchen..." />
-    <button type="button" onclick={openAdd} aria-label="Artikel hinzufügen">+</button>
+    <button type="button" onclick={openAdd} aria-label="Artikel hinzufügen"
+      >+</button
+    >
   </div>
 
   {#if showAddModal}
     <div class="overlay" onclick={closeModals}></div>
 
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="add-title">
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-title"
+    >
       <form method="POST" action="?/add">
         <h2 id="add-title">Artikel hinzufügen</h2>
 
-        <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
-        <input name="menge" bind:value={menge} placeholder="0" inputmode="numeric" />
+        <input
+          name="name"
+          bind:value={name}
+          placeholder="z. B. Nudeln"
+          required
+        />
+
+        <div class="menge-row">
+          <input
+            name="menge"
+            bind:value={menge}
+            placeholder="Anzahl"
+            inputmode="numeric"
+          />
+
+          <div class="select-wrapper">
+            <select bind:value={einheitAuswahl} aria-label="Einheit optional">
+              {#each EINHEITEN as option}
+                <option value={option.value}>{option.label}</option>
+              {/each}
+            </select>
+          </div>
+        </div>
+
+        {#if einheitAuswahl === "__custom__"}
+          <input
+            bind:value={eigeneEinheit}
+            placeholder="Eigene Einheit, z. B. Karton"
+            maxlength="30"
+          />
+        {/if}
+
+        <input type="hidden" name="einheit" value={gespeicherteEinheit} />
 
         <div class="select-wrapper">
           <select name="kategorie" bind:value={kategorie}>
@@ -97,7 +179,9 @@
         </div>
 
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
+          <button type="button" class="secondary" onclick={closeModals}
+            >Abbrechen</button
+          >
           <button type="submit">Speichern</button>
         </div>
       </form>
@@ -107,13 +191,50 @@
   {#if editArtikel}
     <div class="overlay" onclick={closeModals}></div>
 
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-title">
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="edit-title"
+    >
       <form method="POST" action="?/update">
         <h2 id="edit-title">Artikel bearbeiten</h2>
 
         <input type="hidden" name="id" value={editArtikel.id} />
-        <input name="name" bind:value={name} placeholder="z. B. Nudeln" required />
-        <input name="menge" bind:value={menge} placeholder="0" inputmode="numeric" />
+
+        <input
+          name="name"
+          bind:value={name}
+          placeholder="z. B. Nudeln"
+          required
+        />
+
+        <div class="menge-row">
+          <input
+            name="menge"
+            bind:value={menge}
+            placeholder="Anzahl"
+            inputmode="numeric"
+          />
+
+          <div class="select-wrapper">
+            <select bind:value={einheitAuswahl} aria-label="Einheit optional">
+              {#each EINHEITEN as option}
+                <option value={option.value}>{option.label}</option>
+              {/each}
+            </select>
+          </div>
+        </div>
+
+        {#if einheitAuswahl === "__custom__"}
+          <input
+            bind:value={eigeneEinheit}
+            placeholder="Eigene Einheit, z. B. Karton"
+            maxlength="30"
+          />
+        {/if}
+
+        <input type="hidden" name="einheit" value={gespeicherteEinheit} />
 
         <div class="select-wrapper">
           <select name="kategorie" bind:value={kategorie}>
@@ -124,7 +245,9 @@
         </div>
 
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeModals}>Abbrechen</button>
+          <button type="button" class="secondary" onclick={closeModals}
+            >Abbrechen</button
+          >
           <button type="submit">Speichern</button>
         </div>
       </form>
@@ -154,7 +277,11 @@
 
           {#each items as item (item.id)}
             <div class="item" class:low={parseInt(item.menge) === 1}>
-              <button class="edit-btn" onclick={() => openEdit(item)} aria-label="Bearbeiten">✎</button>
+              <button
+                class="edit-btn"
+                onclick={() => openEdit(item)}
+                aria-label="Bearbeiten">✎</button
+              >
 
               <strong class:low-text={parseInt(item.menge) === 1}>
                 {item.name}
@@ -168,7 +295,7 @@
                 </form>
 
                 <span class="menge" class:low-text={parseInt(item.menge) === 1}>
-                  {item.menge}
+                  {mengeLabel(item)}
                 </span>
 
                 <form method="POST" action="?/updateMenge">
@@ -183,13 +310,20 @@
                   method="POST"
                   action="/einkaufsliste?/add"
                   class="einkauf-form"
-                  use:enhance={() => async ({ update }) => {
-                    await update({ reset: false });
-                  }}
+                  use:enhance={() =>
+                    async ({ update }) => {
+                      await update({ reset: false });
+                    }}
                 >
                   <input type="hidden" name="name" value={item.name} />
-                  <input type="hidden" name="kategorie" value={item.kategorie} />
-                  <button type="submit" class="einkauf-btn">+ Einkaufsliste</button>
+                  <input
+                    type="hidden"
+                    name="kategorie"
+                    value={item.kategorie}
+                  />
+                  <button type="submit" class="einkauf-btn"
+                    >+ Einkaufsliste</button
+                  >
                 </form>
               {/if}
             </div>
@@ -203,8 +337,7 @@
 <style>
   .page {
     padding: 3rem 7%;
-    background:
-      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+    background: radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);
@@ -296,17 +429,36 @@
 
   .modal input,
   .modal select {
+    width: 100%;
+    box-sizing: border-box;
     padding: 1rem;
     border-radius: 18px;
     border: 1.5px solid #e8e2dd;
     font: inherit;
     outline: none;
+    background: white;
   }
 
   .modal input:focus,
   .modal select:focus {
     border-color: #d97757;
     box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
+  }
+
+  .menge-row {
+    display: flex;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .menge-row > input {
+    flex: 0.85;
+    min-width: 0;
+  }
+
+  .menge-row > .select-wrapper {
+    flex: 1.15;
+    min-width: 0;
   }
 
   .select-wrapper {
@@ -318,6 +470,7 @@
     width: 100%;
     background: white;
     cursor: pointer;
+    padding-right: 2.4rem;
   }
 
   .select-wrapper::after {
@@ -460,10 +613,11 @@
   }
 
   .menge {
-    min-width: 1.5rem;
+    min-width: 2.8rem;
     text-align: center;
     font-weight: 700;
     color: #8f8179;
+    white-space: nowrap;
   }
 
   .menge-btn {
@@ -517,6 +671,10 @@
 
     .add-card {
       border-radius: 24px;
+    }
+
+    .menge-row {
+      flex-direction: column;
     }
   }
 </style>
