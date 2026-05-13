@@ -22,27 +22,39 @@
 <!-- Diese Vorlage ist für eine README.md im Repository gedacht. Abschnitte mit [Optional] können weggelassen werden, wenn in den Übungen nichts anderes verlangt wird. -->
 
 ## 1. Ausgangslage
-Viele Menschen verlieren im Alltag den Überblick darüber, welche Produkte zuhause noch vorhanden sind. Besonders in WGs, Familien oder gemeinsamen Haushalten werden Lebensmittel, Putzmittel oder Alltagsprodukte oft doppelt gekauft oder vergessen. Einkaufslisten entstehen häufig über WhatsApp oder mündliche Absprachen, wodurch Informationen schnell verloren gehen. Das führt zu unnötigen Kosten, mehr Abfall und Stress beim Einkaufen.
-- **Problem:** Es fehlt eine einfache, gemeinsame Lösung, um Vorräte und Einkaufslisten übersichtlich zu organisieren. Dadurch kommt es zu Doppelkäufen, fehlenden Produkten und unnötiger Verschwendung.
-- **Ziele:** Eine intuitive Web-App entwickeln, die es ermöglicht, Vorräte und Einkaufslisten gemeinsam zu verwalten. Ziel ist es, den Überblick im Haushalt zu verbessern, Doppelkäufe zu vermeiden, Lebensmittelverschwendung zu reduzieren und die Kommunikation innerhalb eines Haushalts zu vereinfachen.
-- **Primäre Zielgruppe:** Personen in gemeinsamen Haushalten wie WGs, Paare und Familien, die ihren Alltag besser organisieren möchten. Auch Einzelpersonen können die App nutzen, um ihren eigenen Vorrat im Blick zu behalten. 
-- **Weitere Stakeholder [Optional]:** _[z. B. Verwaltung, Geschäftsleitung]_  
+Viele Menschen verlieren im Alltag schnell den Überblick darüber, welche Produkte zuhause noch vorhanden sind, was bald aufgebraucht ist und was beim nächsten Einkauf wirklich benötigt wird. Das betrifft nicht nur WGs, Paare oder Familien, sondern auch Einzelpersonen, die ihren Haushalt selbst organisieren. Einkaufslisten entstehen häufig über WhatsApp, mündliche Absprachen, Notizen oder im Kopf. Dadurch gehen Informationen schnell verloren, Produkte werden doppelt gekauft oder wichtige Dinge fehlen beim Einkauf.
+Die Web-App Homie setzt genau hier an: Sie unterstützt sowohl Einzelpersonen als auch gemeinsame Haushalte dabei, Vorräte, Einkaufslisten, To-do’s und das Wochenmenü übersichtlich zu organisieren. So wird der Alltag besser strukturiert, Einkäufe können gezielter geplant werden und alle wichtigen Haushaltsinformationen sind an einem zentralen Ort verfügbar.
+
+- **Problem:** Es fehlt eine einfache, zentrale Lösung, mit der Einzelpersonen und gemeinsame Haushalte Vorräte, Einkaufslisten, Aufgaben und Mahlzeiten planen können. Dadurch entstehen Doppelkäufe, vergessene Produkte, unklare Absprachen und unnötige Verschwendung.
+- **Ziele:** Ziel ist die Entwicklung einer intuitiven Web-App, mit der Nutzerinnen und Nutzer ihre Vorräte verwalten, Einkaufslisten erstellen, To-do’s organisieren und ein Wochenmenü planen können. Die App soll helfen, den Überblick im Alltag zu verbessern, Einkäufe gezielter zu planen, Lebensmittelverschwendung zu reduzieren und die Haushaltsorganisation zu vereinfachen.
+- **Primäre Zielgruppe:** Die App richtet sich an Einzelpersonen sowie an Personen in gemeinsamen Haushalten wie WGs, Paare und Familien, die ihren Alltag besser organisieren möchten. Homie eignet sich somit für alle, die Vorräte, Einkäufe, Aufgaben und Mahlzeiten übersichtlich planen möchten.
 
 
 ## 2. Lösungsidee
-Die entwickelte Web-App „Homie“ ermöglicht es, Vorräte und Einkaufslisten innerhalb eines Haushalts einfach und gemeinsam zu verwalten. Über einen vierstelligen Haushalts-Code können mehrere Personen auf dieselben Daten zugreifen, ohne ein Benutzerkonto erstellen zu müssen. Dadurch wird die Nutzung bewusst einfach gehalten und der Einstieg erleichtert.
+Die entwickelte Web-App Homie ermöglicht es, Vorräte, Einkaufslisten, To-do’s und Wochenmenüs einfach und übersichtlich zu verwalten. Die App kann sowohl von Einzelpersonen als auch von mehreren Personen in einem gemeinsamen Haushalt genutzt werden. Über einen vierstelligen Haushalts-Code können Nutzerinnen und Nutzer einem Haushalt beitreten oder einen neuen Haushalt erstellen, ohne ein Benutzerkonto anlegen zu müssen. Dadurch bleibt der Einstieg bewusst unkompliziert und alltagstauglich.
+Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen Ort. Nutzerinnen und Nutzer können ihren Vorrat erfassen, Produkte nach Kategorien anzeigen lassen, Artikel auf die Einkaufsliste setzen und erledigte Einkäufe wieder in den Vorrat übernehmen. Zusätzlich unterstützt die App mit einer To-do-Liste und einem Wochenmenüplan die Planung des Haushaltsalltags.
 - **Kernfunktionalität:**
-    - Eingabe eines vierstelligen Haushalts-Codes zum Beitreten oder Erstellen eines Haushalts
-    - Gemeinsame Verwaltung von Vorräten (Artikel hinzufügen, anzeigen und löschen)
+    - Nutzung ohne klassisches Benutzerkonto oder Login
+    - Verwaltung von Vorräten mit Artikelname, Menge, Einheit und Kategorie
     - Gruppierung der Vorräte nach Kategorien
-    - Gemeinsame Einkaufsliste mit Hinzufügen, Abhaken und Löschen von Artikeln
-    - Automatische Synchronisation innerhalb eines Haushalts (alle sehen denselben Stand)  
-- **Annahmen [Optional]:**
-    - Eine einfache Lösung ohne Login wird eher genutzt als komplexe Systeme
-    - Nutzer bevorzugen eine schnelle und unkomplizierte Bedienung
-    - Ein gemeinsamer Code reicht aus, um Haushalte voneinander zu trennen
-    - Die App wird hauptsächlich mobil oder nebenbei im Alltag genutzt
-- **Abgrenzung [Optional]:**
+    - Markierung von Artikeln, die bald leer sind
+    - Übernahme von Artikeln aus dem Vorrat in die Einkaufsliste
+    - Gemeinsame Einkaufsliste mit Hinzufügen, Anzeigen, Löschen und Übernehmen von Artikeln in den Vorrat
+    - Speicherung von Mengenangaben und Einheiten wie Stück, Pack, kg, g, Liter oder eigener Angabe
+    - To-do-Liste für Aufgaben im Haushalt
+    - Wochenmenüplan mit Einträgen pro Wochentag
+    - Möglichkeit, mehrere Menüeinträge pro Tag zu erfassen
+    - Verschieben von Menüeinträgen per Drag & Drop
+    - Automatische Speicherung der Daten in der Datenbank
+    -  Automatische Synchronisation innerhalb eines Haushalts (alle sehen denselben Stand)  
+- **Annahmen:**
+    - Eine einfache Lösung ohne komplexen Login wird eher genutzt als umfangreiche Systeme
+    - Nutzerinnen und Nutzer bevorzugen eine schnelle, intuitive und mobile Bedienung
+    - Ein gemeinsamer Haushalts-Code reicht aus, um Haushalte voneinander zu trennen
+    - Die App wird hauptsächlich im Alltag nebenbei genutzt, zum Beispiel beim Einkaufen, Kochen oder Planen
+    - Eine klare visuelle Struktur hilft dabei, den Überblick über Vorräte, Einkäufe und Aufgaben zu behalten
+    - Die Kombination aus Vorrat, Einkaufsliste, To-do’s und Wochenmenü deckt zentrale Bedürfnisse der Haushaltsorganisation ab
+- **Abgrenzung:**
     - Keine Benutzerkonten oder Login-Systeme
     - Keine detaillierte Rechteverwaltung (alle im Haushalt haben dieselben Rechte)
     - Keine automatische Erkennung von Produkten oder Barcode-Scan
@@ -50,46 +62,54 @@ Die entwickelte Web-App „Homie“ ermöglicht es, Vorräte und Einkaufslisten 
     - Fokus liegt auf einfacher Funktionalität, nicht auf Vollständigkeit
 
 ## 3. Vorgehen & Artefakte
-Die Entwicklung des Projekts erfolgte in mehreren Phasen. Zuerst wurde das Problem im Alltag analysiert. Danach wurden mögliche Lösungsansätze skizziert, bewertet und schliesslich als Prototyp umgesetzt.
-Das Vorgehen orientierte sich an einem Design-Thinking-ähnlichen Prozess. Dabei standen die Bedürfnisse der Nutzerinnen und Nutzer im Mittelpunkt. Ziel war es, eine Lösung zu entwickeln, die nicht nur technisch funktioniert, sondern auch im Alltag verständlich und nützlich ist.
+Die Entwicklung des Projekts erfolgte in mehreren Phasen. Zu Beginn wurde das Problem der Haushaltsorganisation im Alltag analysiert. Ursprünglich lag der Fokus der Idee auf zwei zentralen Funktionen: der Verwaltung von Vorräten und einer gemeinsamen Einkaufsliste. Damit sollte zuerst das Kernproblem gelöst werden, nämlich den Überblick über vorhandene Produkte und benötigte Einkäufe zu verbessern.
+Während der Weiterentwicklung wurde deutlich, dass Haushaltsorganisation mehr umfasst als nur Vorräte und Einkäufe. Deshalb wurde die App schrittweise erweitert. Es kamen ein Dashboard als zentrale Übersichtsseite, eine To-do-Liste für Aufgaben im Haushalt sowie ein Wochenmenüplan zur Essensplanung hinzu. Dadurch entwickelte sich Homie von einer einfachen Vorrats- und Einkaufslisten-App zu einer umfassenderen Lösung für die alltägliche Organisation im Haushalt.
+Anschliessend wurden die Funktionen schrittweise als Prototyp umgesetzt und laufend angepasst. Im Fokus standen eine einfache Bedienung, eine klare visuelle Struktur und die Möglichkeit, die App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen.
+Das Vorgehen orientierte sich an einem Design-Thinking-ähnlichen Prozess. Dabei standen die Bedürfnisse der Nutzerinnen und Nutzer im Mittelpunkt. Ziel war es, eine Lösung zu entwickeln, die nicht nur technisch funktioniert, sondern auch im Alltag verständlich, schnell nutzbar und hilfreich ist.
 
 ### 3.1 Understand & Define
-**Zielgruppenverständnis:** In der ersten Phase wurde untersucht, in welchen Alltagssituationen Menschen den Überblick über ihre Haushaltsprodukte verlieren. Dabei zeigte sich, dass das Problem nicht nur in gemeinsamen Haushalten vorkommt.
-Bei Einzelpersonen entsteht das Problem häufig dadurch, dass Einkäufe spontan geplant werden und vorhandene Produkte nicht bewusst überprüft werden. Man kauft zum Beispiel ein Produkt nochmals, obwohl es zuhause noch vorhanden ist, oder vergisst wichtige Dinge, weil keine aktuelle Einkaufsliste geführt wird.
-In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Personen Produkte verbrauchen oder einkaufen. Dadurch entstehen Missverständnisse: Eine Person geht davon aus, dass ein Produkt noch vorhanden ist, während eine andere es bereits aufgebraucht hat. Einkaufslisten werden oft über verschiedene Kanäle geführt, wodurch der aktuelle Stand nicht für alle klar ersichtlich ist.
+**Zielgruppenverständnis:** In der ersten Phase wurde untersucht, in welchen Alltagssituationen Menschen den Überblick über ihre Haushaltsorganisation verlieren. Dabei zeigte sich, dass das Problem nicht nur gemeinsame Haushalte betrifft, sondern auch Einzelpersonen. Neben Vorräten und Einkaufslisten spielen im Alltag auch Aufgaben im Haushalt und die Essensplanung eine wichtige Rolle.
+Bei Einzelpersonen entsteht das Problem häufig dadurch, dass Einkäufe spontan geplant werden und vorhandene Produkte nicht bewusst überprüft werden. Man kauft zum Beispiel ein Produkt nochmals, obwohl es zuhause noch vorhanden ist, oder vergisst wichtige Dinge, weil keine aktuelle Einkaufsliste geführt wird. Auch Aufgaben oder geplante Mahlzeiten werden oft nur im Kopf behalten oder auf einzelnen Notizen festgehalten.
+In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Personen Produkte verbrauchen, einkaufen oder Aufgaben übernehmen. Dadurch entstehen Missverständnisse: Eine Person geht davon aus, dass ein Produkt noch vorhanden ist, während eine andere es bereits aufgebraucht hat. Einkaufslisten oder Aufgaben werden oft über verschiedene Kanäle geführt, zum Beispiel über WhatsApp oder mündliche Absprachen. Dadurch ist der aktuelle Stand nicht für alle klar ersichtlich.
 
 **Proto-Persona 1: Einzelperson**
 Name: Thomas
-Alter: 35 Jahre
+Alter: 39 Jahre
 Situation: Lebt alleine in einer Wohnung
-Bedürfnis: Thomas möchte beim Einkaufen besser wissen, welche Produkte er noch zuhause hat.
-Problem: Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt.
-Ziel: Eine einfache App nutzen, mit der er Vorräte und fehlende Produkte schnell erfassen kann.
+Bedürfnis: Thomas möchte beim Einkaufen besser wissen, welche Produkte er noch zuhause hat, welche Aufgaben anstehen und was er in der Woche kochen möchte.
+Problem: Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt. Zusätzlich plant er Mahlzeiten spontan und verliert dadurch manchmal den Überblick über vorhandene Lebensmittel.
+Ziel: Eine einfache App nutzen, mit der er Vorräte, fehlende Produkte, Aufgaben und Mahlzeiten schnell erfassen kann.
 
 **Proto-Persona 2: Gemeinsamer Haushalt**
 Name: Lara
 Alter: 24 Jahre
 Situation: Lebt in einer WG mit drei Mitbewohnerinnen und Mitbewohnern
-Bedürfnis: Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind und was noch gekauft werden muss.
-Problem: In ihrer WG werden Einkaufslisten oft über WhatsApp geführt. Dadurch gehen Nachrichten unter oder Produkte werden mehrfach gekauft.
-Ziel: Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand sehen.
+Bedürfnis: Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind, was noch gekauft werden muss, welche Aufgaben offen sind und welche Mahlzeiten geplant sind.
+Problem: In ihrer WG werden Einkaufslisten und Aufgaben oft über WhatsApp geführt. Dadurch gehen Nachrichten unter, Produkte werden mehrfach gekauft oder Aufgaben bleiben unklar verteilt.
+Ziel: Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand zu Vorräten, Einkaufsliste und Aufgaben sehen.
 
 **Wesentliche Erkenntnisse:**
-- Die App muss für Einzelpersonen und Gruppen funktionieren.
-- Die Bedienung muss sehr einfach sein.
-- Ein Login könnte für eine kleine Haushalts-App unnötig kompliziert wirken.
-- Eine gemeinsame Nutzung über einen Code senkt die Einstiegshürde.
-- Vorräte und Einkaufsliste sollten klar getrennt sein.
-- Kategorien verbessern die Übersichtlichkeit.
-- Die App sollte auch auf mobilen Geräten gut nutzbar sein.
-- Der Fokus soll auf Alltagstauglichkeit liegen.
-- Wenige, gut funktionierende Kernfunktionen sind wichtiger als viele Zusatzfunktionen.
+    - Die App muss sowohl für Einzelpersonen als auch für gemeinsame Haushalte funktionieren.
+    - Die Bedienung muss sehr einfach und schnell verständlich sein.
+    - Ein klassischer Login könnte für eine kleine Haushalts-App unnötig kompliziert wirken.
+    - Eine gemeinsame Nutzung über einen Haushalts-Code senkt die Einstiegshürde.
+    - Vorräte, Einkaufsliste und To-do’s sollten in gemeinsamen Haushalten zentral und für alle sichtbar sein.
+    - Der Wochenmenüplan ist besonders für Einzelpersonen oder Haushalte sinnvoll, in denen gemeinsam geplant wird.
+    - In WGs kann der Wochenmenüplan weniger relevant sein, da viele Personen ihre Mahlzeiten individuell planen.
+    - Vorräte und Einkaufsliste sollten klar voneinander getrennt sein.
+    - Kategorien verbessern die Übersichtlichkeit im Vorrat.
+    - Mengenangaben und Einheiten sind wichtig, damit Artikel genauer erfasst werden können.
+    - Die App sollte besonders auf mobilen Geräten gut nutzbar sein.
+    - Der Fokus soll auf Alltagstauglichkeit liegen.
+    - Wenige, gut funktionierende Kernfunktionen sind wichtiger als zu viele komplexe Zusatzfunktionen.
 
 ### 3.2 Sketch
-**Variantenüberblick:** In der Sketch-Phase wurden verschiedene Möglichkeiten überlegt, wie die App aufgebaut sein könnte. Dabei wurde besonders darauf geachtet, dass die App sowohl für Einzelpersonen als auch für gemeinsame Haushalte verständlich bleibt.
+**Variantenüberblick:** In der Sketch-Phase wurden verschiedene Möglichkeiten überlegt, wie die App aufgebaut sein könnte. Dabei wurde besonders darauf geachtet, dass die App sowohl für Einzelpersonen als auch für gemeinsame Haushalte verständlich bleibt. Zu Beginn lag der Fokus auf Vorräten und Einkaufsliste. Später wurde die Idee erweitert, sodass auch ein Dashboard, To-do’s und ein Wochenmenüplan berücksichtigt wurden.
 
 **Variante 1: Einfache Listenansicht**
 In dieser Variante werden alle Artikel in einer einfachen Liste dargestellt. Nutzerinnen und Nutzer können Produkte hinzufügen und löschen.
+
+BILD
 
 **Vorteile:**
 - Sehr einfach verständlich
@@ -100,9 +120,12 @@ In dieser Variante werden alle Artikel in einer einfachen Liste dargestellt. Nut
 - Bei vielen Produkten schnell unübersichtlich
 - Keine klare Trennung zwischen Vorräten und Einkaufsliste
 - Für gemeinsame Haushalte weniger strukturiert
+- Keine zentrale Übersicht über Aufgaben oder Planung
 
 **Variante 2: Getrennte Bereiche für Vorrat und Einkaufsliste**
 Diese Variante trennt die App in zwei Hauptbereiche: Vorräte und Einkaufsliste. Dadurch ist klar ersichtlich, welche Produkte bereits vorhanden sind und welche noch gekauft werden müssen.
+
+BILD
 
 **Vorteile:**
 - Gute Übersicht
@@ -114,14 +137,18 @@ Diese Variante trennt die App in zwei Hauptbereiche: Vorräte und Einkaufsliste.
 - Etwas mehr Navigation notwendig als bei einer einzigen Liste
 
 **Variante 3: Haushalts-Dashboard mit Code-Zugang**
-Bei dieser Variante gelangen Nutzerinnen und Nutzer zuerst über einen vierstelligen Code in ihren Haushalt. Danach sehen sie eine übersichtliche Ansicht mit den Bereichen Vorräte und Einkaufsliste.
+Diese Variante trennt die App in zwei Hauptbereiche: Vorräte und Einkaufsliste. Dadurch ist klar ersichtlich, welche Produkte bereits vorhanden sind und welche noch gekauft werden müssen.
+
+BILD
 
 **Vorteile:**
 - Gemeinsame Nutzung ohne Login möglich
 - Auch Einzelpersonen können einen eigenen Haushalt verwenden
 - Klare Trennung der Funktionen
+- Zentrale Übersicht über Haushalt, Einkauf, Aufgaben und Planung
 - Einfacher Einstieg
 - Gut erweiterbar
+- Unterstützt unterschiedliche Nutzungssituationen, zum Beispiel Einzelperson, Paar, Familie oder WG
 
 **Nachteile:**
 - Der Code muss bekannt sein oder gemerkt werden
@@ -131,26 +158,34 @@ Bei dieser Variante gelangen Nutzerinnen und Nutzer zuerst über einen vierstell
 Für die App wurden mehrere grobe Skizzen erstellt. Die wichtigsten Ansichten waren:
 - Startseite mit Eingabe eines Haushalts-Codes
 - Übersicht nach dem Beitritt zu einem Haushalt
+- Dashboard mit Zusammenfassung von Einkaufsliste, bald leeren Artikeln, To-do’s und Wochenmenü
 - Vorratsansicht mit Kategorien
-- Formular zum Hinzufügen neuer Produkte
-- Einkaufsliste mit Abhak-Funktion
+- Formular zum Hinzufügen neuer Produkte mit Menge, Einheit und Kategorie
+- Einkaufsliste mit Mengenangaben und Möglichkeit zur Übernahme in den Vorrat
+- To-do-Liste für Aufgaben im Haushalt
+- Wochenmenüplan mit Einträgen pro Wochentag
 - Möglichkeit zum Löschen erledigter oder falscher Einträge
-Die Skizzen halfen dabei, die Struktur der App früh zu überprüfen. Besonders wichtig war, dass die Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen und wo sie fehlende Artikel eintragen können.
+
+Die Skizzen halfen dabei, die Struktur der App früh zu überprüfen. Besonders wichtig war, dass Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen, fehlende Artikel eintragen, Aufgaben erfassen und Mahlzeiten planen können.
 
 ### 3.3 Decide
-- **Gewählte Variante & Begründung:** Nach dem Vergleich der verschiedenen Varianten wurde die Variante "Haushalts-Dashboard mit Code-Zugang" ausgewählt. Diese Lösung verbindet die Vorteile einer einfachen Bedienung mit der Möglichkeit, die App gemeinsam in einem Haushalt zu nutzen. Der vierstellige Haushalts-Code wurde gewählt, weil dadurch kein klassisches Login-System notwendig ist. Das senkt die Einstiegshürde und macht die App besonders schnell nutzbar.
+- **Gewählte Variante & Begründung:** Nach dem Vergleich der verschiedenen Varianten wurde die Variante „Haushalts-Dashboard mit Code-Zugang“ ausgewählt. Diese Lösung verbindet eine einfache Bedienung mit der Möglichkeit, die App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen. Der vierstellige Haushalts-Code wurde gewählt, weil dadurch kein klassisches Login-System notwendig ist. Das senkt die Einstiegshürde und macht die App besonders schnell nutzbar.
 
 Die Entscheidung fiel auf diese Variante, weil sie die wichtigsten Anforderungen des Projekts am besten erfüllt:
 - einfache Nutzung ohne Registrierung
-- gemeinsamer Zugriff für mehrere Personen
-- klare Trennung zwischen Vorräten und Einkaufsliste
-- gute Übersicht durch Kategorien
+- Nutzung für Einzelpersonen und gemeinsame Haushalte
+- gemeinsamer Zugriff für mehrere Personen über denselben Haushalts-Code
+- klare Trennung zwischen Vorräten, Einkaufsliste, To-do’s und Wochenmenü
+- gute Übersicht durch Kategorien im Vorrat
+- zentrale Startansicht durch das Dashboard
 - einfache Erweiterbarkeit für spätere Funktionen
 - geeignet für mobile Nutzung im Alltag
 
-- **End-to-End-Ablauf:** Der typische Ablauf beginnt damit, dass eine Nutzerin oder ein Nutzer die Web-App öffnet. Auf der Startseite wird ein vierstelliger Haushalts-Code eingegeben. Falls der Haushalt bereits existiert, tritt die Person diesem Haushalt bei. Falls die Person noch keinen Code hat, muss zuerst ein neuer Haushalt erstellt werden.
-Nach dem Beitritt gelangt die Person zur Hauptansicht, dem Dashboard. Dort sind die wichtigsten Bereiche sichtbar: Vorräte, Einkaufsliste und To-do-Liste. Im Vorratsbereich können vorhandene Produkte mit Namen, Kategorie und Anzahl hinzugefügt werden. Die Produkte werden danach übersichtlich angezeigt und können bei Bedarf wieder gelöscht werden.
-Wenn die Anzahl eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur Einkaufsliste hinzugefügt werden. Wird der Artikel in der Einkaufsliste abgehakt, kann er wieder dem Vorrat hinzugefügt werden. Dadurch bleibt der aktuelle Stand des Haushalts übersichtlich und einfach nachvollziehbar.
+- **End-to-End-Ablauf:** Der typische Ablauf beginnt damit, dass eine Nutzerin oder ein Nutzer die Web-App öffnet. Auf der Startseite wird ein vierstelliger Haushalts-Code eingegeben. Falls der Haushalt bereits existiert, tritt die Person diesem Haushalt bei. Falls noch kein Code vorhanden ist, kann ein neuer Haushalt erstellt werden.
+Nach dem Beitritt gelangt die Person zur Hauptansicht, dem Dashboard. Dort sind die wichtigsten Bereiche sichtbar: To-do’s, Einkaufsliste, bald leere Vorratsartikel und der Wochenmenüplan. Von dort aus kann die Person in die einzelnen Bereiche wechseln.
+Im Vorratsbereich können vorhandene Produkte mit Namen, Menge, Einheit und Kategorie hinzugefügt werden. Die Produkte werden nach Kategorien gruppiert angezeigt. Wenn die Menge eines Vorratsprodukts auf 1 sinkt, wird es als bald leer erkennbar und kann mit einem Klick zur Einkaufsliste hinzugefügt werden.
+In der Einkaufsliste können fehlende Produkte eingetragen, angezeigt, gelöscht und nach dem Einkauf wieder in den Vorrat übernommen werden. Dabei werden Mengenangaben und Einheiten mitgeführt, sodass die Informationen nicht erneut eingegeben werden müssen.
+Zusätzlich können in der To-do-Liste Haushaltsaufgaben erfasst und erledigt werden. Der Wochenmenüplan ermöglicht es, Mahlzeiten für einzelne Wochentage einzutragen. Pro Tag können auch mehrere Menüeinträge erfasst und per Drag & Drop verschoben werden. Dadurch unterstützt die App nicht nur den Einkauf, sondern auch die Planung des Haushaltsalltags.
 
 **User Journey:** 
 1. Nutzerin oder Nutzer öffnet die Web-App.
@@ -158,14 +193,20 @@ Wenn die Anzahl eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur E
 3. Falls der Haushalt bereits existiert, tritt die Person diesem Haushalt bei.
 4. Falls noch kein Code vorhanden ist, erstellt die Person zuerst einen neuen Haushalt.
 5. Nach dem Beitritt gelangt die Person zum Dashboard.
-6. Im Dashboard sieht die Person die Bereiche Vorräte, Einkaufsliste und To-do-Liste.
-7. Im Vorratsbereich können Produkte mit Name, Kategorie und Anzahl hinzugefügt werden.
-8. Die vorhandenen Produkte werden übersichtlich angezeigt und können bei Bedarf gelöscht werden.
-9. Wenn die Anzahl eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur Einkaufsliste hinzugefügt werden.
-10. In der Einkaufsliste können fehlende Produkte angezeigt, abgehakt oder gelöscht werden.
-11. Wenn ein Produkt in der Einkaufsliste abgehakt wird, kann es wieder dem Vorrat hinzugefügt werden.
-12. In der To-do-Liste können zusätzliche Haushaltsaufgaben eingetragen werden.
-13. Alle Personen im Haushalt sehen denselben aktuellen Stand und können gemeinsam Vorräte, Einkäufe und Aufgaben verwalten.
+6. Im Dashboard sieht die Person eine Übersicht über To-do’s, Einkaufsliste, bald leere Artikel und Wochenmenü.
+7. Im Vorratsbereich können Produkte mit Name, Menge, Einheit und Kategorie hinzugefügt werden.
+8. Die vorhandenen Produkte werden nach Kategorien gruppiert angezeigt.
+9. Produkte können bearbeitet, gelöscht oder in ihrer Menge angepasst werden.
+10. Wenn die Menge eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur Einkaufsliste hinzugefügt werden.
+11. In der Einkaufsliste können fehlende Produkte hinzugefügt, angezeigt oder gelöscht werden.
+12. Nach dem Einkauf kann ein Produkt aus der Einkaufsliste wieder in den Vorrat übernommen werden.
+13. Mengenangaben und Einheiten werden dabei übernommen.
+14. In der To-do-Liste können Haushaltsaufgaben eingetragen und erledigt werden.
+15. Im Wochenmenüplan können Mahlzeiten pro Wochentag eingetragen werden.
+16. Pro Tag können mehrere Menüeinträge erstellt werden.
+17. Menüeinträge können per Drag & Drop zwischen Tagen verschoben werden.
+18. Alle Daten werden automatisch in der Datenbank gespeichert.
+19. Alle Personen im Haushalt sehen denselben aktuellen Stand und können gemeinsam Vorräte, Einkäufe und Aufgaben verwalten.
 
 **Mockup:**
 
@@ -173,19 +214,19 @@ Wenn die Anzahl eines Vorratsprodukts auf 1 sinkt, kann es mit einem Klick zur E
 ### 3.4 Prototype
 
 #### 3.4.1. Entwurf (Design)
-Der Prototyp von Homie wurde so gestaltet, dass die wichtigsten Funktionen schnell verständlich und einfach erreichbar sind. Der Fokus liegt auf einer klaren Struktur, damit Nutzerinnen und Nutzer ohne lange Erklärung wissen, wo sie Vorräte, Einkaufslisten und Aufgaben verwalten können.
-**Informationsarchitektur:** Die App ist in wenige zentrale Bereiche aufgeteilt. Nach dem Öffnen der Web-App gelangen Nutzerinnen und Nutzer zuerst zur Startseite. Dort können sie entweder einen bestehenden vierstelligen Haushalts-Code eingeben oder einen neuen Haushalt erstellen.
-
-Nach dem Beitritt zu einem Haushalt öffnet sich das Dashboard. Dieses bildet die Hauptansicht der App. Von dort aus sind die wichtigsten Bereiche erreichbar:
+Der Prototyp von Homie wurde so gestaltet, dass die wichtigsten Funktionen schnell verständlich und einfach erreichbar sind. Der Fokus liegt auf einer klaren Struktur, einer einfachen Bedienung und einer alltagstauglichen Nutzung auf Desktop und mobilen Geräten. Nutzerinnen und Nutzer sollen ohne lange Erklärung verstehen, wo sie Vorräte, Einkaufslisten, Aufgaben und das Wochenmenü verwalten können.
+**Informationsarchitektur:**  Die App ist in wenige zentrale Bereiche aufgeteilt. Nach dem Öffnen der Web-App gelangen Nutzerinnen und Nutzer zuerst zur Startseite. Dort können sie entweder einen bestehenden vierstelligen Haushalts-Code eingeben oder einen neuen Haushalt erstellen.
+Nach dem Beitritt zu einem Haushalt öffnet sich das Dashboard. Dieses bildet die Hauptansicht der App und zeigt die wichtigsten Informationen auf einen Blick. Von dort aus sind die zentralen Bereiche erreichbar:
 - Vorräte
 - Einkaufsliste
 - To-do-Liste
+- Wochenmenüplan
 
-Der Bereich **Vorräte** dient dazu, vorhandene Haushaltsprodukte zu verwalten. Produkte können mit Name, Kategorie und Anzahl erfasst werden.  
-Die **Einkaufsliste** zeigt Produkte, die gekauft werden müssen. Artikel können hinzugefügt, abgehakt oder gelöscht werden.  
-Die **To-do-Liste** ermöglicht es, zusätzliche Aufgaben im Haushalt einzutragen.
-
-Diese Struktur wurde gewählt, weil sie den Alltag in einem Haushalt einfach abbildet: Was ist vorhanden, was muss gekauft werden und was muss erledigt werden?
+Der Bereich Vorräte dient dazu, vorhandene Haushaltsprodukte zu verwalten. Produkte können mit Name, Menge, Einheit und Kategorie erfasst werden. Die Artikel werden nach Kategorien gruppiert, damit auch bei mehreren Produkten eine gute Übersicht erhalten bleibt.
+Die Einkaufsliste zeigt Produkte, die gekauft werden müssen. Artikel können hinzugefügt, gelöscht und nach dem Einkauf wieder in den Vorrat übernommen werden. Mengenangaben und Einheiten werden dabei mitgeführt, damit Informationen nicht erneut eingegeben werden müssen.
+Die To-do-Liste ermöglicht es, zusätzliche Aufgaben im Haushalt einzutragen und zu erledigen.
+Der Wochenmenüplan unterstützt die Essensplanung für die aktuelle Kalenderwoche. Pro Wochentag können ein oder mehrere Menüeinträge erfasst werden. Menüeinträge können ausserdem per Drag & Drop zwischen den Tagen verschoben werden.
+Diese Struktur wurde gewählt, weil sie den Alltag in einem Haushalt einfach abbildet: Was ist vorhanden, was muss gekauft werden, was muss erledigt werden und welche Mahlzeiten sind geplant?
 
 **User Interface Design:** Die folgenden Screenshots zeigen die wichtigsten Ansichten der Homie-App.
 
@@ -210,92 +251,101 @@ Diese Struktur wurde gewählt, weil sie den Alltag in einem Haushalt einfach abb
 ![Vorrat übernehmen](prototype/Vorratuebernehmen.png)
 *Ansicht zum Übernehmen oder Aktualisieren von Vorratsprodukten aus der Einkaufsliste, nachdem ein Produkt abgehakt wurde.*
 
-**Designentscheidungen:** Eine zentrale Designentscheidung war die Nutzung eines vierstelligen Haushalts-Codes anstelle eines klassischen Logins. Dadurch können Nutzerinnen und Nutzer schnell starten, ohne ein Konto erstellen zu müssen.
-
-Die Bereiche Vorräte, Einkaufsliste und To-do-Liste wurden klar getrennt, damit keine Verwirrung entsteht. Vorräte zeigen, was bereits vorhanden ist. Die Einkaufsliste zeigt, was noch gekauft werden muss. Die To-do-Liste zeigt zusätzliche Aufgaben im Haushalt.
-
-Ausserdem wurde entschieden, Produkte mit einer Anzahl zu speichern. Dadurch kann besser nachvollzogen werden, wie viel von einem Produkt noch vorhanden ist. Wenn die Anzahl eines Produkts auf 1 sinkt, kann es mit einem Klick zur Einkaufsliste hinzugefügt werden. Wird ein Produkt in der Einkaufsliste abgehakt, kann es wieder dem Vorrat hinzugefügt werden.
-
+**Designentscheidungen:** Eine zentrale Designentscheidung war die Nutzung eines vierstelligen Haushalts-Codes anstelle eines klassischen Logins. Dadurch können Nutzerinnen und Nutzer schnell starten, ohne ein Konto erstellen zu müssen. Gleichzeitig können mehrere Personen über denselben Code auf denselben Haushalt zugreifen.
+Die Bereiche Vorräte, Einkaufsliste, To-do-Liste und Wochenmenüplan wurden klar getrennt, damit keine Verwirrung entsteht. Vorräte zeigen, was bereits vorhanden ist. Die Einkaufsliste zeigt, was noch gekauft werden muss. Die To-do-Liste zeigt offene Aufgaben. Der Wochenmenüplan unterstützt die Planung von Mahlzeiten.
+Ausserdem wurde entschieden, Produkte mit Menge und Einheit zu speichern. Dadurch kann genauer nachvollzogen werden, wie viel von einem Produkt vorhanden ist oder gekauft werden muss. Unterstützt werden feste Einheiten wie Stück, Pack, kg, g und Liter sowie eine eigene Angabe.
+Wenn die Menge eines Vorratsprodukts niedrig ist, kann es direkt zur Einkaufsliste hinzugefügt werden. Wird ein Produkt in der Einkaufsliste abgehakt, kann es wieder in den Vorrat übernommen werden. Dabei werden Name, Menge, Einheit und Kategorie berücksichtigt.
+Beim Wochenmenüplan wurde darauf geachtet, dass Einträge flexibel bearbeitet werden können. Pro Tag können mehrere Gerichte eingetragen werden, und durch Drag & Drop lassen sich Menüeinträge einfach zwischen den Tagen verschieben.
+Das visuelle Design wurde bewusst weich und freundlich gestaltet. Abgerundete Karten, warme Farben und klare Abstände sollen dafür sorgen, dass die App übersichtlich wirkt und angenehm zu bedienen ist. Besonders wichtig war auch die mobile Ansicht, da die App häufig im Alltag nebenbei genutzt wird, zum Beispiel beim Einkaufen oder Planen.
 Diese Entscheidungen unterstützen das Hauptziel der App: den Haushalt übersichtlich, einfach und gemeinsam zu organisieren.
 
 #### 3.4.2. Umsetzung (Technik)
-Der Prototyp wurde als Web-App umgesetzt. Ziel war es, die wichtigsten Funktionen funktionsfähig darzustellen und eine einfache gemeinsame Nutzung pro Haushalt zu ermöglichen.
-- **Technologie-Stack:** Für die Umsetzung wurde SvelteKit verwendet. SvelteKit eignet sich gut für moderne Web-Apps, da Seiten, Komponenten und Logik übersichtlich strukturiert werden können. Die App wurde mit HTML, CSS und JavaScript beziehungsweise Svelte umgesetzt.
+Der Prototyp wurde als Web-App umgesetzt. Ziel war es, die wichtigsten Funktionen funktionsfähig darzustellen und eine einfache Nutzung für Einzelpersonen sowie gemeinsame Haushalte zu ermöglichen. Die App speichert alle relevanten Daten in einer Datenbank, sodass der aktuelle Stand auch nach dem Neuladen der Seite oder beim erneuten Beitritt zu einem Haushalt erhalten bleibt.
+- **Technologie-Stack:** Für die Umsetzung wurde SvelteKit verwendet. SvelteKit eignet sich gut für moderne Web-Apps, da Seiten, Serverlogik und Formularaktionen übersichtlich strukturiert werden können. Die App wurde mit HTML, CSS, JavaScript und Svelte umgesetzt. Für die dauerhafte Speicherung der Daten wird MongoDB verwendet.
 
 Verwendete Technologien:
-- SvelteKit
-- JavaScript / Svelte
-- HTML
-- CSS
-- MongoDB
+    - SvelteKit
+    - JavaScript / Svelte
+    - HTML
+    - CSS
+    - MongoDB
 
 - **Tooling:** Für die Entwicklung wurde eine lokale Entwicklungsumgebung verwendet. Der Code wurde in einer IDE bearbeitet und über den lokalen Entwicklungsserver getestet.
 
 Verwendete Tools:
-- Visual Studio Code
-- Terminal
-- Node.js / npm
-- Browser-Entwicklertools zum Testen und Debuggen
-- Git / GitHub zur Versionsverwaltung
-- Netlify
+    - Visual Studio Code
+    - Terminal
+    - Node.js / npm
+    - Browser-Entwicklertools zum Testen und Debuggen
+    - Git / GitHub zur Versionsverwaltung
+    - Netlify
 
 - **Struktur & Komponenten:** Die App wurde in mehrere Bereiche und Komponenten aufgeteilt. Dadurch bleibt der Code übersichtlich und die einzelnen Funktionen können einfacher angepasst werden.
 
 Wichtige Bestandteile:
-- Startseite für Haushalts-Code und Haushaltserstellung
-- Dashboard als Hauptansicht
-- Vorratsbereich zur Verwaltung vorhandener Produkte
-- Einkaufsliste zur Verwaltung fehlender Produkte
-- To-do-Liste für Haushaltsaufgaben
-- Formulare zum Hinzufügen neuer Einträge
-- Buttons zum Löschen, Abhaken oder Verschieben von Einträgen
+    - Startseite für Haushalts-Code und Haushaltserstellung
+    - Dashboard als zentrale Hauptansicht
+    - Vorratsbereich zur Verwaltung vorhandener Produkte
+    - Einkaufsliste zur Verwaltung fehlender Produkte
+    - To-do-Liste für Haushaltsaufgaben
+    - Wochenmenüplan für die Essensplanung
+    - Formulare zum Hinzufügen neuer Einträge
+    - Buttons zum Löschen, Abhaken, Übernehmen oder Verschieben von Einträgen
+    - Drag-and-Drop-Funktion zum Verschieben von Menüeinträgen im Wochenmenüplan
 
 Die Navigation ist bewusst einfach gehalten. Nach dem Beitritt zu einem Haushalt befindet sich die Nutzerin oder der Nutzer direkt im Dashboard und kann von dort aus alle Hauptfunktionen verwenden.
 
-**Daten & Schnittstellen:** Alle Daten der App werden in MongoDB gespeichert. Dazu gehören die Haushalte, Vorratsprodukte, Einkaufslisten-Einträge und To-do-Einträge. Der vierstellige Haushalts-Code dient dazu, die Daten eindeutig einem Haushalt zuzuordnen. Wenn mehrere Personen denselben Code verwenden, greifen sie auf dieselben gespeicherten Daten in MongoDB zu.
+**Daten & Schnittstellen:** Alle Daten der App werden in MongoDB gespeichert. Dazu gehören Haushalte, Vorratsprodukte, Einkaufslisten-Einträge, To-do-Einträge und Wochenmenü-Einträge. Der vierstellige Haushalts-Code dient dazu, einem Haushalt beizutreten. Intern werden die gespeicherten Daten dem jeweiligen Haushalt zugeordnet. Wenn mehrere Personen denselben Code verwenden, greifen sie auf dieselben Daten in MongoDB zu.
 
 Für jeden Haushalt werden die relevanten Informationen gespeichert:
-- Haushalts-Code
-- Vorratsprodukte mit Name, Kategorie und Anzahl
-- Artikel auf der Einkaufsliste
-- Status von Einkaufslisten-Artikeln, zum Beispiel offen oder abgehakt
-- To-do-Einträge
+    - Haushalts-Code
+    - Haushaltsname
+    - Vorratsprodukte mit Name, Menge, Einheit und Kategorie
+    - Artikel auf der Einkaufsliste mit Name, Menge, Einheit und Kategorie
+    - Status von Einkaufslisten-Artikeln, zum Beispiel offen oder erledigt
+    - To-do-Einträge
+    - Wochenmenü-Einträge pro Kalenderwoche und Wochentag
 
-Die App ruft die Daten aus MongoDB ab und zeigt sie im jeweiligen Bereich an. Wenn ein Produkt, ein Einkaufslisten-Eintrag oder eine To-do-Aufgabe hinzugefügt wird, wird dieser Eintrag in MongoDB gespeichert. Änderungen wie Abhaken, Löschen oder Verschieben zwischen Vorrat und Einkaufsliste werden ebenfalls in MongoDB aktualisiert.
+Die App ruft die Daten aus MongoDB ab und zeigt sie im jeweiligen Bereich an. Wenn ein Produkt, ein Einkaufslisten-Eintrag, eine To-do-Aufgabe oder ein Menüeintrag hinzugefügt wird, wird dieser Eintrag in MongoDB gespeichert. Änderungen wie Löschen, Abhaken, Übernehmen von der Einkaufsliste in den Vorrat oder Verschieben von Menüeinträgen per Drag & Drop werden ebenfalls in MongoDB aktualisiert.
+Beim Wochenmenüplan werden die Einträge pro Kalenderwoche gespeichert. Dadurch kann die App die aktuelle Woche anzeigen und alte Menüeinträge automatisch entfernen, wenn sie nicht mehr zur aktuellen Woche gehören.
 
 **Deployment:** https://homie-appl.netlify.app
 **Besondere Entscheidungen:** Eine wichtige Entscheidung war der Verzicht auf ein klassisches Login-System. Stattdessen wird ein vierstelliger Haushalts-Code verwendet. Diese Lösung ist einfacher und passt besser zum Ziel der App, da Nutzerinnen und Nutzer möglichst schnell starten können.
-
 Alle Personen mit demselben Haushalts-Code haben dieselben Rechte. Es gibt keine Rollen wie Admin oder Mitglied. Diese Vereinfachung reduziert die Komplexität des Prototyps und macht die Bedienung verständlicher.
-
-Ausserdem wurde der Funktionsumfang bewusst begrenzt. Der Prototyp konzentriert sich auf die wichtigsten Funktionen: Vorräte verwalten, Einkaufsliste nutzen, To-do-Einträge erfassen und Daten pro Haushalt speichern. Weitere Funktionen wie Benutzerkonten, Barcode-Scan oder Benachrichtigungen wurden bewusst nicht umgesetzt, da sie den Prototyp komplexer gemacht hätten.
+Ausserdem wurde entschieden, Mengenangaben und Einheiten bei Vorräten und Einkaufslisten zu speichern. Dadurch bleiben wichtige Informationen erhalten, wenn ein Artikel vom Vorrat auf die Einkaufsliste oder von der Einkaufsliste zurück in den Vorrat übernommen wird.
+Beim Wochenmenüplan wurde Drag & Drop umgesetzt, damit Menüeinträge flexibel zwischen den Tagen verschoben werden können. Dies verbessert die Bedienung, da Pläne im Alltag häufig geändert werden.
+Der Funktionsumfang wurde bewusst auf die wichtigsten Bereiche begrenzt: Vorräte verwalten, Einkaufsliste nutzen, To-do-Einträge erfassen, Wochenmenü planen und Daten pro Haushalt speichern. Weitere Funktionen wie Benutzerkonten, Barcode-Scan, Rechteverwaltung oder Benachrichtigungen wurden bewusst nicht umgesetzt, da sie den Prototyp komplexer gemacht hätten.
  
 ### 3.5 Validate
 **URL der getesteten Version** https://homie-appl.netlify.app
-**Ziele der Prüfung:** Mit der Validierung sollte überprüft werden, ob der Prototyp verständlich, nützlich und einfach bedienbar ist. Besonders wichtig war die Frage, ob Nutzerinnen und Nutzer die wichtigsten Funktionen ohne lange Erklärung verwenden können.
+**Ziele der Prüfung:** Mit der Validierung sollte überprüft werden, ob der Prototyp verständlich, nützlich und einfach bedienbar ist. Besonders wichtig war die Frage, ob Nutzerinnen und Nutzer die wichtigsten Funktionen ohne lange Erklärung verwenden können. Dabei wurde nicht nur die Verwaltung von Vorräten und Einkaufslisten geprüft, sondern auch das Dashboard, die To-do-Liste und der Wochenmenüplan.
 
 Geprüft wurden folgende Fragen:
 - Ist der Einstieg über den Haushalts-Code verständlich?
 - Ist klar, wie ein neuer Haushalt erstellt wird?
 - Finden Nutzerinnen und Nutzer das Dashboard schnell?
-- Ist die Trennung zwischen Vorrat, Einkaufsliste und To-do-Liste verständlich?
+- Ist die Trennung zwischen Vorrat, Einkaufsliste, To-do-Liste und Wochenmenü verständlich?
 - Können Produkte einfach hinzugefügt, gelöscht und verwaltet werden?
-- Ist die Anzahl-Funktion bei Vorratsprodukten verständlich?
-- Ist klar, wie ein Produkt zur Einkaufsliste hinzugefügt werden kann?
-- Ist verständlich, dass abgehakte Einkaufslisten-Produkte wieder in den Vorrat übernommen werden können?
+- Sind Mengenangaben und Einheiten verständlich?
+- Ist klar, wie ein Produkt aus dem Vorrat zur Einkaufsliste hinzugefügt werden kann?
+- Ist verständlich, dass Einkaufslisten-Produkte wieder in den Vorrat übernommen werden können?
+- Können To-do-Einträge einfach erstellt und erledigt werden?
+- Ist der Wochenmenüplan verständlich aufgebaut?
+- Ist klar, dass mehrere Menüeinträge pro Tag möglich sind?
+- Ist das Verschieben von Menüeinträgen per Drag & Drop verständlich?
 - Funktioniert die App auch auf mobilen Geräten übersichtlich?
- 
-**Vorgehen:** Die Tests wurden mit einfachen Nutzungsszenarien durchgeführt. Die Testpersonen erhielten konkrete Aufgaben und sollten diese möglichst selbstständig lösen. Währenddessen wurde beobachtet, ob sie die Funktionen finden, verstehen und korrekt verwenden können.
 
+**Vorgehen:** Die Tests wurden mit einfachen Nutzungsszenarien durchgeführt. Die Testpersonen erhielten konkrete Aufgaben und sollten diese möglichst selbstständig lösen. Währenddessen wurde beobachtet, ob sie die Funktionen finden, verstehen und korrekt verwenden können.
 Das Vorgehen war leicht moderiert. Falls eine Testperson nicht weiterkam, wurde notiert, an welcher Stelle das Problem auftrat. Es wurde aber möglichst wenig geholfen, damit sichtbar wurde, ob die App auch ohne Erklärung verständlich ist.
 
-- **Stichprobe:** Getestet wurde mit Personen, die zur Zielgruppe der App passen. Dazu gehören Personen, die alleine wohnen, sowie Personen aus gemeinsamen Haushalten wie WGs oder Familien.
+
+- **Stichprobe:** Getestet wurde mit Personen, die zur Zielgruppe der App passen. Dazu gehören Einzelpersonen sowie Personen aus gemeinsamen Haushalten wie WGs, Paarhaushalten oder Familien.
 
 Stichprobe:
-- Anzahl Testpersonen: 6
-- Profil: Einzelpersonen und Personen aus gemeinsamen Haushalten
-- Alter: 25-45
-- Technische Erfahrung: gemischt
+    - Anzahl Testpersonen: 6
+    - Profil: Einzelpersonen und Personen aus gemeinsamen Haushalten
+    - Alter: 25-45
+    - Technische Erfahrung: gemischt
 
 **Aufgaben/Szenarien:** Für die Validierung wurden typische Alltagssituationen getestet. 
 Testaufgaben:
@@ -303,33 +353,43 @@ Testaufgaben:
 2. Erstelle einen neuen Haushalt oder tritt einem bestehenden Haushalt mit einem vierstelligen Code bei.
 3. Öffne das Dashboard.
 4. Füge ein neues Produkt zum Vorrat hinzu.
-5. Gib dem Produkt einen Namen, eine Kategorie und eine Anzahl.
+5. Gib dem Produkt einen Namen, eine Menge, eine Einheit und eine Kategorie.
 6. Prüfe, ob das Produkt korrekt im Vorrat angezeigt wird.
-7. Füge ein Produkt mit niedriger Anzahl zur Einkaufsliste hinzu.
-8. Hake ein Produkt in der Einkaufsliste ab.
-9. Füge ein abgehaktes Produkt wieder zum Vorrat hinzu.
-10. Erstelle einen Eintrag in der To-do-Liste.
-11. Lösche einen nicht mehr benötigten Eintrag.
+7. Füge ein Produkt mit niedriger Menge zur Einkaufsliste hinzu.
+8. Prüfe, ob die Mengenangabe in der Einkaufsliste übernommen wurde.
+9. Hake ein Produkt in der Einkaufsliste ab.
+10. Übernimm ein abgehaktes Produkt wieder in den Vorrat.
+11. Erstelle einen Eintrag in der To-do-Liste.
+12. Lösche einen nicht mehr benötigten Eintrag.
+13. Erstelle einen Eintrag im Wochenmenüplan.
+14. Füge für denselben Tag einen weiteren Menüeintrag hinzu.
+15. Verschiebe einen Menüeintrag per Drag & Drop auf einen anderen Tag.
 
 **Kennzahlen & Beobachtungen:** Während der Tests wurde beobachtet, ob die Aufgaben erfolgreich abgeschlossen werden konnten und an welchen Stellen Unsicherheiten entstanden.
 
 Beobachtungen:
-- Der Einstieg über den Haushalts-Code wurde grundsätzlich verstanden.
-- Das Dashboard half dabei, die drei Bereiche Vorrat, Einkaufsliste und To-do-Liste schnell zu finden.
-- Das Hinzufügen von Produkten war verständlich.
-- Die Speicherung der Daten in MongoDB funktionierte zuverlässig, da Einträge auch nach dem Neuladen der Seite erhalten blieben.
-- Die Anzahl-Funktion wurde als nützlich wahrgenommen.
-- Die mobile Nutzung ist wichtig, weil die Einkaufsliste oft direkt beim Einkaufen verwendet wird.
-- Bei gemeinsamen Haushalten wie WGs oder Familien war nicht klar ersichtlich, welche Person einen Eintrag erstellt hat. Dadurch kann es schwierig sein nachzuvollziehen, wer ein Produkt, einen Einkaufslisten-Eintrag oder eine To-do-Aufgabe hinzugefügt hat.
+    - Der Einstieg über den Haushalts-Code wurde grundsätzlich verstanden.
+    - Das Dashboard half dabei, die wichtigsten Bereiche schnell zu finden.
+    - Die Trennung zwischen Vorrat, Einkaufsliste, To-do-Liste und Wochenmenü war verständlich.
+    - Das Hinzufügen von Produkten war einfach nachvollziehbar.
+    - Mengenangaben und Einheiten wurden als hilfreich wahrgenommen.
+    - Die Übernahme von Artikeln aus dem Vorrat in die Einkaufsliste und zurück in den Vorrat wurde verstanden.
+    - Die Speicherung der Daten in MongoDB funktionierte zuverlässig, da Einträge auch nach dem Neuladen der Seite erhalten blieben.
+    - Die To-do-Liste wurde als einfache Ergänzung für Haushaltsaufgaben verstanden.
+    - Der Wochenmenüplan wurde besonders für Einzelpersonen, Paare und Familien als nützlich wahrgenommen.
+    - In WGs wurde der Wochenmenüplan weniger zentral bewertet, da dort viele Personen ihre Mahlzeiten individuell planen.
+    - Das Verschieben von Menüeinträgen per Drag & Drop wurde positiv wahrgenommen, musste aber klar funktionieren, damit keine Einträge doppelt erscheinen.
+    - Die mobile Nutzung ist wichtig, weil die Einkaufsliste oft direkt beim Einkaufen verwendet wird.
+    - Bei gemeinsamen Haushalten war nicht klar ersichtlich, welche Person einen Eintrag erstellt hat. Dadurch kann es schwierig sein nachzuvollziehen, wer ein Produkt, einen Einkaufslisten-Eintrag oder eine To-do-Aufgabe hinzugefügt hat.
 
 Kennzahlen:
-- Erfolgsquote: 11 von 11 Aufgaben erfolgreich gelöst
-- Durchschnittlicher Zeitbedarf: 2-5 Minuten pro Testperson
-- Häufigste Schwierigkeit: In gemeinsamen Haushalten wie WGs oder Familien ist nicht ersichtlich, von welcher Person ein Eintrag stammt.
+    - Erfolgsquote: 15 von 15 Aufgaben erfolgreich gelöst
+    - Durchschnittlicher Zeitbedarf: 3–6 Minuten pro Testperson
+    - Häufigste Schwierigkeit: In gemeinsamen Haushalten ist nicht ersichtlich, von welcher Person ein Eintrag stammt.
 
-**Zusammenfassung der Resultate:** Die Validierung zeigte, dass die Grundidee von Homie verständlich ist und die wichtigsten Funktionen sinnvoll zusammenarbeiten. Besonders positiv bewertet wurden der einfache Einstieg über den Haushalts-Code, die klare Aufteilung in Vorräte, Einkaufsliste und To-do-Liste sowie die zuverlässige Speicherung der Daten in MongoDB. Alle getesteten Aufgaben konnten erfolgreich abgeschlossen werden.
-
-Verbesserungspotenzial gibt es vor allem bei der Nutzung in gemeinsamen Haushalten wie WGs oder Familien. Dort wäre es hilfreich, wenn sichtbar wäre, welche Person einen Eintrag erstellt hat. Zusätzlich wurde von Testpersonen der Wunsch geäussert, dass die App in Zukunft Rezeptvorschläge machen soll. Diese Rezeptvorschläge sollen auf den Produkten basieren, die man bereits zuhause im Vorrat hat.
+**Zusammenfassung der Resultate:** Die Validierung zeigte, dass die Grundidee von Homie verständlich ist und die wichtigsten Funktionen sinnvoll zusammenarbeiten. Besonders positiv bewertet wurden der einfache Einstieg über den Haushalts-Code, das übersichtliche Dashboard, die klare Aufteilung in Vorrat, Einkaufsliste, To-do-Liste und Wochenmenü sowie die zuverlässige Speicherung der Daten in MongoDB.
+Alle getesteten Aufgaben konnten erfolgreich abgeschlossen werden. Die App wurde als alltagstauglich wahrgenommen, besonders für das schnelle Erfassen von Vorräten, das Verwalten einer Einkaufsliste und die Planung von Aufgaben oder Mahlzeiten.
+Verbesserungspotenzial gibt es vor allem bei der Nutzung in gemeinsamen Haushalten wie WGs oder Familien. Dort wäre es hilfreich, wenn sichtbar wäre, welche Person einen Eintrag erstellt hat. Zusätzlich wurde von Testpersonen der Wunsch geäussert, dass die App in Zukunft Rezeptvorschläge machen soll. Diese Rezeptvorschläge sollen auf den Produkten basieren, die bereits im Vorrat vorhanden sind.
 
 **Abgeleitete Verbesserungen:** Aus der Validierung wurden mehrere Verbesserungen abgeleitet, die in einer nächsten Version umgesetzt werden sollten.
 
@@ -342,13 +402,20 @@ Verbesserungspotenzial gibt es vor allem bei der Nutzung in gemeinsamen Haushalt
 ## 4. Erweiterungen
 
 ### 4.1 Verknüpfung Einkaufsliste ↔ Vorrat
-**Beschreibung & Nutzen:** Artikel aus dem Vorrat können direkt zur Einkaufsliste hinzugefügt werden, sobald die Anzahl auf 1 gesunken ist. Nach dem Einkauf kann ein Artikel in der Einkaufsliste abgehakt und mit einem Klick automatisch in den Vorrat übernommen werden — inklusive Menge und Kategorie. Die ursprüngliche Kategorie wird dabei mitgespeichert und beim Zurückübernehmen automatisch vorausgefüllt. So entfällt doppelte Dateneingabe und der reale Einkaufsablauf wird vollständig abgebildet.
+**Beschreibung & Nutzen:** Artikel aus dem Vorrat können direkt zur Einkaufsliste hinzugefügt werden, sobald die Menge niedrig ist. Umgekehrt kann ein Artikel aus der Einkaufsliste nach dem Einkauf wieder in den Vorrat übernommen werden. Dabei werden Name, Menge, Einheit und Kategorie mitgeführt. Dadurch müssen Nutzerinnen und Nutzer dieselben Informationen nicht mehrfach eingeben.
+
+Diese Erweiterung bildet den realen Ablauf im Haushalt besser ab: Ein Produkt wird zuerst im Vorrat erfasst, bei Bedarf auf die Einkaufsliste gesetzt und nach dem Einkauf wieder in den Vorrat übernommen. Dadurch entsteht ein geschlossener Workflow zwischen Vorratsverwaltung und Einkaufsliste.
+
 **Wo umgesetzt:**
-- Frontend: Vorrat-Seite mit „+ Einkaufsliste"-Button; Einkaufsliste mit Modal „In Vorrat übernehmen" (Mengen- und Kategorieauswahl vorausgefüllt)
-- Backend: Form Action die einen Einkaufslisten-Eintrag als erledigt markiert und gleichzeitig einen Vorrats-Eintrag erstellt oder aktualisiert
-- Datenbank: Collections einkaufsliste und vorrat in MongoDB, verknüpft über den Haushalts-Code
-**Referenz:** Beschrieben in Kap. 3.3 (User Journey, Schritte 9–11) und Kap. 3.4.1 (User Interface Design)
-**Aus Evaluation abgeleitet?:** Ja, die Funktion wurde erst später ergänzt, weil in der Validierung deutlich wurde, dass die Verbindung zwischen Vorrat und Einkaufsliste klarer und praktischer sein sollte.
+- **Frontend:** Vorrat-Seite mit Button „+ Einkaufsliste“; Einkaufsliste mit Modal „In Vorrat übernehmen“
+- **Backend:** SvelteKit Form Actions zum Hinzufügen von Vorratsartikeln zur Einkaufsliste und zum Übernehmen von Einkaufslisten-Artikeln zurück in den Vorrat
+- **Datenbank:** MongoDB-Collections "vorrat" und "einkaufsliste", verknüpft über die Haushalts-ID
+
+**Referenz:** Beschrieben in Kapitel 3.3 bei der User Journey sowie in Kapitel 3.4.1 bei den Screenshots zur Vorratsübersicht, Einkaufsliste und Übernahme in den Vorrat.
+
+**Aus Evaluation abgeleitet?:** Ja. Die Funktion wurde ergänzt beziehungsweise verbessert, weil deutlich wurde, dass die Verbindung zwischen Vorrat und Einkaufsliste für den Alltag besonders wichtig ist. Nutzerinnen und Nutzer sollen Artikel nicht doppelt erfassen müssen.
+
+LINET HIER WEITER
 
 ### 4.2 To-do-Liste für Haushaltsaufgaben  
 - **Beschreibung & Nutzen:** _[Was wurde erweitert? Warum?]_  

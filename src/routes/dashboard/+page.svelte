@@ -841,9 +841,9 @@
     .header h1 {
       font-size: clamp(1.8rem, 9vw, 2.2rem);
       line-height: 1.08;
-      overflow-wrap: anywhere;
+      overflow-wrap: normal;
       word-break: normal;
-      hyphens: auto;
+      hyphens: none;
     }
 
     .dashboard-grid {
