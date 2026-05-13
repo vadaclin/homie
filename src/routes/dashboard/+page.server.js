@@ -1,6 +1,5 @@
 import { redirect } from "@sveltejs/kit";
 import { ObjectId } from "mongodb";
-import { randomUUID } from "crypto";
 import { getDb } from "$lib/server/db";
 
 const COL_WOCHENMENU = "wochenmenu";
@@ -18,6 +17,10 @@ const WEEK_DAYS = [
 function getHaushaltId(cookies) {
   const haushalt = cookies.get("haushalt");
   return haushalt ? new ObjectId(haushalt) : null;
+}
+
+function makeMealId() {
+  return crypto.randomUUID();
 }
 
 function getISOWeekInfo(date = new Date()) {
@@ -60,10 +63,6 @@ function getISOWeekInfo(date = new Date()) {
   };
 }
 
-function makeMealId() {
-  return randomUUID();
-}
-
 function normalizeMeals(item) {
   if (Array.isArray(item?.meals)) {
     return item.meals
@@ -86,13 +85,12 @@ function normalizeMeals(item) {
   return [];
 }
 
-function isValidDayKey(dayKey) {
-  return WEEK_DAYS.some((day) => day.key === dayKey);
-}
-
 export async function load({ cookies }) {
   const haushalt = cookies.get("haushalt");
-  if (!haushalt) redirect(303, "/");
+
+  if (!haushalt) {
+    redirect(303, "/");
+  }
 
   const db = await getDb();
   const haushaltId = new ObjectId(haushalt);
@@ -101,7 +99,9 @@ export async function load({ cookies }) {
     _id: haushaltId
   });
 
-  if (!haushaltDoc) redirect(303, "/");
+  if (!haushaltDoc) {
+    redirect(303, "/");
+  }
 
   const weekInfo = getISOWeekInfo();
 
@@ -257,7 +257,9 @@ export const actions = {
     const isoYear = parseInt(form.get("isoYear")?.toString() ?? "", 10);
     const isoWeek = parseInt(form.get("isoWeek")?.toString() ?? "", 10);
 
-    if (!dayKey || !isValidDayKey(dayKey)) return;
+    const validDayKeys = WEEK_DAYS.map((day) => day.key);
+
+    if (!dayKey || !validDayKeys.includes(dayKey)) return;
     if (!mealId || !date || !isoYear || !isoWeek) return;
 
     const db = await getDb();
@@ -330,44 +332,131 @@ export const actions = {
     return { success: true };
   },
 
-  deleteMenuMeal: async ({ request, cookies }) => {
+  moveMenuMeal: async ({ request, cookies }) => {
     const haushaltId = getHaushaltId(cookies);
     if (!haushaltId) return;
 
     const form = await request.formData();
 
-    const dayKey = form.get("dayKey")?.toString().trim();
+    const sourceDayKey = form.get("sourceDayKey")?.toString().trim();
+    const targetDayKey = form.get("targetDayKey")?.toString().trim();
     const mealId = form.get("mealId")?.toString().trim();
+    const targetDate = form.get("targetDate")?.toString().trim();
+
+    const targetIndexRaw = parseInt(
+      form.get("targetIndex")?.toString() ?? "0",
+      10
+    );
+
     const isoYear = parseInt(form.get("isoYear")?.toString() ?? "", 10);
     const isoWeek = parseInt(form.get("isoWeek")?.toString() ?? "", 10);
 
-    if (!dayKey || !isValidDayKey(dayKey)) return;
-    if (!mealId || !isoYear || !isoWeek) return;
+    const validDayKeys = WEEK_DAYS.map((day) => day.key);
+
+    if (!sourceDayKey || !targetDayKey || !mealId) return;
+    if (!validDayKeys.includes(sourceDayKey)) return;
+    if (!validDayKeys.includes(targetDayKey)) return;
+    if (!isoYear || !isoWeek) return;
 
     const db = await getDb();
 
-    const existing = await db.collection(COL_WOCHENMENU).findOne({
+    const sourceDoc = await db.collection(COL_WOCHENMENU).findOne({
       haushaltId,
       isoYear,
       isoWeek,
-      dayKey
+      dayKey: sourceDayKey
     });
 
-    if (!existing) {
+    const sourceMealsOriginal = normalizeMeals(sourceDoc);
+    const mealToMove = sourceMealsOriginal.find((meal) => meal.id === mealId);
+
+    if (!mealToMove) return;
+
+    const sourceMealsAfterRemove = sourceMealsOriginal.filter(
+      (meal) => meal.id !== mealId
+    );
+
+    if (sourceDayKey === targetDayKey) {
+      const oldIndex = sourceMealsOriginal.findIndex(
+        (meal) => meal.id === mealId
+      );
+
+      let targetIndex = Number.isNaN(targetIndexRaw) ? 0 : targetIndexRaw;
+
+      if (oldIndex >= 0 && oldIndex < targetIndex) {
+        targetIndex -= 1;
+      }
+
+      targetIndex = Math.max(
+        0,
+        Math.min(targetIndex, sourceMealsAfterRemove.length)
+      );
+
+      sourceMealsAfterRemove.splice(targetIndex, 0, mealToMove);
+
+      await db.collection(COL_WOCHENMENU).updateOne(
+        {
+          haushaltId,
+          isoYear,
+          isoWeek,
+          dayKey: sourceDayKey
+        },
+        {
+          $set: {
+            meals: sourceMealsAfterRemove,
+            updatedAt: new Date()
+          },
+          $unset: {
+            gericht: ""
+          }
+        }
+      );
+
       return { success: true };
     }
 
-    const meals = normalizeMeals(existing).filter((meal) => meal.id !== mealId);
+    const targetDoc = await db.collection(COL_WOCHENMENU).findOne({
+      haushaltId,
+      isoYear,
+      isoWeek,
+      dayKey: targetDayKey
+    });
 
-    if (meals.length === 0) {
+    const targetMeals = normalizeMeals(targetDoc);
+
+    let targetIndex = Number.isNaN(targetIndexRaw)
+      ? targetMeals.length
+      : targetIndexRaw;
+
+    targetIndex = Math.max(0, Math.min(targetIndex, targetMeals.length));
+
+    targetMeals.splice(targetIndex, 0, mealToMove);
+
+    if (sourceMealsAfterRemove.length === 0) {
       await db.collection(COL_WOCHENMENU).deleteOne({
         haushaltId,
         isoYear,
         isoWeek,
-        dayKey
+        dayKey: sourceDayKey
       });
-
-      return { success: true, deleted: true };
+    } else {
+      await db.collection(COL_WOCHENMENU).updateOne(
+        {
+          haushaltId,
+          isoYear,
+          isoWeek,
+          dayKey: sourceDayKey
+        },
+        {
+          $set: {
+            meals: sourceMealsAfterRemove,
+            updatedAt: new Date()
+          },
+          $unset: {
+            gericht: ""
+          }
+        }
+      );
     }
 
     await db.collection(COL_WOCHENMENU).updateOne(
@@ -375,17 +464,26 @@ export const actions = {
         haushaltId,
         isoYear,
         isoWeek,
-        dayKey
+        dayKey: targetDayKey
       },
       {
         $set: {
-          meals,
+          haushaltId,
+          isoYear,
+          isoWeek,
+          dayKey: targetDayKey,
+          date: targetDate,
+          meals: targetMeals,
           updatedAt: new Date()
         },
         $unset: {
           gericht: ""
+        },
+        $setOnInsert: {
+          createdAt: new Date()
         }
-      }
+      },
+      { upsert: true }
     );
 
     return { success: true };

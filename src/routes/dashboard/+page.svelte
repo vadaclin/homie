@@ -3,10 +3,11 @@
   import { tick } from "svelte";
 
   let { data } = $props();
-  let todoText = $state("");
 
+  let todoText = $state("");
   let menuValues = $state({});
-  let loadedMenuKey = $state("");
+  let draggedMeal = $state(null);
+  let dragOverTarget = $state(null);
 
   function makeMealId() {
     if (typeof crypto !== "undefined" && crypto.randomUUID) {
@@ -16,28 +17,24 @@
     return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 
-  function buildMenuValues(days) {
+  function createInitialMenuValues(days) {
     return Object.fromEntries(
       days.map((day) => [
         day.key,
         day.meals.length > 0
           ? day.meals.map((meal) => ({ ...meal }))
-          : [{ id: makeMealId(), text: "" }]
-      ])
+          : [{ id: makeMealId(), text: "" }],
+      ]),
     );
   }
 
   $effect(() => {
-    const nextMenuKey = `${data.haushaltCode}-${data.weekInfo.isoYear}-${data.weekInfo.isoWeek}`;
-
-    if (loadedMenuKey !== nextMenuKey) {
-      menuValues = buildMenuValues(data.weekInfo.days);
-      loadedMenuKey = nextMenuKey;
-    }
+    menuValues = createInitialMenuValues(data.weekInfo.days);
   });
 
   function getGreeting() {
     const h = new Date().getHours();
+
     if (h < 12) return "Guten Morgen";
     if (h < 18) return "Guten Tag";
     return "Guten Abend";
@@ -60,14 +57,6 @@
     }
   }
 
-  function resizeAllTextareas() {
-    tick().then(() => {
-      document.querySelectorAll(".menu-input").forEach((textarea) => {
-        resizeTextarea(textarea);
-      });
-    });
-  }
-
   function autoResize(event) {
     resizeTextarea(event.currentTarget);
   }
@@ -80,20 +69,27 @@
     }
   }
 
+  function getRealMeals(dayKey) {
+    return (menuValues[dayKey] ?? []).filter((meal) => meal.text?.trim());
+  }
+
+  function ensureVisibleMeal(dayKey) {
+    const meals = menuValues[dayKey] ?? [];
+
+    if (meals.length === 0) {
+      menuValues[dayKey] = [{ id: makeMealId(), text: "" }];
+    }
+  }
+
   function addMeal(event, dayKey, index) {
     event.preventDefault();
 
-    const form = event.currentTarget.form;
-    form?.requestSubmit();
-
-    const currentMeals = menuValues[dayKey] ?? [];
-
-    currentMeals.splice(index + 1, 0, {
+    menuValues[dayKey].splice(index + 1, 0, {
       id: makeMealId(),
-      text: ""
+      text: "",
     });
 
-    menuValues[dayKey] = [...currentMeals];
+    menuValues[dayKey] = [...menuValues[dayKey]];
 
     tick().then(() => {
       document.querySelectorAll(".menu-input").forEach((textarea) => {
@@ -101,7 +97,7 @@
       });
 
       const dayInputs = document.querySelectorAll(
-        `[data-day-key="${dayKey}"] .menu-input`
+        `[data-day-key="${dayKey}"] .menu-input`,
       );
 
       dayInputs[index + 1]?.focus();
@@ -119,8 +115,6 @@
       resizeTextarea(field);
     }
 
-    form?.requestSubmit();
-
     const meals = menuValues[dayKey] ?? [];
 
     if (meals.length <= 1) {
@@ -130,12 +124,142 @@
       menuValues[dayKey] = meals.filter((meal) => meal.id !== mealId);
     }
 
-    resizeAllTextareas();
+    requestAnimationFrame(() => {
+      form?.requestSubmit();
+    });
+  }
+
+  function onDragStart(event, dayKey, mealId, index) {
+    const meal = menuValues[dayKey]?.find((m) => m.id === mealId);
+
+    if (!meal?.text?.trim()) {
+      event.preventDefault();
+      return;
+    }
+
+    draggedMeal = {
+      sourceDayKey: dayKey,
+      mealId,
+      sourceIndex: index,
+      text: meal.text,
+    };
+
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/plain", mealId);
+  }
+
+  function onDragOver(event, dayKey, index) {
+    if (!draggedMeal) return;
+
+    event.preventDefault();
+
+    dragOverTarget = {
+      dayKey,
+      index,
+    };
+  }
+
+  async function onDrop(event, targetDayKey, targetIndex) {
+    event.preventDefault();
+
+    if (!draggedMeal) return;
+
+    const { sourceDayKey, mealId, text } = draggedMeal;
+
+    if (!text?.trim()) {
+      draggedMeal = null;
+      dragOverTarget = null;
+      return;
+    }
+
+    const movedMeal = {
+      id: mealId,
+      text,
+    };
+
+    const sourceMealsBefore = menuValues[sourceDayKey] ?? [];
+    const oldSourceIndex = sourceMealsBefore.findIndex(
+      (meal) => meal.id === mealId,
+    );
+
+    let sourceMeals = sourceMealsBefore.filter((meal) => meal.id !== mealId);
+    let insertIndex = targetIndex;
+
+    if (
+      sourceDayKey === targetDayKey &&
+      oldSourceIndex >= 0 &&
+      oldSourceIndex < targetIndex
+    ) {
+      insertIndex = targetIndex - 1;
+    }
+
+    if (sourceDayKey === targetDayKey) {
+      const cleanedMeals = sourceMeals.filter((meal) => meal.text?.trim());
+
+      insertIndex = Math.max(0, Math.min(insertIndex, cleanedMeals.length));
+      cleanedMeals.splice(insertIndex, 0, movedMeal);
+
+      menuValues[targetDayKey] =
+        cleanedMeals.length > 0
+          ? cleanedMeals
+          : [{ id: makeMealId(), text: "" }];
+    } else {
+      let targetMeals = getRealMeals(targetDayKey);
+
+      insertIndex = Math.max(0, Math.min(insertIndex, targetMeals.length));
+      targetMeals.splice(insertIndex, 0, movedMeal);
+
+      menuValues[sourceDayKey] = sourceMeals.filter((meal) =>
+        meal.text?.trim(),
+      );
+
+      ensureVisibleMeal(sourceDayKey);
+
+      menuValues[targetDayKey] =
+        targetMeals.length > 0 ? targetMeals : [{ id: makeMealId(), text: "" }];
+    }
+
+    const targetDay = data.weekInfo.days.find(
+      (day) => day.key === targetDayKey,
+    );
+
+    const formData = new FormData();
+    formData.set("sourceDayKey", sourceDayKey);
+    formData.set("targetDayKey", targetDayKey);
+    formData.set("mealId", mealId);
+    formData.set("targetIndex", String(insertIndex));
+    formData.set("targetDate", targetDay?.date ?? "");
+    formData.set("isoYear", String(data.weekInfo.isoYear));
+    formData.set("isoWeek", String(data.weekInfo.isoWeek));
+
+    await fetch("?/moveMenuMeal", {
+      method: "POST",
+      body: formData,
+    });
+
+    draggedMeal = null;
+    dragOverTarget = null;
+
+    await tick();
+
+    document.querySelectorAll(".menu-input").forEach((textarea) => {
+      resizeTextarea(textarea);
+    });
+  }
+
+  function onDragEnd() {
+    draggedMeal = null;
+    dragOverTarget = null;
   }
 
   $effect(() => {
     menuValues;
-    resizeAllTextareas();
+
+    tick().then(() => {
+      document.querySelectorAll(".menu-input").forEach((textarea) => {
+        resizeTextarea(textarea);
+      });
+    });
   });
 </script>
 
@@ -258,6 +382,14 @@
                   method="POST"
                   action="?/saveMenuMeal"
                   class="meal-form"
+                  class:drag-over={dragOverTarget?.dayKey === day.key &&
+                    dragOverTarget?.index === index}
+                  draggable={meal.text.trim().length > 0}
+                  ondragstart={(event) =>
+                    onDragStart(event, day.key, meal.id, index)}
+                  ondragover={(event) => onDragOver(event, day.key, index)}
+                  ondrop={(event) => onDrop(event, day.key, index)}
+                  ondragend={onDragEnd}
                   use:enhance={() =>
                     async ({ update }) => {
                       await update({ reset: false });
@@ -330,8 +462,7 @@
 <style>
   .page {
     padding: 3rem 7%;
-    background:
-      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+    background: radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);
@@ -357,9 +488,9 @@
   .dashboard-grid {
     display: grid;
     grid-template-columns:
-      minmax(280px, 0.9fr)
-      minmax(280px, 0.9fr)
-      minmax(440px, 1.35fr);
+      minmax(280px, 0.85fr)
+      minmax(280px, 0.85fr)
+      minmax(430px, 1.35fr);
     gap: 1.4rem;
     align-items: start;
   }
@@ -385,7 +516,7 @@
 
   .menu-card {
     grid-column: 3;
-    grid-row: 2 / span 3;
+    grid-row: 2 / span 2;
     padding: 1.5rem;
   }
 
@@ -542,15 +673,15 @@
   .menu-list {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.6rem;
   }
 
   .menu-row {
     display: grid;
-    grid-template-columns: 86px 1fr;
+    grid-template-columns: 84px 1fr;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.65rem;
+    padding: 0.6rem;
     border-radius: 18px;
     background: #fff4ef;
   }
@@ -592,6 +723,21 @@
 
   .meal-form {
     min-width: 0;
+    cursor: grab;
+    border-radius: 16px;
+    transition:
+      transform 0.15s ease,
+      opacity 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .meal-form:active {
+    cursor: grabbing;
+  }
+
+  .meal-form.drag-over {
+    box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.18);
+    transform: scale(1.01);
   }
 
   .menu-input-wrap {
@@ -609,7 +755,7 @@
     border: none;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.92);
-    padding: 0.75rem 3.55rem 0.75rem 0.95rem;
+    padding: 0.75rem 3.5rem 0.75rem 0.95rem;
     font: inherit;
     font-size: 0.95rem;
     font-weight: 800;
