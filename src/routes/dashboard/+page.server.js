@@ -54,6 +54,32 @@ function getISOWeekInfo(date = new Date()) {
   };
 }
 
+function makeMealId() {
+  return crypto.randomUUID();
+}
+
+function normalizeMeals(item) {
+  if (Array.isArray(item?.meals)) {
+    return item.meals
+      .filter((meal) => meal?.text?.toString().trim())
+      .map((meal) => ({
+        id: meal.id?.toString() || makeMealId(),
+        text: meal.text.toString()
+      }));
+  }
+
+  if (item?.gericht?.toString().trim()) {
+    return [
+      {
+        id: "main",
+        text: item.gericht.toString()
+      }
+    ];
+  }
+
+  return [];
+}
+
 export async function load({ cookies }) {
   const haushalt = cookies.get("haushalt");
   if (!haushalt) redirect(303, "/");
@@ -115,7 +141,7 @@ export async function load({ cookies }) {
       item.dayKey,
       {
         id: item._id.toString(),
-        gericht: item.gericht ?? ""
+        meals: normalizeMeals(item)
       }
     ])
   );
@@ -148,7 +174,7 @@ export async function load({ cookies }) {
       isoWeek: weekInfo.isoWeek,
       days: weekInfo.days.map((day) => ({
         ...day,
-        gericht: menuByDay[day.key]?.gericht ?? ""
+        meals: menuByDay[day.key]?.meals ?? []
       }))
     }
   };
@@ -208,26 +234,54 @@ export const actions = {
     return { success: true };
   },
 
-  saveMenuDay: async ({ request, cookies }) => {
+  saveMenuMeal: async ({ request, cookies }) => {
     const haushaltId = getHaushaltId(cookies);
     if (!haushaltId) return;
 
     const form = await request.formData();
 
     const dayKey = form.get("dayKey")?.toString().trim();
+    const mealId = form.get("mealId")?.toString().trim();
     const date = form.get("date")?.toString().trim();
-    const gericht = form.get("gericht")?.toString().trim() ?? "";
+    const text = form.get("text")?.toString().trim() ?? "";
     const isoYear = parseInt(form.get("isoYear")?.toString() ?? "", 10);
     const isoWeek = parseInt(form.get("isoWeek")?.toString() ?? "", 10);
 
     const validDayKeys = WEEK_DAYS.map((day) => day.key);
 
     if (!dayKey || !validDayKeys.includes(dayKey)) return;
-    if (!date || !isoYear || !isoWeek) return;
+    if (!mealId || !date || !isoYear || !isoWeek) return;
 
     const db = await getDb();
 
-    if (!gericht) {
+    const existing = await db.collection(COL_WOCHENMENU).findOne({
+      haushaltId,
+      isoYear,
+      isoWeek,
+      dayKey
+    });
+
+    let meals = normalizeMeals(existing);
+
+    if (!text) {
+      meals = meals.filter((meal) => meal.id !== mealId);
+    } else {
+      const index = meals.findIndex((meal) => meal.id === mealId);
+
+      if (index >= 0) {
+        meals[index] = {
+          ...meals[index],
+          text
+        };
+      } else {
+        meals.push({
+          id: mealId,
+          text
+        });
+      }
+    }
+
+    if (meals.length === 0) {
       await db.collection(COL_WOCHENMENU).deleteOne({
         haushaltId,
         isoYear,
@@ -252,8 +306,11 @@ export const actions = {
           isoWeek,
           dayKey,
           date,
-          gericht,
+          meals,
           updatedAt: new Date()
+        },
+        $unset: {
+          gericht: ""
         },
         $setOnInsert: {
           createdAt: new Date()

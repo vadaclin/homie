@@ -5,11 +5,37 @@
   let { data } = $props();
   let todoText = $state("");
 
-  let menuValues = $state(
-    Object.fromEntries(
-      data.weekInfo.days.map((day) => [day.key, day.gericht ?? ""]),
-    ),
-  );
+  let menuValues = $state({});
+  let activeWeekKey = $state("");
+
+  function makeMealId() {
+    if (typeof crypto !== "undefined" && crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+
+    return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  }
+
+  function buildMenuValues(days) {
+    return Object.fromEntries(
+      days.map((day) => [
+        day.key,
+        day.meals.length > 0
+          ? day.meals.map((meal) => ({ ...meal }))
+          : [{ id: makeMealId(), text: "" }]
+      ])
+    );
+  }
+
+  $effect(() => {
+    const weekInfo = data.weekInfo;
+    const weekKey = `${weekInfo.isoYear}-${weekInfo.isoWeek}`;
+
+    if (activeWeekKey !== weekKey) {
+      activeWeekKey = weekKey;
+      menuValues = buildMenuValues(weekInfo.days);
+    }
+  });
 
   function getGreeting() {
     const h = new Date().getHours();
@@ -20,8 +46,11 @@
 
   function resizeTextarea(textarea) {
     if (!textarea) return;
-    textarea.style.height = "auto";
-    textarea.style.height = `${textarea.scrollHeight}px`;
+
+    const minHeight = 46;
+
+    textarea.style.height = `${minHeight}px`;
+    textarea.style.height = `${Math.max(textarea.scrollHeight, minHeight)}px`;
   }
 
   function autoResize(event) {
@@ -36,17 +65,44 @@
     }
   }
 
-  function deleteMenuDay(event, key) {
+  function addMeal(event, dayKey, index) {
     event.preventDefault();
 
     const form = event.currentTarget.form;
-    const field = form?.elements?.gericht;
+    form?.requestSubmit();
 
-    menuValues[key] = "";
+    menuValues[dayKey].splice(index + 1, 0, {
+      id: makeMealId(),
+      text: ""
+    });
+
+    menuValues[dayKey] = [...menuValues[dayKey]];
+
+    tick().then(() => {
+      document.querySelectorAll(".menu-input").forEach((textarea) => {
+        resizeTextarea(textarea);
+      });
+    });
+  }
+
+  function deleteMeal(event, dayKey, mealId) {
+    event.preventDefault();
+
+    const form = event.currentTarget.form;
+    const field = form?.elements?.text;
 
     if (field) {
       field.value = "";
       resizeTextarea(field);
+    }
+
+    const meals = menuValues[dayKey];
+
+    if (meals.length <= 1) {
+      meals[0].text = "";
+      menuValues[dayKey] = [...meals];
+    } else {
+      menuValues[dayKey] = meals.filter((meal) => meal.id !== mealId);
     }
 
     requestAnimationFrame(() => {
@@ -172,50 +228,69 @@
 
       <div class="menu-list">
         {#each data.weekInfo.days as day}
-          <form
-            method="POST"
-            action="?/saveMenuDay"
-            class="menu-row"
-            use:enhance={() =>
-              async ({ update }) => {
-                await update({ reset: false });
-              }}
-          >
-            <input type="hidden" name="dayKey" value={day.key} />
-            <input type="hidden" name="date" value={day.date} />
-            <input type="hidden" name="isoYear" value={data.weekInfo.isoYear} />
-            <input type="hidden" name="isoWeek" value={data.weekInfo.isoWeek} />
-
+          <div class="menu-row">
             <div class="menu-day">
               <span class="day-short">{day.short}</span>
               <small>{day.displayDate}</small>
             </div>
 
-            <div class="menu-input-wrap">
-              <textarea
-                class="menu-input"
-                name="gericht"
-                bind:value={menuValues[day.key]}
-                placeholder="Gericht..."
-                rows="1"
-                oninput={autoResize}
-                onblur={(event) => event.currentTarget.form?.requestSubmit()}
-                onkeydown={submitOnEnter}
-              ></textarea>
-
-              {#if menuValues[day.key]}
-                <button
-                  type="button"
-                  class="menu-clear"
-                  onmousedown={(event) => event.preventDefault()}
-                  onclick={(event) => deleteMenuDay(event, day.key)}
-                  aria-label="Gericht löschen"
+            <div class="meal-stack">
+              {#each menuValues[day.key] ?? [] as meal, index (meal.id)}
+                <form
+                  method="POST"
+                  action="?/saveMenuMeal"
+                  class="meal-form"
+                  use:enhance={() =>
+                    async ({ update }) => {
+                      await update({ reset: false });
+                    }}
                 >
-                  ×
-                </button>
-              {/if}
+                  <input type="hidden" name="dayKey" value={day.key} />
+                  <input type="hidden" name="mealId" value={meal.id} />
+                  <input type="hidden" name="date" value={day.date} />
+                  <input type="hidden" name="isoYear" value={data.weekInfo.isoYear} />
+                  <input type="hidden" name="isoWeek" value={data.weekInfo.isoWeek} />
+
+                  <div class="menu-input-wrap">
+                    <textarea
+                      class="menu-input"
+                      name="text"
+                      bind:value={meal.text}
+                      placeholder="Gericht..."
+                      rows="1"
+                      oninput={autoResize}
+                      onblur={(event) => event.currentTarget.form?.requestSubmit()}
+                      onkeydown={submitOnEnter}
+                    ></textarea>
+
+                    <div class="menu-actions">
+                      <button
+                        type="button"
+                        class="menu-add"
+                        onmousedown={(event) => event.preventDefault()}
+                        onclick={(event) => addMeal(event, day.key, index)}
+                        aria-label="Weiteres Gericht hinzufügen"
+                      >
+                        +
+                      </button>
+
+                      {#if meal.text || menuValues[day.key].length > 1}
+                        <button
+                          type="button"
+                          class="menu-clear"
+                          onmousedown={(event) => event.preventDefault()}
+                          onclick={(event) => deleteMeal(event, day.key, meal.id)}
+                          aria-label="Gericht löschen"
+                        >
+                          ×
+                        </button>
+                      {/if}
+                    </div>
+                  </div>
+                </form>
+              {/each}
             </div>
-          </form>
+          </div>
         {/each}
       </div>
     </div>
@@ -225,7 +300,8 @@
 <style>
   .page {
     padding: 3rem 7%;
-    background: radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+    background:
+      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);
@@ -429,7 +505,7 @@
   .menu-list {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: 0.55rem;
     max-width: 720px;
     margin: 0 auto;
   }
@@ -438,9 +514,9 @@
     display: grid;
     grid-template-columns: 82px 1fr;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.45rem 0.55rem;
-    border-radius: 14px;
+    gap: 0.65rem;
+    padding: 0.55rem;
+    border-radius: 16px;
     background: #fff4ef;
   }
 
@@ -449,6 +525,7 @@
     align-items: center;
     gap: 0.5rem;
     min-width: 0;
+    align-self: center;
   }
 
   .day-short {
@@ -465,30 +542,42 @@
   }
 
   .menu-day small {
-    display: block;
     color: #9a8f87;
     font-size: 0.76rem;
     font-weight: 800;
     white-space: nowrap;
   }
 
+  .meal-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .meal-form {
+    min-width: 0;
+  }
+
   .menu-input-wrap {
     position: relative;
     min-width: 0;
     display: flex;
+    align-items: center;
   }
 
   .menu-input {
     width: 100%;
     min-width: 0;
-    min-height: 42px;
+    min-height: 46px;
     box-sizing: border-box;
     border: none;
-    border-radius: 13px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 0.65rem 2rem 0.65rem 0.8rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 0.78rem 3.5rem 0.72rem 0.9rem;
     font: inherit;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-weight: 800;
     line-height: 1.25;
     outline: none;
@@ -508,23 +597,36 @@
     box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.14);
   }
 
-  .menu-clear {
+  .menu-actions {
     position: absolute;
     top: 50%;
-    right: 0.45rem;
+    right: 0.5rem;
     transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+  }
+
+  .menu-add,
+  .menu-clear {
+    width: 22px;
+    height: 22px;
     border: none;
     border-radius: 999px;
     background: transparent;
-    color: #9a8f87;
-    font-size: 1.15rem;
+    color: #c7bab3;
+    font-size: 1.05rem;
     font-weight: 900;
     line-height: 1;
     cursor: pointer;
     display: grid;
     place-items: center;
+    padding: 0;
+  }
+
+  .menu-add:hover {
+    color: #d97757;
+    background: #fff0e6;
   }
 
   .menu-clear:hover {
@@ -541,6 +643,7 @@
       grid-column: 1 / -1;
     }
   }
+
   @media (max-width: 700px) {
     .page {
       padding: 2rem 5%;
@@ -573,7 +676,7 @@
 
     .menu-row {
       grid-template-columns: 1fr;
-      gap: 0.45rem;
+      gap: 0.55rem;
     }
 
     .menu-day {

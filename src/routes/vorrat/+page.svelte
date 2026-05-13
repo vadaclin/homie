@@ -17,7 +17,7 @@
     { label: "kg", value: "kg" },
     { label: "g", value: "g" },
     { label: "Liter", value: "Liter" },
-    { label: "Eigene Angabe...", value: "__custom__" },
+    { label: "Eigene Eingabe...", value: "__custom__" },
   ];
 
   const STANDARD_EINHEITEN = EINHEITEN.filter(
@@ -120,7 +120,12 @@
   </div>
 
   {#if showAddModal}
-    <div class="overlay" onclick={closeModals}></div>
+    <button
+      type="button"
+      class="overlay"
+      onclick={closeModals}
+      aria-label="Modal schliessen"
+    ></button>
 
     <div
       class="modal"
@@ -184,7 +189,12 @@
   {/if}
 
   {#if editArtikel}
-    <div class="overlay" onclick={closeModals}></div>
+    <button
+      type="button"
+      class="overlay"
+      onclick={closeModals}
+      aria-label="Modal schliessen"
+    ></button>
 
     <div
       class="modal"
@@ -271,7 +281,7 @@
           <h2>{gruppe}</h2>
 
           {#each items as item (item.id)}
-            <div class="item" class:low={parseInt(item.menge, 10) === 1}>
+            <div class="item" class:low={parseInt(item.menge) === 1}>
               <button
                 class="edit-btn"
                 onclick={() => openEdit(item)}
@@ -280,7 +290,7 @@
                 ✎
               </button>
 
-              <strong class:low-text={parseInt(item.menge, 10) === 1}>
+              <strong class:low-text={parseInt(item.menge) === 1}>
                 {item.name}
               </strong>
 
@@ -291,7 +301,7 @@
                   <button type="submit" class="menge-btn">−</button>
                 </form>
 
-                <span class="menge" class:low-text={parseInt(item.menge, 10) === 1}>
+                <span class="menge" class:low-text={parseInt(item.menge) === 1}>
                   {mengeLabel(item)}
                 </span>
 
@@ -302,7 +312,7 @@
                 </form>
               </div>
 
-              {#if parseInt(item.menge, 10) === 1}
+              {#if parseInt(item.menge) === 1}
                 <form
                   method="POST"
                   action="/einkaufsliste?/add"
@@ -315,7 +325,11 @@
                   <input type="hidden" name="name" value={item.name} />
                   <input type="hidden" name="menge" value={item.menge} />
                   <input type="hidden" name="einheit" value={item.einheit} />
-                  <input type="hidden" name="kategorie" value={item.kategorie} />
+                  <input
+                    type="hidden"
+                    name="kategorie"
+                    value={item.kategorie}
+                  />
 
                   <button type="submit" class="einkauf-btn">
                     + Einkaufsliste
@@ -333,7 +347,8 @@
 <style>
   .page {
     padding: 3rem 7%;
-    background: radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+    background:
+      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);
@@ -398,9 +413,12 @@
   .overlay {
     position: fixed;
     inset: 0;
+    border: none;
+    padding: 0;
     background: rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(6px);
     z-index: 10;
+    cursor: default;
   }
 
   .modal {

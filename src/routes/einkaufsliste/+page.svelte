@@ -523,17 +523,7 @@
     gap: 0.4rem;
     align-items: center;
   }
-
-  .amount {
-    width: fit-content;
-    padding: 0.22rem 0.55rem;
-    border-radius: 999px;
-    background: #fff4ef;
-    color: #8f8179;
-    font-size: 0.72rem;
-    font-weight: 800;
-  }
-
+  
   .badge {
     width: fit-content;
     padding: 0.22rem 0.55rem;
