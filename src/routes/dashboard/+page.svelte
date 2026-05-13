@@ -6,7 +6,7 @@
   let todoText = $state("");
 
   let menuValues = $state({});
-  let activeWeekKey = $state("");
+  let loadedMenuKey = $state("");
 
   function makeMealId() {
     if (typeof crypto !== "undefined" && crypto.randomUUID) {
@@ -28,12 +28,11 @@
   }
 
   $effect(() => {
-    const weekInfo = data.weekInfo;
-    const weekKey = `${weekInfo.isoYear}-${weekInfo.isoWeek}`;
+    const nextMenuKey = `${data.haushaltCode}-${data.weekInfo.isoYear}-${data.weekInfo.isoWeek}`;
 
-    if (activeWeekKey !== weekKey) {
-      activeWeekKey = weekKey;
-      menuValues = buildMenuValues(weekInfo.days);
+    if (loadedMenuKey !== nextMenuKey) {
+      menuValues = buildMenuValues(data.weekInfo.days);
+      loadedMenuKey = nextMenuKey;
     }
   });
 
@@ -49,8 +48,24 @@
 
     const minHeight = 46;
 
-    textarea.style.height = `${minHeight}px`;
-    textarea.style.height = `${Math.max(textarea.scrollHeight, minHeight)}px`;
+    textarea.classList.remove("single-line");
+    textarea.style.height = "auto";
+
+    const neededHeight = Math.max(textarea.scrollHeight, minHeight);
+    textarea.style.height = `${neededHeight}px`;
+
+    if (neededHeight <= minHeight + 2) {
+      textarea.classList.add("single-line");
+      textarea.style.height = `${minHeight}px`;
+    }
+  }
+
+  function resizeAllTextareas() {
+    tick().then(() => {
+      document.querySelectorAll(".menu-input").forEach((textarea) => {
+        resizeTextarea(textarea);
+      });
+    });
   }
 
   function autoResize(event) {
@@ -71,17 +86,25 @@
     const form = event.currentTarget.form;
     form?.requestSubmit();
 
-    menuValues[dayKey].splice(index + 1, 0, {
+    const currentMeals = menuValues[dayKey] ?? [];
+
+    currentMeals.splice(index + 1, 0, {
       id: makeMealId(),
       text: ""
     });
 
-    menuValues[dayKey] = [...menuValues[dayKey]];
+    menuValues[dayKey] = [...currentMeals];
 
     tick().then(() => {
       document.querySelectorAll(".menu-input").forEach((textarea) => {
         resizeTextarea(textarea);
       });
+
+      const dayInputs = document.querySelectorAll(
+        `[data-day-key="${dayKey}"] .menu-input`
+      );
+
+      dayInputs[index + 1]?.focus();
     });
   }
 
@@ -96,7 +119,9 @@
       resizeTextarea(field);
     }
 
-    const meals = menuValues[dayKey];
+    form?.requestSubmit();
+
+    const meals = menuValues[dayKey] ?? [];
 
     if (meals.length <= 1) {
       meals[0].text = "";
@@ -105,19 +130,12 @@
       menuValues[dayKey] = meals.filter((meal) => meal.id !== mealId);
     }
 
-    requestAnimationFrame(() => {
-      form?.requestSubmit();
-    });
+    resizeAllTextareas();
   }
 
   $effect(() => {
     menuValues;
-
-    tick().then(() => {
-      document.querySelectorAll(".menu-input").forEach((textarea) => {
-        resizeTextarea(textarea);
-      });
-    });
+    resizeAllTextareas();
   });
 </script>
 
@@ -127,8 +145,8 @@
     <p>Hier ist dein Überblick.</p>
   </section>
 
-  <div class="grid">
-    <div class="card card-wide">
+  <div class="dashboard-grid">
+    <div class="card card-wide todo-card">
       <div class="card-header">
         <h2>✅ To-do's</h2>
       </div>
@@ -183,7 +201,7 @@
       {/if}
     </div>
 
-    <div class="card">
+    <div class="card overview-card">
       <div class="card-header">
         <h2>🛒 Einkaufsliste</h2>
         <a href="/einkaufsliste" class="card-link">Alle →</a>
@@ -200,7 +218,7 @@
       {/if}
     </div>
 
-    <div class="card">
+    <div class="card overview-card">
       <div class="card-header">
         <h2>⚠️ Bald leer</h2>
         <a href="/vorrat" class="card-link">Vorrat →</a>
@@ -228,7 +246,7 @@
 
       <div class="menu-list">
         {#each data.weekInfo.days as day}
-          <div class="menu-row">
+          <div class="menu-row" data-day-key={day.key}>
             <div class="menu-day">
               <span class="day-short">{day.short}</span>
               <small>{day.displayDate}</small>
@@ -248,8 +266,18 @@
                   <input type="hidden" name="dayKey" value={day.key} />
                   <input type="hidden" name="mealId" value={meal.id} />
                   <input type="hidden" name="date" value={day.date} />
-                  <input type="hidden" name="isoYear" value={data.weekInfo.isoYear} />
-                  <input type="hidden" name="isoWeek" value={data.weekInfo.isoWeek} />
+
+                  <input
+                    type="hidden"
+                    name="isoYear"
+                    value={data.weekInfo.isoYear}
+                  />
+
+                  <input
+                    type="hidden"
+                    name="isoWeek"
+                    value={data.weekInfo.isoWeek}
+                  />
 
                   <div class="menu-input-wrap">
                     <textarea
@@ -259,7 +287,8 @@
                       placeholder="Gericht..."
                       rows="1"
                       oninput={autoResize}
-                      onblur={(event) => event.currentTarget.form?.requestSubmit()}
+                      onblur={(event) =>
+                        event.currentTarget.form?.requestSubmit()}
                       onkeydown={submitOnEnter}
                     ></textarea>
 
@@ -274,12 +303,13 @@
                         +
                       </button>
 
-                      {#if meal.text || menuValues[day.key].length > 1}
+                      {#if meal.text}
                         <button
                           type="button"
                           class="menu-clear"
                           onmousedown={(event) => event.preventDefault()}
-                          onclick={(event) => deleteMeal(event, day.key, meal.id)}
+                          onclick={(event) =>
+                            deleteMeal(event, day.key, meal.id)}
                           aria-label="Gericht löschen"
                         >
                           ×
@@ -324,22 +354,39 @@
     font-weight: 600;
   }
 
-  .grid {
+  .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(260px, 1fr));
-    gap: 1.2rem;
+    grid-template-columns:
+      minmax(280px, 0.9fr)
+      minmax(280px, 0.9fr)
+      minmax(440px, 1.35fr);
+    gap: 1.4rem;
     align-items: start;
   }
 
   .card {
     padding: 1.5rem;
-    border-radius: 28px;
+    border-radius: 32px;
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 18px 50px rgba(95, 65, 50, 0.1);
   }
 
   .card-wide {
     grid-column: 1 / -1;
+  }
+
+  .todo-card {
+    padding: 1.6rem;
+  }
+
+  .overview-card {
+    min-height: 205px;
+  }
+
+  .menu-card {
+    grid-column: 3;
+    grid-row: 2 / span 3;
+    padding: 1.5rem;
   }
 
   .card-header {
@@ -369,15 +416,15 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
   }
 
   ul li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.6rem 0.8rem;
-    border-radius: 12px;
+    padding: 0.75rem 0.95rem;
+    border-radius: 16px;
     background: #fff4ef;
     font-weight: 600;
     font-size: 0.95rem;
@@ -388,7 +435,7 @@
     font-size: 0.75rem;
     color: #9a8f87;
     background: #f0ebe7;
-    padding: 0.2rem 0.6rem;
+    padding: 0.2rem 0.65rem;
     border-radius: 999px;
     font-weight: 800;
   }
@@ -406,14 +453,14 @@
 
   .todo-add {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.8rem;
     margin-bottom: 1rem;
   }
 
   .todo-add input {
     flex: 1;
-    padding: 0.7rem 1rem;
-    border-radius: 14px;
+    padding: 0.8rem 1rem;
+    border-radius: 16px;
     border: 1.5px solid #e8e2dd;
     font: inherit;
     font-weight: 600;
@@ -426,15 +473,16 @@
   }
 
   .todo-add button {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
     border: none;
     background: linear-gradient(135deg, #df7b59, #cf6548);
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 700;
     cursor: pointer;
+    flex-shrink: 0;
   }
 
   .todo-list {
@@ -491,59 +539,46 @@
     color: #c0392b;
   }
 
-  .menu-card {
-    align-self: start;
-    padding: 1.5rem;
-  }
-
-  .menu-card .card-header {
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .menu-list {
     display: flex;
     flex-direction: column;
-    gap: 0.55rem;
-    max-width: 720px;
-    margin: 0 auto;
+    gap: 0.65rem;
   }
 
   .menu-row {
     display: grid;
-    grid-template-columns: 82px 1fr;
+    grid-template-columns: 86px 1fr;
     align-items: center;
-    gap: 0.65rem;
-    padding: 0.55rem;
-    border-radius: 16px;
+    gap: 0.75rem;
+    padding: 0.65rem;
+    border-radius: 18px;
     background: #fff4ef;
   }
 
   .menu-day {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.55rem;
     min-width: 0;
-    align-self: center;
   }
 
   .day-short {
-    width: 34px;
-    height: 34px;
-    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
     display: grid;
     place-items: center;
     background: linear-gradient(135deg, #df7b59, #cf6548);
     color: white;
-    font-size: 0.78rem;
+    font-size: 0.85rem;
     font-weight: 900;
     flex-shrink: 0;
   }
 
   .menu-day small {
+    display: block;
     color: #9a8f87;
-    font-size: 0.76rem;
+    font-size: 0.82rem;
     font-weight: 800;
     white-space: nowrap;
   }
@@ -551,7 +586,6 @@
   .meal-stack {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 0.45rem;
     min-width: 0;
   }
@@ -573,11 +607,11 @@
     min-height: 46px;
     box-sizing: border-box;
     border: none;
-    border-radius: 14px;
+    border-radius: 16px;
     background: rgba(255, 255, 255, 0.92);
-    padding: 0.78rem 3.5rem 0.72rem 0.9rem;
+    padding: 0.75rem 3.55rem 0.75rem 0.95rem;
     font: inherit;
-    font-size: 0.88rem;
+    font-size: 0.95rem;
     font-weight: 800;
     line-height: 1.25;
     outline: none;
@@ -600,22 +634,22 @@
   .menu-actions {
     position: absolute;
     top: 50%;
-    right: 0.5rem;
+    right: 0.45rem;
     transform: translateY(-50%);
     display: flex;
     align-items: center;
-    gap: 0.1rem;
+    gap: 0.12rem;
   }
 
   .menu-add,
   .menu-clear {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border: none;
     border-radius: 999px;
     background: transparent;
     color: #c7bab3;
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     font-weight: 900;
     line-height: 1;
     cursor: pointer;
@@ -634,13 +668,22 @@
     background: #fff0ef;
   }
 
-  @media (max-width: 1050px) {
-    .grid {
-      grid-template-columns: repeat(2, minmax(260px, 1fr));
+  @media (max-width: 1300px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+    }
+
+    .card-wide {
+      grid-column: 1 / -1;
     }
 
     .menu-card {
       grid-column: 1 / -1;
+      grid-row: auto;
+    }
+
+    .menu-list {
+      max-width: 760px;
     }
   }
 
@@ -657,7 +700,7 @@
       hyphens: auto;
     }
 
-    .grid {
+    .dashboard-grid {
       grid-template-columns: 1fr;
     }
 
@@ -676,7 +719,8 @@
 
     .menu-row {
       grid-template-columns: 1fr;
-      gap: 0.55rem;
+      gap: 0.5rem;
+      align-items: stretch;
     }
 
     .menu-day {

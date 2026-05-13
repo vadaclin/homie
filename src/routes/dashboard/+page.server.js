@@ -1,5 +1,6 @@
 import { redirect } from "@sveltejs/kit";
 import { ObjectId } from "mongodb";
+import { randomUUID } from "crypto";
 import { getDb } from "$lib/server/db";
 
 const COL_WOCHENMENU = "wochenmenu";
@@ -20,16 +21,21 @@ function getHaushaltId(cookies) {
 }
 
 function getISOWeekInfo(date = new Date()) {
-  const current = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-  const dayNumber = current.getUTCDay() || 7;
+  const current = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+  );
 
+  const dayNumber = current.getUTCDay() || 7;
   current.setUTCDate(current.getUTCDate() + 4 - dayNumber);
 
   const isoYear = current.getUTCFullYear();
   const yearStart = new Date(Date.UTC(isoYear, 0, 1));
   const isoWeek = Math.ceil(((current - yearStart) / 86400000 + 1) / 7);
 
-  const monday = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const monday = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+  );
+
   const mondayDay = monday.getUTCDay() || 7;
   monday.setUTCDate(monday.getUTCDate() - mondayDay + 1);
 
@@ -55,7 +61,7 @@ function getISOWeekInfo(date = new Date()) {
 }
 
 function makeMealId() {
-  return crypto.randomUUID();
+  return randomUUID();
 }
 
 function normalizeMeals(item) {
@@ -78,6 +84,10 @@ function normalizeMeals(item) {
   }
 
   return [];
+}
+
+function isValidDayKey(dayKey) {
+  return WEEK_DAYS.some((day) => day.key === dayKey);
 }
 
 export async function load({ cookies }) {
@@ -247,9 +257,7 @@ export const actions = {
     const isoYear = parseInt(form.get("isoYear")?.toString() ?? "", 10);
     const isoWeek = parseInt(form.get("isoWeek")?.toString() ?? "", 10);
 
-    const validDayKeys = WEEK_DAYS.map((day) => day.key);
-
-    if (!dayKey || !validDayKeys.includes(dayKey)) return;
+    if (!dayKey || !isValidDayKey(dayKey)) return;
     if (!mealId || !date || !isoYear || !isoWeek) return;
 
     const db = await getDb();
@@ -322,9 +330,71 @@ export const actions = {
     return { success: true };
   },
 
+  deleteMenuMeal: async ({ request, cookies }) => {
+    const haushaltId = getHaushaltId(cookies);
+    if (!haushaltId) return;
+
+    const form = await request.formData();
+
+    const dayKey = form.get("dayKey")?.toString().trim();
+    const mealId = form.get("mealId")?.toString().trim();
+    const isoYear = parseInt(form.get("isoYear")?.toString() ?? "", 10);
+    const isoWeek = parseInt(form.get("isoWeek")?.toString() ?? "", 10);
+
+    if (!dayKey || !isValidDayKey(dayKey)) return;
+    if (!mealId || !isoYear || !isoWeek) return;
+
+    const db = await getDb();
+
+    const existing = await db.collection(COL_WOCHENMENU).findOne({
+      haushaltId,
+      isoYear,
+      isoWeek,
+      dayKey
+    });
+
+    if (!existing) {
+      return { success: true };
+    }
+
+    const meals = normalizeMeals(existing).filter((meal) => meal.id !== mealId);
+
+    if (meals.length === 0) {
+      await db.collection(COL_WOCHENMENU).deleteOne({
+        haushaltId,
+        isoYear,
+        isoWeek,
+        dayKey
+      });
+
+      return { success: true, deleted: true };
+    }
+
+    await db.collection(COL_WOCHENMENU).updateOne(
+      {
+        haushaltId,
+        isoYear,
+        isoWeek,
+        dayKey
+      },
+      {
+        $set: {
+          meals,
+          updatedAt: new Date()
+        },
+        $unset: {
+          gericht: ""
+        }
+      }
+    );
+
+    return { success: true };
+  },
+
   switchHousehold: async ({ cookies }) => {
     cookies.delete("haushalt", { path: "/" });
     cookies.delete("name", { path: "/" });
+
     redirect(303, "/");
   }
 };
