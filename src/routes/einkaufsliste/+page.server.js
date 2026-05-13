@@ -96,21 +96,22 @@ export const actions = {
       const aktuelleMenge = parseInt(vorhandenesItem.menge, 10) || 0;
       const neueMenge = parseInt(menge, 10) || 0;
 
-      if (neueMenge > 0) {
-        await db.collection(COL_EINKAUF).updateOne(
-          {
-            _id: vorhandenesItem._id,
-            haushaltId
-          },
-          {
-            $set: {
-              menge: (aktuelleMenge + neueMenge).toString(),
-              einheit,
-              kategorie: kategorie ?? vorhandenesItem.kategorie ?? null
-            }
+      await db.collection(COL_EINKAUF).updateOne(
+        {
+          _id: vorhandenesItem._id,
+          haushaltId
+        },
+        {
+          $set: {
+            menge:
+              neueMenge > 0
+                ? (aktuelleMenge + neueMenge).toString()
+                : vorhandenesItem.menge ?? "",
+            einheit,
+            kategorie: kategorie ?? vorhandenesItem.kategorie ?? null
           }
-        );
-      }
+        }
+      );
 
       return { alreadyExists: true };
     }
@@ -151,6 +152,8 @@ export const actions = {
       { _id: id, haushaltId },
       { $set: { done: !item.done } }
     );
+
+    return { success: true };
   },
 
   delete: async ({ request, cookies }) => {
@@ -168,6 +171,8 @@ export const actions = {
       _id: id,
       haushaltId
     });
+
+    return { success: true };
   },
 
   addToVorrat: async ({ request, cookies }) => {
@@ -194,10 +199,14 @@ export const actions = {
     });
 
     if (existing) {
-      const neueMenge = (parseInt(existing.menge, 10) || 0) + menge;
+      const alteMenge = parseInt(existing.menge, 10) || 0;
+      const neueMenge = alteMenge + menge;
 
       await db.collection(COL_VORRAT).updateOne(
-        { _id: existing._id, haushaltId },
+        {
+          _id: existing._id,
+          haushaltId
+        },
         {
           $set: {
             menge: neueMenge.toString(),
@@ -223,5 +232,7 @@ export const actions = {
         haushaltId
       });
     }
+
+    return { success: true };
   }
 };

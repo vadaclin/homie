@@ -2,6 +2,58 @@ import { redirect } from "@sveltejs/kit";
 import { ObjectId } from "mongodb";
 import { getDb } from "$lib/server/db";
 
+const COL_WOCHENMENU = "wochenmenu";
+
+const WEEK_DAYS = [
+  { key: "mo", label: "Montag", short: "Mo" },
+  { key: "di", label: "Dienstag", short: "Di" },
+  { key: "mi", label: "Mittwoch", short: "Mi" },
+  { key: "do", label: "Donnerstag", short: "Do" },
+  { key: "fr", label: "Freitag", short: "Fr" },
+  { key: "sa", label: "Samstag", short: "Sa" },
+  { key: "so", label: "Sonntag", short: "So" }
+];
+
+function getHaushaltId(cookies) {
+  const haushalt = cookies.get("haushalt");
+  return haushalt ? new ObjectId(haushalt) : null;
+}
+
+function getISOWeekInfo(date = new Date()) {
+  const current = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNumber = current.getUTCDay() || 7;
+
+  current.setUTCDate(current.getUTCDate() + 4 - dayNumber);
+
+  const isoYear = current.getUTCFullYear();
+  const yearStart = new Date(Date.UTC(isoYear, 0, 1));
+  const isoWeek = Math.ceil(((current - yearStart) / 86400000 + 1) / 7);
+
+  const monday = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const mondayDay = monday.getUTCDay() || 7;
+  monday.setUTCDate(monday.getUTCDate() - mondayDay + 1);
+
+  const days = WEEK_DAYS.map((day, index) => {
+    const d = new Date(monday);
+    d.setUTCDate(monday.getUTCDate() + index);
+
+    return {
+      ...day,
+      date: d.toISOString().slice(0, 10),
+      displayDate: d.toLocaleDateString("de-DE", {
+        day: "2-digit",
+        month: "2-digit"
+      })
+    };
+  });
+
+  return {
+    isoYear,
+    isoWeek,
+    days
+  };
+}
+
 export async function load({ cookies }) {
   const haushalt = cookies.get("haushalt");
   if (!haushalt) redirect(303, "/");
@@ -9,10 +61,26 @@ export async function load({ cookies }) {
   const db = await getDb();
   const haushaltId = new ObjectId(haushalt);
 
-  const haushaltDoc = await db.collection("haushalte").findOne({ _id: haushaltId });
+  const haushaltDoc = await db.collection("haushalte").findOne({
+    _id: haushaltId
+  });
+
   if (!haushaltDoc) redirect(303, "/");
 
-  const [einkaufItems, baldLeer, todos] = await Promise.all([
+  const weekInfo = getISOWeekInfo();
+
+  await db.collection(COL_WOCHENMENU).deleteMany({
+    haushaltId,
+    $or: [
+      { isoYear: { $lt: weekInfo.isoYear } },
+      {
+        isoYear: weekInfo.isoYear,
+        isoWeek: { $lt: weekInfo.isoWeek }
+      }
+    ]
+  });
+
+  const [einkaufItems, baldLeer, todos, wochenmenuItems] = await Promise.all([
     db
       .collection("einkaufsliste")
       .find({ haushaltId, done: false })
@@ -30,8 +98,27 @@ export async function load({ cookies }) {
       .collection("todos")
       .find({ haushaltId, done: false })
       .sort({ createdAt: -1 })
+      .toArray(),
+
+    db
+      .collection(COL_WOCHENMENU)
+      .find({
+        haushaltId,
+        isoYear: weekInfo.isoYear,
+        isoWeek: weekInfo.isoWeek
+      })
       .toArray()
   ]);
+
+  const menuByDay = Object.fromEntries(
+    wochenmenuItems.map((item) => [
+      item.dayKey,
+      {
+        id: item._id.toString(),
+        gericht: item.gericht ?? ""
+      }
+    ])
+  );
 
   return {
     haushaltsname: haushaltDoc.haushaltsname ?? "Haushalt",
@@ -54,13 +141,17 @@ export async function load({ cookies }) {
       id: i._id.toString(),
       text: i.text,
       done: i.done
-    }))
-  };
-}
+    })),
 
-function getHaushaltId(cookies) {
-  const haushalt = cookies.get("haushalt");
-  return haushalt ? new ObjectId(haushalt) : null;
+    weekInfo: {
+      isoYear: weekInfo.isoYear,
+      isoWeek: weekInfo.isoWeek,
+      days: weekInfo.days.map((day) => ({
+        ...day,
+        gericht: menuByDay[day.key]?.gericht ?? ""
+      }))
+    }
+  };
 }
 
 export const actions = {
@@ -79,6 +170,8 @@ export const actions = {
       done: false,
       createdAt: new Date()
     });
+
+    return { success: true };
   },
 
   toggleTodo: async ({ request, cookies }) => {
@@ -94,6 +187,8 @@ export const actions = {
       _id: new ObjectId(id),
       haushaltId
     });
+
+    return { success: true };
   },
 
   deleteTodo: async ({ request, cookies }) => {
@@ -109,6 +204,65 @@ export const actions = {
       _id: new ObjectId(id),
       haushaltId
     });
+
+    return { success: true };
+  },
+
+  saveMenuDay: async ({ request, cookies }) => {
+    const haushaltId = getHaushaltId(cookies);
+    if (!haushaltId) return;
+
+    const form = await request.formData();
+
+    const dayKey = form.get("dayKey")?.toString().trim();
+    const date = form.get("date")?.toString().trim();
+    const gericht = form.get("gericht")?.toString().trim() ?? "";
+    const isoYear = parseInt(form.get("isoYear")?.toString() ?? "", 10);
+    const isoWeek = parseInt(form.get("isoWeek")?.toString() ?? "", 10);
+
+    const validDayKeys = WEEK_DAYS.map((day) => day.key);
+
+    if (!dayKey || !validDayKeys.includes(dayKey)) return;
+    if (!date || !isoYear || !isoWeek) return;
+
+    const db = await getDb();
+
+    if (!gericht) {
+      await db.collection(COL_WOCHENMENU).deleteOne({
+        haushaltId,
+        isoYear,
+        isoWeek,
+        dayKey
+      });
+
+      return { success: true, deleted: true };
+    }
+
+    await db.collection(COL_WOCHENMENU).updateOne(
+      {
+        haushaltId,
+        isoYear,
+        isoWeek,
+        dayKey
+      },
+      {
+        $set: {
+          haushaltId,
+          isoYear,
+          isoWeek,
+          dayKey,
+          date,
+          gericht,
+          updatedAt: new Date()
+        },
+        $setOnInsert: {
+          createdAt: new Date()
+        }
+      },
+      { upsert: true }
+    );
+
+    return { success: true };
   },
 
   switchHousehold: async ({ cookies }) => {

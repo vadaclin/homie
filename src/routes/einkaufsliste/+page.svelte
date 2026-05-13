@@ -7,27 +7,22 @@
     "Getränke",
     "Haushalt",
     "Hygiene",
-    "Sonstiges"
+    "Sonstiges",
   ];
 
   const EINHEITEN = [
     { label: "Keine Angabe", value: "" },
     { label: "Stück", value: "Stück" },
     { label: "Pack", value: "Pack" },
-    { label: "Packung", value: "Packung" },
-    { label: "Flasche", value: "Flasche" },
-    { label: "Dose", value: "Dose" },
-    { label: "Glas", value: "Glas" },
-    { label: "Beutel", value: "Beutel" },
-    { label: "Rolle", value: "Rolle" },
-    { label: "Tube", value: "Tube" },
     { label: "kg", value: "kg" },
-    { label: "Eigene Eingabe...", value: "__custom__" }
+    { label: "g", value: "g" },
+    { label: "Liter", value: "Liter" },
+    { label: "Eigene Angabe...", value: "__custom__" },
   ];
 
-  const STANDARD_EINHEITEN = EINHEITEN
-    .filter((option) => option.value && option.value !== "__custom__")
-    .map((option) => option.value);
+  const STANDARD_EINHEITEN = EINHEITEN.filter(
+    (option) => option.value && option.value !== "__custom__",
+  ).map((option) => option.value);
 
   let { data } = $props();
 
@@ -47,13 +42,13 @@
   let gespeicherteEinkaufEinheit = $derived(
     einkaufEinheitAuswahl === "__custom__"
       ? einkaufEigeneEinheit.trim()
-      : einkaufEinheitAuswahl
+      : einkaufEinheitAuswahl,
   );
 
   let gespeicherteVorratEinheit = $derived(
     vorratEinheitAuswahl === "__custom__"
       ? vorratEigeneEinheit.trim()
-      : vorratEinheitAuswahl
+      : vorratEinheitAuswahl,
   );
 
   function openVorratModal(item) {
@@ -77,13 +72,6 @@
     vorratModal = null;
   }
 
-  function itemMengeLabel(item) {
-    if (!item.menge && !item.einheit) return "";
-    if (item.menge && item.einheit) return `${item.menge} ${item.einheit}`;
-    if (item.menge) return item.menge;
-    return item.einheit;
-  }
-
   function resetAddForm() {
     text = "";
     einkaufMenge = "";
@@ -102,14 +90,23 @@
     method="POST"
     action="?/add"
     class="add-card"
-    use:enhance={() => async ({ update }) => {
-      await update({ reset: false });
-      resetAddForm();
-    }}
+    use:enhance={() =>
+      async ({ update }) => {
+        await update({ reset: false });
+        resetAddForm();
+      }}
   >
     <div class="add-main-row">
-      <input name="name" bind:value={text} placeholder="Was brauchst du? z. B. Milch" required />
-      <button type="submit">+</button>
+      <input
+        name="name"
+        bind:value={text}
+        placeholder="Was brauchst du? z. B. Milch"
+        required
+      />
+
+      <button type="submit" aria-label="Zur Einkaufsliste hinzufügen">
+        +
+      </button>
     </div>
 
     <div class="add-detail-row">
@@ -121,7 +118,10 @@
       />
 
       <div class="select-wrapper">
-        <select bind:value={einkaufEinheitAuswahl} aria-label="Einheit optional">
+        <select
+          bind:value={einkaufEinheitAuswahl}
+          aria-label="Einheit optional"
+        >
           {#each EINHEITEN as option}
             <option value={option.value}>{option.label}</option>
           {/each}
@@ -149,14 +149,20 @@
       aria-label="Modal schliessen"
     ></button>
 
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="vorrat-title">
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="vorrat-title"
+    >
       <form
         method="POST"
         action="?/addToVorrat"
-        use:enhance={() => async ({ update }) => {
-          await update({ reset: false });
-          closeVorratModal();
-        }}
+        use:enhance={() =>
+          async ({ update }) => {
+            await update({ reset: false });
+            closeVorratModal();
+          }}
       >
         <h2 id="vorrat-title">In Vorrat übernehmen</h2>
         <p class="modal-subtitle">„{vorratModal.name}”</p>
@@ -173,7 +179,10 @@
           />
 
           <div class="select-wrapper">
-            <select bind:value={vorratEinheitAuswahl} aria-label="Einheit optional">
+            <select
+              bind:value={vorratEinheitAuswahl}
+              aria-label="Einheit optional"
+            >
               {#each EINHEITEN as option}
                 <option value={option.value}>{option.label}</option>
               {/each}
@@ -200,8 +209,11 @@
         </div>
 
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeVorratModal}>Abbrechen</button>
-          <button type="submit">In Vorrat</button>
+          <button type="button" class="secondary" onclick={closeVorratModal}>
+            Abbrechen
+          </button>
+
+          <button type="submit"> In Vorrat </button>
         </div>
       </form>
     </div>
@@ -217,6 +229,7 @@
       {#each items as item (item._id)}
         <article class="item-card">
           <button
+            type="button"
             class="check"
             class:checked={item.done}
             onclick={() => openVorratModal(item)}
@@ -227,10 +240,6 @@
             <strong class:done={item.done}>{item.name}</strong>
 
             <div class="meta-row">
-              {#if itemMengeLabel(item)}
-                <span class="amount">{itemMengeLabel(item)}</span>
-              {/if}
-
               {#if item.kategorie}
                 <span class="badge">{item.kategorie}</span>
               {/if}
@@ -250,8 +259,7 @@
 <style>
   .page {
     padding: 3rem 7%;
-    background:
-      radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
+    background: radial-gradient(circle at 20% 20%, #ffe8dc 0, transparent 32%),
       radial-gradient(circle at 85% 75%, #f7c7b3 0, transparent 28%),
       linear-gradient(135deg, #fffaf7 0%, #f7f1ed 100%);
     min-height: calc(100vh - 72px);

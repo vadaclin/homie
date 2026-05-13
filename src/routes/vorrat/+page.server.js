@@ -56,7 +56,7 @@ export async function load({ cookies }) {
       .map((item) => ({
         id: item._id.toString(),
         name: item.name,
-        menge: (parseInt(item.menge) || 0).toString(),
+        menge: (parseInt(item.menge, 10) || 0).toString(),
         einheit: item.einheit ?? "",
         kategorie: item.kategorie
       }))
@@ -168,7 +168,7 @@ export const actions = {
     const data = await request.formData();
 
     const id = data.get("id")?.toString();
-    const delta = parseInt(data.get("delta")?.toString() ?? "0");
+    const delta = parseInt(data.get("delta")?.toString() ?? "0", 10);
 
     if (!id) {
       return fail(400, { error: "Keine ID angegeben." });
@@ -186,7 +186,7 @@ export const actions = {
       return fail(404, { error: "Artikel nicht gefunden." });
     }
 
-    const neueMenge = (parseInt(item.menge) || 0) + delta;
+    const neueMenge = (parseInt(item.menge, 10) || 0) + delta;
 
     if (neueMenge <= 0) {
       await db.collection(COLLECTION).deleteOne({

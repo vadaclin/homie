@@ -14,15 +14,10 @@
     { label: "Keine Angabe", value: "" },
     { label: "Stück", value: "Stück" },
     { label: "Pack", value: "Pack" },
-    { label: "Packung", value: "Packung" },
-    { label: "Flasche", value: "Flasche" },
-    { label: "Dose", value: "Dose" },
-    { label: "Glas", value: "Glas" },
-    { label: "Beutel", value: "Beutel" },
-    { label: "Rolle", value: "Rolle" },
-    { label: "Tube", value: "Tube" },
     { label: "kg", value: "kg" },
-    { label: "Eigene Eingabe...", value: "__custom__" },
+    { label: "g", value: "g" },
+    { label: "Liter", value: "Liter" },
+    { label: "Eigene Angabe...", value: "__custom__" },
   ];
 
   const STANDARD_EINHEITEN = EINHEITEN.filter(
@@ -119,9 +114,9 @@
 
   <div class="add-card">
     <input class="suche" bind:value={suche} placeholder="Artikel suchen..." />
-    <button type="button" onclick={openAdd} aria-label="Artikel hinzufügen"
-      >+</button
-    >
+    <button type="button" onclick={openAdd} aria-label="Artikel hinzufügen">
+      +
+    </button>
   </div>
 
   {#if showAddModal}
@@ -179,9 +174,9 @@
         </div>
 
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeModals}
-            >Abbrechen</button
-          >
+          <button type="button" class="secondary" onclick={closeModals}>
+            Abbrechen
+          </button>
           <button type="submit">Speichern</button>
         </div>
       </form>
@@ -245,9 +240,9 @@
         </div>
 
         <div class="actions">
-          <button type="button" class="secondary" onclick={closeModals}
-            >Abbrechen</button
-          >
+          <button type="button" class="secondary" onclick={closeModals}>
+            Abbrechen
+          </button>
           <button type="submit">Speichern</button>
         </div>
       </form>
@@ -276,14 +271,16 @@
           <h2>{gruppe}</h2>
 
           {#each items as item (item.id)}
-            <div class="item" class:low={parseInt(item.menge) === 1}>
+            <div class="item" class:low={parseInt(item.menge, 10) === 1}>
               <button
                 class="edit-btn"
                 onclick={() => openEdit(item)}
-                aria-label="Bearbeiten">✎</button
+                aria-label="Bearbeiten"
               >
+                ✎
+              </button>
 
-              <strong class:low-text={parseInt(item.menge) === 1}>
+              <strong class:low-text={parseInt(item.menge, 10) === 1}>
                 {item.name}
               </strong>
 
@@ -294,7 +291,7 @@
                   <button type="submit" class="menge-btn">−</button>
                 </form>
 
-                <span class="menge" class:low-text={parseInt(item.menge) === 1}>
+                <span class="menge" class:low-text={parseInt(item.menge, 10) === 1}>
                   {mengeLabel(item)}
                 </span>
 
@@ -305,7 +302,7 @@
                 </form>
               </div>
 
-              {#if parseInt(item.menge) === 1}
+              {#if parseInt(item.menge, 10) === 1}
                 <form
                   method="POST"
                   action="/einkaufsliste?/add"
@@ -316,14 +313,13 @@
                     }}
                 >
                   <input type="hidden" name="name" value={item.name} />
-                  <input
-                    type="hidden"
-                    name="kategorie"
-                    value={item.kategorie}
-                  />
-                  <button type="submit" class="einkauf-btn"
-                    >+ Einkaufsliste</button
-                  >
+                  <input type="hidden" name="menge" value={item.menge} />
+                  <input type="hidden" name="einheit" value={item.einheit} />
+                  <input type="hidden" name="kategorie" value={item.kategorie} />
+
+                  <button type="submit" class="einkauf-btn">
+                    + Einkaufsliste
+                  </button>
                 </form>
               {/if}
             </div>
