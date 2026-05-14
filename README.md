@@ -73,20 +73,20 @@ Bei Einzelpersonen entsteht das Problem häufig dadurch, dass Einkäufe spontan 
 In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Personen Produkte verbrauchen, einkaufen oder Aufgaben übernehmen. Dadurch entstehen Missverständnisse: Eine Person geht davon aus, dass ein Produkt noch vorhanden ist, während eine andere es bereits aufgebraucht hat. Einkaufslisten oder Aufgaben werden oft über verschiedene Kanäle geführt, zum Beispiel über WhatsApp oder mündliche Absprachen. Dadurch ist der aktuelle Stand nicht für alle klar ersichtlich.
 
 **Proto-Persona 1: Einzelperson**
-Name: Thomas
-Alter: 39 Jahre
-Situation: Lebt alleine in einer Wohnung
-Bedürfnis: Thomas möchte beim Einkaufen besser wissen, welche Produkte er noch zuhause hat, welche Aufgaben anstehen und was er in der Woche kochen möchte.
-Problem: Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt. Zusätzlich plant er Mahlzeiten spontan und verliert dadurch manchmal den Überblick über vorhandene Lebensmittel.
-Ziel: Eine einfache App nutzen, mit der er Vorräte, fehlende Produkte, Aufgaben und Mahlzeiten schnell erfassen kann.
+- **Name:** Thomas
+- **Alter:** 39 Jahre
+- **Situation:**  Lebt alleine in einer Wohnung
+- **Bedürfnis:** Thomas möchte beim Einkaufen besser wissen, welche Produkte er noch zuhause hat, welche Aufgaben anstehen und was er in der Woche kochen möchte.
+- **Problem:** Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt. Zusätzlich plant er Mahlzeiten spontan und verliert dadurch manchmal den Überblick über vorhandene Lebensmittel.
+- **Ziel:** Eine einfache App nutzen, mit der er Vorräte, fehlende Produkte, Aufgaben und Mahlzeiten schnell erfassen kann.
 
 **Proto-Persona 2: Gemeinsamer Haushalt**
-Name: Lara
-Alter: 24 Jahre
-Situation: Lebt in einer WG mit drei Mitbewohnerinnen und Mitbewohnern
-Bedürfnis: Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind, was noch gekauft werden muss, welche Aufgaben offen sind und welche Mahlzeiten geplant sind.
-Problem: In ihrer WG werden Einkaufslisten und Aufgaben oft über WhatsApp geführt. Dadurch gehen Nachrichten unter, Produkte werden mehrfach gekauft oder Aufgaben bleiben unklar verteilt.
-Ziel: Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand zu Vorräten, Einkaufsliste und Aufgaben sehen.
+- **Name:** Lara
+- **Alter:**  24 Jahre
+- **Situation:** Lebt in einer WG mit drei Mitbewohnerinnen und Mitbewohnern
+- **Bedürfnis:** Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind, was noch gekauft werden muss, welche Aufgaben offen sind und welche Mahlzeiten geplant sind.
+- **Problem:** In ihrer WG werden Einkaufslisten und Aufgaben oft über WhatsApp geführt. Dadurch gehen Nachrichten unter, Produkte werden mehrfach gekauft oder Aufgaben bleiben unklar verteilt.
+**Ziel:** Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand zu Vorräten, Einkaufsliste und Aufgaben sehen.
 
 **Wesentliche Erkenntnisse:**
     - Die App muss sowohl für Einzelpersonen als auch für gemeinsame Haushalte funktionieren.
