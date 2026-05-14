@@ -9,15 +9,6 @@
     code = code.replace(/\D/g, "").slice(0, MAX_CODE_LENGTH);
   }
 
-  async function checkCode() {
-    if (code.length !== MAX_CODE_LENGTH) {
-      haushaltInfo = null;
-      return;
-    }
-    const res = await fetch(`/api/haushalt?code=${code}`);
-    haushaltInfo = res.ok ? await res.json() : null;
-  }
-
   function oninput() {
     sanitizeCode();
     checkCode();

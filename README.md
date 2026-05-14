@@ -401,7 +401,21 @@ Verbesserungspotenzial gibt es vor allem bei der Nutzung in gemeinsamen Haushalt
 
 ## 4. Erweiterungen
 
-### 4.1 Verknüpfung Einkaufsliste ↔ Vorrat
+### 4.1 Dashboard als zentrale Übersicht
+**Beschreibung & Nutzen:**  Die App wurde um ein Dashboard als zentrale Übersichtsseite erweitert. Nach dem Beitritt zu einem Haushalt gelangen Nutzerinnen und Nutzer nicht direkt in den Vorrat oder in die Einkaufsliste, sondern zuerst auf eine Hauptansicht. Dort sehen sie die wichtigsten Bereiche auf einen Blick: To-do’s, Einkaufsliste, bald leere Vorratsartikel und den Wochenmenüplan.
+
+Das Dashboard verbessert die Orientierung, weil alle wichtigen Informationen an einem Ort zusammengeführt werden. Nutzerinnen und Nutzer können schneller entscheiden, was sie als Nächstes tun möchten, zum Beispiel einen Einkauf prüfen, eine Aufgabe erfassen oder das Wochenmenü bearbeiten.
+
+**Wo umgesetzt:**
+- **Frontend:** Dashboard-Seite als zentrale Hauptansicht mit Karten für To-do’s, Einkaufsliste, bald leere Vorratsartikel und Wochenmenüplan
+- **Backend:** SvelteKit "load"-Funktion zum Laden der wichtigsten Daten aus mehreren Bereichen
+- **Datenbank:** MongoDB-Collections "einkaufsliste", "vorrat", "todos" und "wochenmenu", verknüpft über die Haushalts-ID
+
+**Referenz:** Das Dashboard wird in Kapitel 3.3 bei der gewählten Variante und der User Journey beschrieben. Zusätzlich ist es in Kapitel 3.4.1 im Screenshot des Dashboards sichtbar.
+
+**Aus Evaluation abgeleitet?:** Nicht direkt aus der abschliessenden Evaluation, sondern während der Weiterentwicklung. Zuerst war die App so geplant, dass Nutzerinnen und Nutzer nach dem Beitritt zu einem Haushalt direkt in den Vorrat oder in die Einkaufsliste gelangen. Während der Umsetzung wurde jedoch deutlich, dass dies nicht sinnvoll ist, weil die App mehrere wichtige Bereiche enthält. Deshalb entstand die Idee eines Dashboards als zentrale Einstiegsseite. Dort erhalten Nutzerinnen und Nutzer zuerst einen Überblick und können danach gezielt zu Vorrat, Einkaufsliste, To-do’s oder Wochenmenü wechseln.
+
+### 4.2 Verknüpfung Einkaufsliste ↔ Vorrat
 **Beschreibung & Nutzen:** Artikel aus dem Vorrat können direkt zur Einkaufsliste hinzugefügt werden, sobald die Menge niedrig ist. Umgekehrt kann ein Artikel aus der Einkaufsliste nach dem Einkauf wieder in den Vorrat übernommen werden. Dabei werden Name, Menge, Einheit und Kategorie mitgeführt. Dadurch müssen Nutzerinnen und Nutzer dieselben Informationen nicht mehrfach eingeben.
 
 Diese Erweiterung bildet den realen Ablauf im Haushalt besser ab: Ein Produkt wird zuerst im Vorrat erfasst, bei Bedarf auf die Einkaufsliste gesetzt und nach dem Einkauf wieder in den Vorrat übernommen. Dadurch entsteht ein geschlossener Workflow zwischen Vorratsverwaltung und Einkaufsliste.
@@ -415,42 +429,70 @@ Diese Erweiterung bildet den realen Ablauf im Haushalt besser ab: Ein Produkt wi
 
 **Aus Evaluation abgeleitet?:** Ja. Die Funktion wurde ergänzt beziehungsweise verbessert, weil deutlich wurde, dass die Verbindung zwischen Vorrat und Einkaufsliste für den Alltag besonders wichtig ist. Nutzerinnen und Nutzer sollen Artikel nicht doppelt erfassen müssen.
 
-LINET HIER WEITER
+### 4.3 Wochenmenüplan mit mehreren Einträgen und Drag & Drop
+- **Beschreibung & Nutzen:** Die App wurde um einen Wochenmenüplan erweitert, der direkt auf dem Dashboard angezeigt wird. Nutzerinnen und Nutzer können dadurch ihre geplanten Mahlzeiten direkt in der zentralen Übersicht erfassen und bearbeiten, ohne zuerst auf eine separate Seite wechseln zu müssen. Der Wochenmenüplan bezieht sich immer auf die aktuelle Kalenderwoche. Sobald eine neue Woche beginnt, wird eine leere neue Woche angezeigt und alte Wochenmenüeinträge werden aus der Datenbank entfernt.
+Für jeden Wochentag können Mahlzeiten eingetragen werden. Pro Tag können mehrere Menüeinträge erstellt werden, zum Beispiel für Mittag- und Abendessen. Zusätzlich können Menüeinträge per Drag & Drop zwischen den Tagen verschoben werden.
+Diese Erweiterung unterstützt die Essensplanung und hilft dabei, Einkäufe besser vorzubereiten und vorhandene Lebensmittel gezielter zu verwenden. Besonders für Einzelpersonen, Paare oder Familien kann der Wochenmenüplan helfen, den Alltag besser zu strukturieren.
 
-### 4.2 To-do-Liste für Haushaltsaufgaben  
-- **Beschreibung & Nutzen:** _[Was wurde erweitert? Warum?]_  
-- **Wo umgesetzt:** _[Wie und wo wurde es gemacht? Frontend, Backend, Datenbank?]_  
-- **Referenz:** _[Wo wird die Erweiterung auch noch beschrieben, z.B. Screenshot oder Beschreibung in einem anderen Kapitel]_  
-- **Aus Evaluation abgeleitet?:** _[Wurde diese Erweiterung als Folge eines in der Evaluation identifizierten Issues implementiert?]_  
+- **Wo umgesetzt:**
+- **Frontend:** Wochenmenü-Karte direkt auf dem Dashboard mit Anzeige der aktuellen Kalenderwoche, Eingabefeldern pro Wochentag, Plus-Button für zusätzliche Menüeinträge und Drag-&-Drop-Funktion
+- **Backend:** SvelteKit Form Actions zum Speichern, Löschen, Aktualisieren und Verschieben von Menüeinträgen; automatische Berechnung der aktuellen Kalenderwoche
+- **Datenbank:** MongoDB-Collection "wochenmenu", gespeichert pro Haushalt, Kalenderwoche und Wochentag, alte Wochenmenüeinträge werden nach Ende der Woche gelöscht
 
-### 4.3 Artikelsuche im Vorrat
-- **Beschreibung & Nutzen:** _[Was wurde erweitert? Warum?]_  
-- **Wo umgesetzt:** _[Wie und wo wurde es gemacht? Frontend, Backend, Datenbank?]_  
-- **Referenz:** _[Wo wird die Erweiterung auch noch beschrieben, z.B. Screenshot oder Beschreibung in einem anderen Kapitel]_  
-- **Aus Evaluation abgeleitet?:** _[Wurde diese Erweiterung als Folge eines in der Evaluation identifizierten Issues implementiert?]_  
+- **Referenz:**  Der Wochenmenüplan wird in Kapitel 3.3 bei der User Journey sowie in Kapitel 3.4.1 im Dashboard und im Screenshot des Wochenmenüplans beschrieben.
+ 
+- **Aus Evaluation abgeleitet?:** Teilweise. Der Wochenmenüplan entstand während der Weiterentwicklung, weil Haushaltsorganisation nicht nur Vorräte und Einkäufe umfasst, sondern auch die Planung von Mahlzeiten. Aus der Evaluation ergab sich zusätzlich der Wunsch nach Rezeptvorschlägen anhand vorhandener Vorräte. Der Wochenmenüplan bildet dafür eine mögliche Grundlage.
+
+### 4.4 Mengenangaben und Einheiten
+- **Beschreibung & Nutzen:** Die App wurde so erweitert, dass Produkte nicht nur mit einem Namen gespeichert werden, sondern zusätzlich mit Menge und Einheit. Nutzerinnen und Nutzer können dadurch genauer festhalten, wie viel von einem Produkt vorhanden ist oder gekauft werden muss. Unterstützt werden feste Einheiten wie Stück, Pack, kg, g und Liter sowie eine eigene Angabe.
+
+Besonders wichtig ist, dass Mengenangaben und Einheiten beim Wechsel zwischen Vorrat und Einkaufsliste erhalten bleiben. Wenn ein Artikel aus dem Vorrat zur Einkaufsliste hinzugefügt wird, werden Menge und Einheit mitgespeichert. Wird ein gekaufter Artikel später von der Einkaufsliste wieder in den Vorrat übernommen, werden diese Angaben ebenfalls übernommen. Dadurch müssen Nutzerinnen und Nutzer die gleichen Informationen nicht erneut eingeben.
+
+Diese Erweiterung macht die Vorrats- und Einkaufslistenfunktion deutlich alltagstauglicher. Es reicht nicht immer zu wissen, dass ein Produkt vorhanden ist oder gekauft werden muss. Oft ist auch wichtig, ob zum Beispiel eine Packung, ein Kilogramm oder ein Liter benötigt wird.
+
+- **Wo umgesetzt:**
+- **Frontend:** Eingabefelder und Auswahlfelder für Menge und Einheit auf der Vorrat-Seite und der Einkaufsliste; Möglichkeit für eine eigene Einheit
+- **Backend:** SvelteKit Form Actions zum Speichern und Aktualisieren von Menge und Einheit bei Vorratsartikeln und Einkaufslisten-Einträgen; Menge und Einheit werden beim Übernehmen zwischen Vorrat und Einkaufsliste mitgegeben
+- **Datenbank:** Felder "menge" und "einheit" in den MongoDB-Collections "vorrat" und "einkaufsliste"
+
+- **Referenz:** Die Mengenangaben und Einheiten werden in Kapitel 3.3 bei der User Journey sowie in Kapitel 3.4.1 in den Screenshots zur Vorratsübersicht, zum Hinzufügen von Vorratsartikeln und zur Einkaufsliste beschrieben.
+
+- **Aus Evaluation abgeleitet?:** Teilweise. Während der Weiterentwicklung wurde deutlich, dass eine reine Artikelliste für den Alltag nicht genau genug ist. Die Angabe von Menge und Einheit macht die App praktischer und reduziert Missverständnisse, besonders wenn Artikel zwischen Vorrat und Einkaufsliste übernommen werden.
 
 ## 5. Projektorganisation
 **Repository & Struktur:** https://github.com/vadaclin/homie
-Das Repository enthält die Ordner src (SvelteKit-App mit Seiten und Komponenten), static (statische Assets) sowie Konfigurationsdateien wie svelte.config.js, vite.config.js und netlify.toml.
-**Commit-Praxis:** Es wurden teilweise sprechende Commits verwendet, die grob beschreiben, was geändert wurde. Insgesamt wurden 34 Commits gemacht, wodurch die schrittweise Entwicklung von der Grundstruktur bis zum fertigen Prototyp grundsätzlich nachvollziehbar ist. Die Commit-Nachrichten waren jedoch nicht immer einheitlich oder sehr detailliert. Deshalb lässt sich der Entwicklungsverlauf zwar erkennen, aber nicht bei jedem Commit genau nachvollziehen.
+Das Repository enthält die zentrale SvelteKit-Projektstruktur. Im Ordner src befinden sich die Seiten, Server-Logik und wiederverwendbare Bestandteile der Web-App. Der Ordner static enthält statische Dateien wie Bilder oder Icons. Zusätzlich gibt es verschiedene Konfigurationsdateien, zum Beispiel für SvelteKit, Vite und Netlify.
+Die Struktur des Projekts ist so aufgebaut, dass die wichtigsten Bereiche der App klar voneinander getrennt sind. Die einzelnen Routen wie Dashboard, Vorrat, Einkaufsliste und Haushaltserstellung sind jeweils in eigenen Ordnern abgelegt. Dadurch bleibt der Code übersichtlich und die Weiterentwicklung einzelner Funktionen ist einfacher möglich.
+**Commit-Praxis:** Die Entwicklung wurde mit Git und GitHub versioniert. Änderungen wurden regelmässig committed, sodass die Entstehung des Prototyps grundsätzlich nachvollziehbar ist. Die Commits dokumentieren verschiedene Entwicklungsschritte, zum Beispiel den Aufbau der Grundstruktur, die Umsetzung einzelner Funktionen, Designanpassungen sowie Fehlerbehebungen.
+Die Commit-Nachrichten waren teilweise beschreibend, jedoch nicht immer einheitlich oder sehr detailliert. Dadurch lässt sich der allgemeine Entwicklungsverlauf erkennen, auch wenn nicht jeder einzelne Commit exakt beschreibt, welche Änderung vorgenommen wurde.
 
 ## 6. KI-Deklaration
 Die folgende Deklaration ist verpflichtend und beschreibt den Einsatz von KI im Projekt.
 
 ### 6.1 KI-Tools
-- **Eingesetzte Tools**: _[z. B. Copilot, ChatGPT, Claude, lokale Modelle; Version/Variante wenn bekannt]_
-- **Zweck & Umfang**: _[wie, wofür und in welchem Ausmass wurde KI eingesetzt (z. B. Textentwürfe, Codevorschläge, Tests, Refactoring); welche Teile stammen (ganz/teilweise) aus KI-Unterstützung?]_
-- **Eigene Leistung (Abgrenzung):** _[was ist eigenständig erarbeitet/überarbeitet worden?]_
+- **Eingesetzte Tools**: Für das Projekt wurden ChatGPT und Claude eingesetzt.
+- **Zweck & Umfang**:   Die KI-Tools wurden vor allem zur Unterstützung bei der Umsetzung des Codes, bei der Fehlersuche, beim Refactoring und bei der Formulierung von Texten verwendet. Dazu gehörten unter anderem Vorschläge für SvelteKit-Code, Server Actions, MongoDB-Abfragen, CSS-Anpassungen und responsive Design-Anpassungen.
+
+Ein grosser Teil des Codes wurde mithilfe von KI-Unterstützung erstellt oder überarbeitet. Die KI wurde dabei nicht nur für einzelne Codezeilen genutzt, sondern auch für grössere zusammenhängende Funktionen, zum Beispiel für die Vorratsverwaltung, Einkaufsliste, Dashboard-Ansicht, To-do-Liste und den Wochenmenüplan.
+
+- **Eigene Leistung (Abgrenzung):**  Die Grundidee der App, die Projektanforderungen, die gewünschte Funktionalität und die Entscheidungen zur Gestaltung wurden selbst erarbeitet. Die Ordnerstruktur des SvelteKit-Projekts wurde selbst angelegt und verwaltet. Anschliessend wurde der KI jeweils erklärt, welche Datei oder Funktion angepasst werden soll.
+
+Die KI-Ausgaben wurden nicht ungeprüft übernommen. Der Code wurde getestet, angepasst und bei Fehlern schrittweise verbessert. Besonders bei der visuellen Gestaltung wurden die Ergebnisse im Browser überprüft und mit Screenshots oder Beschreibungen weiter angepasst. Auch die Entscheidung, welche Funktionen in die App aufgenommen werden, wurde selbst getroffen.
 
 ### 6.2 Prompt-Vorgehen
-_[Überlegungen zu Prompt-Vorgehen, Qualität und Urheberrecht/Quellen. Wie wurde beim Prompting vorgegangen? Zu beschreiben ist die grundlegende Vorgehensweise. Einzelne, konkrete Prompts sollten höchstens als Beispiele aufgeführt werden. ]_
+Beim Prompting wurde meist sehr konkret gearbeitet. Es wurde beschrieben, welche Funktion umgesetzt werden soll, in welcher Datei sich der Code befindet und welches Verhalten erwartet wird. Häufig wurden bestehende Codeausschnitte eingefügt, damit die KI den aktuellen Stand berücksichtigen konnte. Anschliessend wurden die Vorschläge getestet und bei Problemen erneut mit Fehlermeldungen oder Screenshots zurückgegeben.
+
+Das Vorgehen war iterativ. Besonders bei CSS- und Layout-Fragen wurden mehrere Anpassungen ausprobiert, weil visuelle Details nicht immer direkt korrekt umgesetzt wurden. Beispiele dafür waren die mobile Ansicht, die Ausrichtung von Texten im Wochenmenüplan oder die Grösse der weissen Box beim Eingeben beziehungsweise Erstellen eines Haushalts-Codes.
+
+ChatGPT und Claude waren beide hilfreich. Bei reinem Code oder Textentwürfen lieferten beide Tools meistens gute Ergebnisse. Bei visuellen Anpassungen gab es jedoch Unterschiede. Ein Beispiel war die weisse Box beim Haushalts-Code eingeben und beim Haushalts-Code erstellen: Die Boxen sollten gleich gross und optisch einheitlich sein. Claude konnte dieses Layoutproblem nicht zufriedenstellend lösen, während ChatGPT eine passende Lösung liefern konnte.
+
+Beim Umgang mit KI wurde darauf geachtet, keine fremden geschützten Inhalte direkt zu übernehmen. Die KI wurde vor allem für eigene Projekttexte, Codevorschläge und Verbesserungen auf Basis des eigenen Projekts verwendet.
 
 ### 6.3 Reflexion
-_[Nutzen, Grenzen, Risiken/Qualitätssicherung, ...]_
+Der Einsatz von KI war für das Projekt sehr hilfreich. Besonders bei der Umsetzung mit SvelteKit, MongoDB und CSS konnten Probleme schneller gelöst werden. Die KI half dabei, Code zu strukturieren, Fehler zu finden und bestehende Funktionen zu erweitern.
 
-## 7. Anhang [Optional]
-Beispiele:
-- **Quellen:** _[verwendete Vorlagen/Assets/Modelle; Lizenz/Urheberrecht; ...]_
-- **Testskript & Materialien:** _[Link/Datei]_  
-- **Rohdaten/Auswertung:** _[Link/Datei]_  
+Ein grosser Vorteil war, dass Fehlermeldungen direkt analysiert und mögliche Lösungen vorgeschlagen werden konnten. Dadurch konnten Probleme schrittweise behoben werden. Auch bei neuen Funktionen wie dem Wochenmenüplan, Drag & Drop oder der Verknüpfung zwischen Vorrat und Einkaufsliste war die KI eine grosse Unterstützung.
 
+Gleichzeitig zeigte sich, dass KI-Ergebnisse immer überprüft werden müssen. Nicht jeder Vorschlag funktionierte sofort. Teilweise wurden Funktionen vorgeschlagen, die nicht zur vorhandenen Struktur passten oder neue Fehler verursachten. Besonders bei visuellen Details musste viel getestet und nachkorrigiert werden. Die KI konnte zwar Code liefern, aber die finale Kontrolle im Browser und die Entscheidung, ob das Ergebnis wirklich passt, musste selbst erfolgen.
+
+Insgesamt war KI ein wichtiges Hilfsmittel, ersetzte aber nicht das eigene Verständnis des Projekts. Die Anforderungen, die Struktur, das Testen, die Auswahl der passenden Lösungen und die finale Bewertung der App blieben eigene Leistungen.
