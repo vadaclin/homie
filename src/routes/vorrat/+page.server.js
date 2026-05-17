@@ -33,6 +33,23 @@ function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function einheitFilter(einheit) {
+  if (!einheit) {
+    return {
+      $or: [
+        { einheit: "" },
+        { einheit: null },
+        { einheit: { $exists: false } },
+        { einheit: /^\s*$/ }
+      ]
+    };
+  }
+
+  return {
+    einheit: new RegExp(`^\\s*${escapeRegex(einheit)}\\s*$`, "i")
+  };
+}
+
 function sortiereArtikel(a, b) {
   const indexA = KATEGORIEN.indexOf(a.kategorie);
   const indexB = KATEGORIEN.indexOf(b.kategorie);
@@ -86,14 +103,23 @@ export const actions = {
 
     const db = await getDb();
 
-    const existing = await db.collection(COLLECTION).findOne({
-      haushaltId,
-      name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") },
-      einheit
-    });
+    const existingItems = await db
+      .collection(COLLECTION)
+      .find({
+        haushaltId,
+        name: { $regex: new RegExp(`^${escapeRegex(name)}$`, "i") },
+        ...einheitFilter(einheit)
+      })
+      .sort({ erstelltAm: 1 })
+      .toArray();
+
+    const existing = existingItems[0];
 
     if (existing) {
-      const aktuelleMenge = parseInt(existing.menge, 10) || 0;
+      const aktuelleMenge = existingItems.reduce(
+        (sum, item) => sum + (parseInt(item.menge, 10) || 0),
+        0
+      );
       const gesamtMenge = aktuelleMenge + neueMenge;
 
       await db.collection(COLLECTION).updateOne(
@@ -109,6 +135,17 @@ export const actions = {
           }
         }
       );
+
+      const duplicateIds = existingItems
+        .slice(1)
+        .map((item) => item._id);
+
+      if (duplicateIds.length > 0) {
+        await db.collection(COLLECTION).deleteMany({
+          _id: { $in: duplicateIds },
+          haushaltId
+        });
+      }
 
       return { success: true, merged: true };
     }

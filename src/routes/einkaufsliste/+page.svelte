@@ -78,6 +78,10 @@
     einkaufEinheitAuswahl = "";
     einkaufEigeneEinheit = "";
   }
+
+  function formatMenge(item) {
+    return [item.menge, item.einheit].filter(Boolean).join(" ");
+  }
 </script>
 
 <main class="page">
@@ -240,6 +244,10 @@
             <strong class:done={item.done}>{item.name}</strong>
 
             <div class="meta-row">
+              {#if item.menge || item.einheit}
+                <span class="badge amount">{formatMenge(item)}</span>
+              {/if}
+
               {#if item.kategorie}
                 <span class="badge">{item.kategorie}</span>
               {/if}
@@ -534,6 +542,11 @@
     font-weight: 800;
   }
 
+  .badge.amount {
+    background: #f4efeb;
+    color: #6f625b;
+  }
+
   .done {
     color: #9a8f87;
     text-decoration: line-through;
@@ -579,14 +592,34 @@
     }
 
     .add-main-row,
-    .add-detail-row,
-    .menge-row,
-    .actions {
-      flex-direction: column;
+    .add-detail-row {
+      display: contents;
+    }
+
+    .add-main-row input {
+      order: 1;
+    }
+
+    .add-detail-row > input {
+      order: 2;
+    }
+
+    .add-detail-row > .select-wrapper {
+      order: 3;
+    }
+
+    .custom-unit {
+      order: 4;
     }
 
     .add-card button {
+      order: 5;
       width: 100%;
+    }
+
+    .menge-row,
+    .actions {
+      flex-direction: column;
     }
 
     .grid {
