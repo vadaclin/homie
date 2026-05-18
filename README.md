@@ -237,7 +237,7 @@ Diese Struktur wurde gewählt, weil sie den Alltag in einem Haushalt einfach abb
  *Ansicht zum Erstellen eines neuen Haushalts.*
 
 ![Dashboard](prototype/Dashboard.png)
-*Dashboard mit Übersicht über Vorräte, Einkaufsliste und To-do-Bereich.*
+*Dashboard mit Übersicht über Vorräte, Einkaufsliste, To-do-Bereich und Wochenmenü.*
 
 ![Vorratsübersicht](prototype/Vorrat.png)
 *Übersicht über vorhandene Produkte im Vorrat mit Name, Kategorie und Anzahl.*
