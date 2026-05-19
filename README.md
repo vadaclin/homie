@@ -154,6 +154,7 @@ Für die App wurden mehrere grobe Skizzen erstellt.
 ![skizzen](screens/skizze1.png)
 ![skizzen](screens/skizze2.png)
 ![skizzen](screens/skizze3.png)
+
  *Skizzen*
 
 Die Skizzen halfen dabei, die Struktur der App früh zu überprüfen. Besonders wichtig war, dass Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen, fehlende Artikel eintragen, Aufgaben erfassen und Mahlzeiten planen können.
