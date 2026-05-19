@@ -467,7 +467,8 @@ Die folgende Deklaration ist verpflichtend und beschreibt den Einsatz von KI im 
 
 ### 6.1 KI-Tools
 **Eingesetzte Tools**: Für das Projekt wurden ChatGPT und Claude eingesetzt.
-**Zweck & Umfang**:   Die KI-Tools wurden vor allem zur Unterstützung bei der Umsetzung des Codes, bei der Fehlersuche, beim Refactoring und bei der Formulierung von Texten verwendet. Dazu gehörten unter anderem Vorschläge für SvelteKit-Code, Server Actions, MongoDB-Abfragen, CSS-Anpassungen und responsive Design-Anpassungen.
+
+**Zweck & Umfang**: Die KI-Tools wurden vor allem zur Unterstützung bei der Umsetzung des Codes, bei der Fehlersuche, beim Refactoring und bei der Formulierung von Texten verwendet. Dazu gehörten unter anderem Vorschläge für SvelteKit-Code, Server Actions, MongoDB-Abfragen, CSS-Anpassungen und responsive Design-Anpassungen.
 
 Ein grosser Teil des Codes wurde mithilfe von KI-Unterstützung erstellt oder überarbeitet. Die KI wurde dabei nicht nur für einzelne Codezeilen genutzt, sondern auch für grössere zusammenhängende Funktionen, zum Beispiel für die Vorratsverwaltung, Einkaufsliste, Dashboard-Ansicht, To-do-Liste und den Wochenmenüplan.
 
