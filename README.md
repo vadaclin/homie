@@ -150,6 +150,7 @@ Diese Variante trennt die App in zwei Hauptbereiche: Vorräte und Einkaufsliste.
 
 **Skizzen:**
 Für die App wurden mehrere grobe Skizzen erstellt.
+
 ![skizzen](screens/skizze1.png)
 ![skizzen](screens/skizze2.png)
 ![skizzen](screens/skizze3.png)
