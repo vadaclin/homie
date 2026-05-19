@@ -459,6 +459,7 @@ Diese Erweiterung macht die Vorrats- und Einkaufslistenfunktion deutlich alltags
 **Repository & Struktur:** https://github.com/vadaclin/homie
 Das Repository enthält die zentrale SvelteKit-Projektstruktur. Im Ordner src befinden sich die Seiten, Server-Logik und wiederverwendbare Bestandteile der Web-App. Der Ordner static enthält statische Dateien wie Bilder oder Icons. Zusätzlich gibt es verschiedene Konfigurationsdateien, zum Beispiel für SvelteKit, Vite und Netlify.
 Die Struktur des Projekts ist so aufgebaut, dass die wichtigsten Bereiche der App klar voneinander getrennt sind. Die einzelnen Routen wie Dashboard, Vorrat, Einkaufsliste und Haushaltserstellung sind jeweils in eigenen Ordnern abgelegt. Dadurch bleibt der Code übersichtlich und die Weiterentwicklung einzelner Funktionen ist einfacher möglich.
+
 **Commit-Praxis:** Die Entwicklung wurde mit Git und GitHub versioniert. Änderungen wurden regelmässig committed, sodass die Entstehung des Prototyps grundsätzlich nachvollziehbar ist. Die Commits dokumentieren verschiedene Entwicklungsschritte, zum Beispiel den Aufbau der Grundstruktur, die Umsetzung einzelner Funktionen, Designanpassungen sowie Fehlerbehebungen.
 Die Commit-Nachrichten waren teilweise beschreibend, jedoch nicht immer einheitlich oder sehr detailliert. Dadurch lässt sich der allgemeine Entwicklungsverlauf erkennen, auch wenn nicht jeder einzelne Commit exakt beschreibt, welche Änderung vorgenommen wurde.
 
