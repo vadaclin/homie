@@ -13,7 +13,6 @@
 4. [Erweiterungen [Optional]](#4-erweiterungen-optional)
 5. [Projektorganisation [Optional]](#5-projektorganisation-optional)
 6. [KI-Deklaration](#6-ki-deklaration)
-7. [Anhang [Optional]](#7-anhang-optional)
 
 > **Hinweis:** Massgeblich sind die im **Unterricht** und auf **Moodle** kommunizierten Anforderungen.
 
