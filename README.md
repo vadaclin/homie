@@ -202,6 +202,7 @@ Zusätzlich können in der To-do-Liste Haushaltsaufgaben erfasst und erledigt we
 **Mockup:** Das Mockup zeigt die wichtigsten Ansichten der App Homie: Login, Dashboard, Vorrat und Einkaufsliste. Es verdeutlicht, wie Nutzerinnen und Nutzer einem Haushalt beitreten, Vorräte verwalten und bald leere Produkte zur Einkaufsliste hinzufügen können.
 
 ![Mockup](screens/mockup.png)
+
  *Mockup Homie*
 
 
