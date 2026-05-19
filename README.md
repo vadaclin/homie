@@ -109,8 +109,6 @@ In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Pe
 **Variante 1: Einfache Listenansicht**
 In dieser Variante werden alle Artikel in einer einfachen Liste dargestellt. Nutzerinnen und Nutzer können Produkte hinzufügen und löschen.
 
-BILD
-
 **Vorteile:**
 - Sehr einfach verständlich
 - Schneller Einstieg
@@ -125,8 +123,6 @@ BILD
 **Variante 2: Getrennte Bereiche für Vorrat und Einkaufsliste**
 Diese Variante trennt die App in zwei Hauptbereiche: Vorräte und Einkaufsliste. Dadurch ist klar ersichtlich, welche Produkte bereits vorhanden sind und welche noch gekauft werden müssen.
 
-BILD
-
 **Vorteile:**
 - Gute Übersicht
 - Klare Struktur
@@ -138,8 +134,6 @@ BILD
 
 **Variante 3: Haushalts-Dashboard mit Code-Zugang**
 Diese Variante trennt die App in zwei Hauptbereiche: Vorräte und Einkaufsliste. Dadurch ist klar ersichtlich, welche Produkte bereits vorhanden sind und welche noch gekauft werden müssen.
-
-BILD
 
 **Vorteile:**
 - Gemeinsame Nutzung ohne Login möglich
@@ -155,16 +149,11 @@ BILD
 - Keine individuelle Benutzerverwaltung
 
 **Skizzen:**
-Für die App wurden mehrere grobe Skizzen erstellt. Die wichtigsten Ansichten waren:
-- Startseite mit Eingabe eines Haushalts-Codes
-- Übersicht nach dem Beitritt zu einem Haushalt
-- Dashboard mit Zusammenfassung von Einkaufsliste, bald leeren Artikeln, To-do’s und Wochenmenü
-- Vorratsansicht mit Kategorien
-- Formular zum Hinzufügen neuer Produkte mit Menge, Einheit und Kategorie
-- Einkaufsliste mit Mengenangaben und Möglichkeit zur Übernahme in den Vorrat
-- To-do-Liste für Aufgaben im Haushalt
-- Wochenmenüplan mit Einträgen pro Wochentag
-- Möglichkeit zum Löschen erledigter oder falscher Einträge
+Für die App wurden mehrere grobe Skizzen erstellt.
+![skizzen](screens/skizze1.png)
+![skizzen](screens/skizze2.png)
+![skizzen](screens/skizze3.png)
+ *Skizzen*
 
 Die Skizzen halfen dabei, die Struktur der App früh zu überprüfen. Besonders wichtig war, dass Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen, fehlende Artikel eintragen, Aufgaben erfassen und Mahlzeiten planen können.
 
@@ -208,7 +197,10 @@ Zusätzlich können in der To-do-Liste Haushaltsaufgaben erfasst und erledigt we
 18. Alle Daten werden automatisch in der Datenbank gespeichert.
 19. Alle Personen im Haushalt sehen denselben aktuellen Stand und können gemeinsam Vorräte, Einkäufe und Aufgaben verwalten.
 
-**Mockup:**
+**Mockup:** Das Mockup zeigt die wichtigsten Ansichten der App Homie: Login, Dashboard, Vorrat und Einkaufsliste. Es verdeutlicht, wie Nutzerinnen und Nutzer einem Haushalt beitreten, Vorräte verwalten und bald leere Produkte zur Einkaufsliste hinzufügen können.
+
+![Mockup](screens/mockup.png)
+ *Mockup Homie*
 
 
 ### 3.4 Prototype
