@@ -26,7 +26,10 @@
       </div>
 
       <h1>Homie</h1>
-      <p class="subtitle">Dein Haushalt. Einfach organisiert.</p>
+      <div class="intro-copy">
+        <p class="subtitle">Dein Haushalt. Einfach organisiert.</p>
+        <p class="intro">Gib deinen 4-stelligen Haushaltscode ein.</p>
+      </div>
 
       <form method="POST">
         <input
@@ -35,7 +38,7 @@
           {oninput}
           maxlength={MAX_CODE_LENGTH}
           inputmode="numeric"
-          placeholder="1234"
+          placeholder="z.B. 1234"
           required
         />
 
@@ -58,8 +61,6 @@
           Beitreten <span aria-hidden="true">→</span>
         </button>
       </form>
-
-      <p class="hint">Gib den Code deines Haushalts ein</p>
 
       <div class="divider" aria-hidden="true">
         <span></span>
@@ -135,9 +136,22 @@
     font-weight: 800;
   }
 
+  .intro-copy {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0 0 2.2rem;
+  }
+
   .subtitle {
     color: #8f8179;
-    margin-bottom: 2.5rem;
+    margin: 0;
+  }
+
+  .intro {
+    color: #9a8f87;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
   }
 
   form {
@@ -158,6 +172,11 @@
     border: 1.5px solid #e9b19f;
     outline: none;
     box-sizing: border-box;
+  }
+
+  input::placeholder {
+    font-family: inherit;
+    font-weight: inherit;
   }
 
   input:focus {
@@ -227,12 +246,6 @@
   button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-  }
-
-  .hint {
-    font-size: 0.85rem;
-    color: #9a8f87;
-    margin-top: 0.5rem;
   }
 
   .divider {

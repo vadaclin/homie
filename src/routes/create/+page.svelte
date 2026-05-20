@@ -57,7 +57,10 @@
       </div>
 
       <h1>Homie</h1>
-      <p class="subtitle">Erstelle deinen Haushalt.</p>
+      <div class="intro-copy">
+        <p class="subtitle">Erstelle deinen Haushalt.</p>
+        <p class="intro">Wähle einen 4-stelligen Code.</p>
+      </div>
 
       <form method="POST">
         <input
@@ -65,17 +68,21 @@
           bind:value={code}
           maxlength={MAX_CODE_LENGTH}
           inputmode="numeric"
-          placeholder="1234"
+          placeholder="z. B. 4729"
           class:taken={codeStatus === "taken"}
           class:available={codeStatus === "available"}
           required
           oninput={checkCodeAvailability}
         />
 
+        <p class="name-hint">
+          Gib deinem Haushalt einen Namen.
+        </p>
+
         <input
           name="haushaltsname"
           bind:value={haushaltsname}
-          placeholder="z. B. WG Zürich"
+          placeholder="Name oder WG Zürich"
           required
         />
 
@@ -109,10 +116,6 @@
           Haushalt erstellen <span aria-hidden="true">→</span>
         </button>
       </form>
-
-      <p class="hint" class:visible={isWG}>
-        Wähle einen 4-stelligen Code und teile ihn mit deinen Mitbewohnern.
-      </p>
 
       <a href="/" class="back">← Zurück</a>
     </div>
@@ -186,9 +189,22 @@
     font-weight: 800;
   }
 
+  .intro-copy {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0 0 2.2rem;
+  }
+
   .subtitle {
     color: #8f8179;
-    margin-bottom: 1.8rem;
+    margin: 0;
+  }
+
+  .intro {
+    color: #9a8f87;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
   }
 
   form {
@@ -220,9 +236,26 @@
     font-size: 1rem;
   }
 
+  input::placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+  }
+
   input:focus {
     border-color: #d97757;
     box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
+  }
+
+  .name-hint {
+    width: 100%;
+    max-width: none;
+    align-self: center;
+    text-align: center;
+    color: #9a8f87;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0.15rem 0 -0.3rem;
   }
 
   input[name="code"].taken {
@@ -322,24 +355,9 @@
     cursor: not-allowed;
   }
 
-  .hint {
-    min-height: 2.4em;
-    font-size: 0.85rem;
-    color: #9a8f87;
-    margin: 0.5rem 0 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease;
-  }
-
-  .hint.visible {
-    opacity: 1;
-    visibility: visible;
-  }
-
   .back {
     display: block;
-    margin-top: 1.2rem;
+    margin-top: 1rem;
     color: #9a8f87;
     text-decoration: none;
     font-size: 0.9rem;

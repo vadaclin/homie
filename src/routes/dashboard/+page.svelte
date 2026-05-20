@@ -6,8 +6,11 @@
 
   let todoText = $state("");
   let menuValues = $state({});
+  let menuSaveStates = $state({});
   let draggedMeal = $state(null);
   let dragOverTarget = $state(null);
+  const savedStateTimeouts = new Map();
+  const pendingMealDeleteIds = new Set();
 
   function makeMealId() {
     if (typeof crypto !== "undefined" && crypto.randomUUID) {
@@ -61,12 +64,79 @@
     resizeTextarea(event.currentTarget);
   }
 
+  function getMealStateId(dayKey, mealId) {
+    return `${dayKey}-${mealId}`;
+  }
+
+  function setMealSaveState(dayKey, mealId, state) {
+    const stateId = getMealStateId(dayKey, mealId);
+    const existingTimeout = savedStateTimeouts.get(stateId);
+
+    if (existingTimeout) {
+      clearTimeout(existingTimeout);
+      savedStateTimeouts.delete(stateId);
+    }
+
+    menuSaveStates = {
+      ...menuSaveStates,
+      [stateId]: state,
+    };
+  }
+
+  function markMealDirty(dayKey, mealId, event) {
+    autoResize(event);
+
+    const text = event.currentTarget.value.trim();
+
+    if (!text) {
+      setMealSaveState(dayKey, mealId, "idle");
+      return;
+    }
+
+    setMealSaveState(dayKey, mealId, "dirty");
+  }
+
+  function markMealSaved(dayKey, mealId) {
+    const stateId = getMealStateId(dayKey, mealId);
+
+    setMealSaveState(dayKey, mealId, "saved");
+
+    const timeout = setTimeout(() => {
+      menuSaveStates = {
+        ...menuSaveStates,
+        [stateId]: "idle",
+      };
+      savedStateTimeouts.delete(stateId);
+    }, 1800);
+
+    savedStateTimeouts.set(stateId, timeout);
+  }
+
   function submitOnEnter(event) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       event.currentTarget.form?.requestSubmit();
       event.currentTarget.blur();
     }
+  }
+
+  function prepareMealDelete(event, dayKey, mealId) {
+    event.preventDefault();
+    pendingMealDeleteIds.add(getMealStateId(dayKey, mealId));
+  }
+
+  function finishMealDelete(dayKey, mealId) {
+    setTimeout(() => {
+      pendingMealDeleteIds.delete(getMealStateId(dayKey, mealId));
+    }, 0);
+  }
+
+  function submitMealOnBlur(event, dayKey, mealId) {
+    if (pendingMealDeleteIds.has(getMealStateId(dayKey, mealId))) {
+      return;
+    }
+
+    event.currentTarget.form?.requestSubmit();
   }
 
   function getRealMeals(dayKey) {
@@ -104,15 +174,31 @@
     });
   }
 
-  function deleteMeal(event, dayKey, mealId) {
+  async function deleteMeal(event, dayKey, mealId) {
     event.preventDefault();
+    pendingMealDeleteIds.add(getMealStateId(dayKey, mealId));
 
     const form = event.currentTarget.form;
-    const field = form?.elements?.text;
 
-    if (field) {
-      field.value = "";
-      resizeTextarea(field);
+    if (!form) {
+      finishMealDelete(dayKey, mealId);
+      return;
+    }
+
+    setMealSaveState(dayKey, mealId, "saving");
+
+    const formData = new FormData(form);
+    formData.set("text", "");
+
+    const response = await fetch("?/saveMenuMeal", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      setMealSaveState(dayKey, mealId, "error");
+      finishMealDelete(dayKey, mealId);
+      return;
     }
 
     const meals = menuValues[dayKey] ?? [];
@@ -124,9 +210,8 @@
       menuValues[dayKey] = meals.filter((meal) => meal.id !== mealId);
     }
 
-    requestAnimationFrame(() => {
-      form?.requestSubmit();
-    });
+    setMealSaveState(dayKey, mealId, "idle");
+    finishMealDelete(dayKey, mealId);
   }
 
   function onDragStart(event, dayKey, mealId, index) {
@@ -384,16 +469,40 @@
                   class="meal-form"
                   class:drag-over={dragOverTarget?.dayKey === day.key &&
                     dragOverTarget?.index === index}
+                  class:is-dirty={menuSaveStates[
+                    getMealStateId(day.key, meal.id)
+                  ] === "dirty"}
+                  class:is-saving={menuSaveStates[
+                    getMealStateId(day.key, meal.id)
+                  ] === "saving"}
+                  class:is-saved={menuSaveStates[
+                    getMealStateId(day.key, meal.id)
+                  ] === "saved"}
+                  class:is-error={menuSaveStates[
+                    getMealStateId(day.key, meal.id)
+                  ] === "error"}
+                  class:has-entry={meal.text.trim().length > 0 &&
+                    !["dirty", "saving", "error"].includes(
+                      menuSaveStates[getMealStateId(day.key, meal.id)],
+                    )}
                   draggable={meal.text.trim().length > 0}
                   ondragstart={(event) =>
                     onDragStart(event, day.key, meal.id, index)}
                   ondragover={(event) => onDragOver(event, day.key, index)}
                   ondrop={(event) => onDrop(event, day.key, index)}
                   ondragend={onDragEnd}
-                  use:enhance={() =>
-                    async ({ update }) => {
-                      await update({ reset: false });
-                    }}
+                  use:enhance={() => {
+                    setMealSaveState(day.key, meal.id, "saving");
+
+                    return async ({ result, update }) => {
+                      await update({ reset: false, invalidateAll: false });
+                      if (result.type === "success") {
+                        markMealSaved(day.key, meal.id);
+                      } else {
+                        setMealSaveState(day.key, meal.id, "error");
+                      }
+                    };
+                  }}
                 >
                   <input type="hidden" name="dayKey" value={day.key} />
                   <input type="hidden" name="mealId" value={meal.id} />
@@ -418,9 +527,10 @@
                       bind:value={meal.text}
                       placeholder="Gericht..."
                       rows="1"
-                      oninput={autoResize}
+                      oninput={(event) =>
+                        markMealDirty(day.key, meal.id, event)}
                       onblur={(event) =>
-                        event.currentTarget.form?.requestSubmit()}
+                        submitMealOnBlur(event, day.key, meal.id)}
                       onkeydown={submitOnEnter}
                     ></textarea>
 
@@ -439,7 +549,10 @@
                         <button
                           type="button"
                           class="menu-clear"
-                          onmousedown={(event) => event.preventDefault()}
+                          onpointerdown={(event) =>
+                            prepareMealDelete(event, day.key, meal.id)}
+                          onmousedown={(event) =>
+                            prepareMealDelete(event, day.key, meal.id)}
                           onclick={(event) =>
                             deleteMeal(event, day.key, meal.id)}
                           aria-label="Gericht löschen"
@@ -738,6 +851,36 @@
   .meal-form.drag-over {
     box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.18);
     transform: scale(1.01);
+  }
+
+  .meal-form.is-dirty .menu-input {
+    background: #fff8ed;
+    box-shadow: inset 0 0 0 2px rgba(217, 119, 87, 0.18);
+  }
+
+  .meal-form.is-saving .menu-input {
+    background: #fff4e3;
+    box-shadow: inset 0 0 0 2px rgba(232, 170, 80, 0.34);
+  }
+
+  .meal-form.is-saved .menu-input {
+    background: #fff1e8;
+    box-shadow: inset 0 0 0 2px rgba(217, 119, 87, 0.34);
+  }
+
+  .meal-form.is-error .menu-input {
+    background: #fff0ef;
+    box-shadow: inset 0 0 0 2px rgba(192, 57, 43, 0.32);
+  }
+
+  .meal-form.has-entry .menu-input {
+    background: #fff6ef;
+    box-shadow: inset 0 0 0 2px rgba(217, 119, 87, 0.18);
+  }
+
+  .meal-form.has-entry .menu-input:focus {
+    background: #fff1e8;
+    box-shadow: inset 0 0 0 2px rgba(217, 119, 87, 0.3);
   }
 
   .menu-input-wrap {
