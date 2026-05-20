@@ -31,7 +31,7 @@ Die Web-App Homie setzt genau hier an: Sie unterstützt sowohl Einzelpersonen al
 
 ## 2. Lösungsidee
 Die entwickelte Web-App Homie ermöglicht es, Vorräte, Einkaufslisten, To-do’s und Wochenmenüs einfach und übersichtlich zu verwalten. Die App kann sowohl von Einzelpersonen als auch von mehreren Personen in einem gemeinsamen Haushalt genutzt werden. Über einen vierstelligen Haushalts-Code können Nutzerinnen und Nutzer einem Haushalt beitreten oder einen neuen Haushalt erstellen, ohne ein Benutzerkonto anlegen zu müssen. Dadurch bleibt der Einstieg bewusst unkompliziert und alltagstauglich.
-Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen Ort. Nutzerinnen und Nutzer können ihren Vorrat erfassen, Produkte nach Kategorien anzeigen lassen, Artikel auf die Einkaufsliste setzen und erledigte Einkäufe wieder in den Vorrat übernehmen. Zusätzlich unterstützt die App mit einer To-do-Liste und einem Wochenmenüplan die Planung des Haushaltsalltags.
+Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen Ort. Nutzerinnen und Nutzer können ihren Vorrat erfassen, Produkte nach Kategorien anzeigen lassen, Artikel auf die Einkaufsliste setzen und erledigte Einkäufe wieder in den Vorrat übernehmen. Zusätzlich unterstützt die App mit einer To-do-Liste und einem Wochenmenüplan die Planung des Haushaltsalltags.  
 **Kernfunktionalität:**
     - Nutzung ohne klassisches Benutzerkonto oder Login
     - Verwaltung von Vorräten mit Artikelname, Menge, Einheit und Kategorie
@@ -45,14 +45,14 @@ Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen 
     - Möglichkeit, mehrere Menüeinträge pro Tag zu erfassen
     - Verschieben von Menüeinträgen per Drag & Drop
     - Automatische Speicherung der Daten in der Datenbank
-    - Gemeinsamer Datenstand für alle Personen mit demselben Haushalts-Code
+    - Gemeinsamer Datenstand für alle Personen mit demselben Haushalts-Code  
 **Annahmen:**
     - Eine einfache Lösung ohne komplexen Login wird eher genutzt als umfangreiche Systeme
     - Nutzerinnen und Nutzer bevorzugen eine schnelle, intuitive und mobile Bedienung
     - Ein gemeinsamer Haushalts-Code reicht aus, um Haushalte voneinander zu trennen
     - Die App wird hauptsächlich im Alltag nebenbei genutzt, zum Beispiel beim Einkaufen, Kochen oder Planen
     - Eine klare visuelle Struktur hilft dabei, den Überblick über Vorräte, Einkäufe und Aufgaben zu behalten
-    - Die Kombination aus Vorrat, Einkaufsliste, To-do’s und Wochenmenü deckt zentrale Bedürfnisse der Haushaltsorganisation ab
+    - Die Kombination aus Vorrat, Einkaufsliste, To-do’s und Wochenmenü deckt zentrale Bedürfnisse der Haushaltsorganisation ab  
 **Abgrenzung:**
     - Keine Benutzerkonten oder Login-Systeme
     - Keine detaillierte Rechteverwaltung (alle im Haushalt haben dieselben Rechte)
