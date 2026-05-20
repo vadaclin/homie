@@ -137,7 +137,7 @@
 
   .subtitle {
     color: #8f8179;
-    margin-bottom: 1.8rem;
+    margin-bottom: 2.5rem;
   }
 
   form {
@@ -168,7 +168,7 @@
   .preview-slot {
     width: 100%;
     max-width: 320px;
-    min-height: 44px;
+    min-height: 24px;
   }
 
   .haushalt-preview {

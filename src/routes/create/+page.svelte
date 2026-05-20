@@ -4,14 +4,45 @@
   let code = $state("");
   let haushaltsname = $state("");
   let isWG = $state(false);
+  let codeStatus = $state("idle");
   let { form } = $props();
 
+  let codeMessage = $derived.by(() => {
+    if (codeStatus === "checking") return "Code wird geprüft...";
+    if (codeStatus === "taken") return "Dieser Code existiert bereits";
+    if (codeStatus === "available") return "Dieser Code ist frei";
+    return "";
+  });
+
   let isValid = $derived(
-    code.length === MAX_CODE_LENGTH && haushaltsname.trim().length > 0
+    code.length === MAX_CODE_LENGTH &&
+      haushaltsname.trim().length > 0 &&
+      codeStatus !== "checking" &&
+      codeStatus !== "taken"
   );
 
-  function sanitizeCode() {
-    code = code.replace(/\D/g, "").slice(0, MAX_CODE_LENGTH);
+  async function checkCodeAvailability(event) {
+    const input = event.currentTarget;
+    code = input.value.replace(/\D/g, "").slice(0, MAX_CODE_LENGTH);
+    input.value = code;
+
+    if (code.length !== MAX_CODE_LENGTH) {
+      codeStatus = "idle";
+      return;
+    }
+
+    const checkedCode = code;
+    codeStatus = "checking";
+
+    try {
+      const response = await fetch(`/create/check-code?code=${encodeURIComponent(checkedCode)}`);
+      const result = await response.json();
+
+      if (code !== checkedCode) return;
+      codeStatus = result.exists ? "taken" : "available";
+    } catch {
+      if (code === checkedCode) codeStatus = "idle";
+    }
   }
 </script>
 
@@ -32,11 +63,13 @@
         <input
           name="code"
           bind:value={code}
-          oninput={sanitizeCode}
           maxlength={MAX_CODE_LENGTH}
           inputmode="numeric"
           placeholder="1234"
+          class:taken={codeStatus === "taken"}
+          class:available={codeStatus === "available"}
           required
+          oninput={checkCodeAvailability}
         />
 
         <input
@@ -63,7 +96,11 @@
         <input type="hidden" name="isWG" value={isWG ? "true" : "false"} />
 
         <div class="error-slot">
-          {#if form?.error}
+          {#if codeMessage}
+            <p class="code-status" class:taken={codeStatus === "taken"} class:available={codeStatus === "available"}>
+              {codeMessage}
+            </p>
+          {:else if form?.error}
             <p class="error">{form.error}</p>
           {/if}
         </div>
@@ -188,6 +225,14 @@
     box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.14);
   }
 
+  input[name="code"].taken {
+    border-color: #c0392b;
+  }
+
+  input[name="code"].available {
+    border-color: #6fa66f;
+  }
+
   .toggle-wrapper {
     display: flex;
     align-items: center;
@@ -241,7 +286,8 @@
     min-height: 0;
   }
 
-  .error {
+  .error,
+  .code-status {
     color: #c0392b;
     font-size: 0.85rem;
     background: #fdecea;
@@ -250,6 +296,11 @@
     margin: 0;
     width: 100%;
     box-sizing: border-box;
+  }
+
+  .code-status.available {
+    color: #3f7d3f;
+    background: #edf7ed;
   }
 
   button[type="submit"] {

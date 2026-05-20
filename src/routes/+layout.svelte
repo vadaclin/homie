@@ -12,6 +12,10 @@
     { href: "/einkaufsliste", label: "Einkaufsliste" },
   ];
 
+  let showTopbar = $derived(
+    data.haushalt && NAV_LINKS.some(({ href }) => $page.url.pathname.startsWith(href))
+  );
+
   async function copyCode() {
     if (!data.haushaltCode) return;
     await navigator.clipboard.writeText(data.haushaltCode);
@@ -20,7 +24,7 @@
   }
 </script>
 
-{#if data.haushalt}
+{#if showTopbar}
   <header class="topbar">
     <a href="/dashboard" class="brand">Homie</a>
 
