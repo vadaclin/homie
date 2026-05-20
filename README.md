@@ -159,7 +159,7 @@ Für die App wurden mehrere grobe Skizzen erstellt.
 Die Skizzen halfen dabei, die Struktur der App früh zu überprüfen. Besonders wichtig war, dass Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen, fehlende Artikel eintragen, Aufgaben erfassen und Mahlzeiten planen können.
 
 ### 3.3 Decide
-**Gewählte Variante & Begründung:** Nach dem Vergleich der verschiedenen Varianten wurde die Variante „Haushalts-Dashboard mit Code-Zugang“ ausgewählt. Diese Lösung verbindet eine einfache Bedienung mit der Möglichkeit, die App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen. Der vierstellige Haushalts-Code wurde gewählt, weil dadurch kein klassisches Login-System notwendig ist. Das senkt die Einstiegshürde und macht die App besonders schnell nutzbar.
+**Gewählte Variante & Begründung:** Nach dem Vergleich der verschiedenen Varianten wurde die Variante "Haushalts-Dashboard mit Code-Zugang" ausgewählt. Diese Lösung verbindet eine einfache Bedienung mit der Möglichkeit, die App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen. Der vierstellige Haushalts-Code wurde gewählt, weil dadurch kein klassisches Login-System notwendig ist. Das senkt die Einstiegshürde und macht die App besonders schnell nutzbar.
 
 Die Entscheidung fiel auf diese Variante, weil sie die wichtigsten Anforderungen des Projekts am besten erfüllt:  
 - einfache Nutzung ohne Registrierung  
@@ -208,7 +208,7 @@ Zusätzlich können in der To-do-Liste Haushaltsaufgaben erfasst und erledigt we
 ### 3.4 Prototype
 
 #### 3.4.1. Entwurf (Design)
-Der Prototyp von Homie wurde so gestaltet, dass die wichtigsten Funktionen schnell verständlich und einfach erreichbar sind. Der Fokus liegt auf einer klaren Struktur, einer einfachen Bedienung und einer alltagstauglichen Nutzung auf Desktop und mobilen Geräten. Nutzerinnen und Nutzer sollen ohne lange Erklärung verstehen, wo sie Vorräte, Einkaufslisten, Aufgaben und das Wochenmenü verwalten können.
+Der Prototyp von Homie wurde so gestaltet, dass die wichtigsten Funktionen schnell verständlich und einfach erreichbar sind. Der Fokus liegt auf einer klaren Struktur, einer einfachen Bedienung und einer alltagstauglichen Nutzung auf Desktop und mobilen Geräten. Nutzerinnen und Nutzer sollen ohne lange Erklärung verstehen, wo sie Vorräte, Einkaufslisten, Aufgaben und das Wochenmenü verwalten können.  
 **Informationsarchitektur:**   Die App ist in wenige zentrale Bereiche aufgeteilt. Nach dem Öffnen der Web-App gelangen Nutzerinnen und Nutzer zuerst zur Startseite. Dort können sie entweder einen bestehenden vierstelligen Haushalts-Code eingeben oder einen neuen Haushalt erstellen.
 Nach dem Beitritt zu einem Haushalt öffnet sich das Dashboard. Dieses bildet die Hauptansicht der App und zeigt die wichtigsten Informationen auf einen Blick. Von dort aus sind die zentralen Bereiche erreichbar:  
 - Vorräte  
@@ -366,9 +366,9 @@ Testaufgaben:
 
 Beobachtungen:  
     - Der Einstieg über den Haushalts-Code wurde grundsätzlich verstanden, jedoch war die Darstellung auf der ersten Seite nicht für alle Testpersonen eindeutig.  
-    - Einige Testpersonen interpretierten die Zahl „1234“ im Eingabefeld als tatsächlichen Code und dachten, sie müssten genau diesen Code eingeben.  
+    - Einige Testpersonen interpretierten die Zahl "1234" im Eingabefeld als tatsächlichen Code und dachten, sie müssten genau diesen Code eingeben.  
     - Beim Erstellen eines neuen Haushalts war ebenfalls nicht sofort klar, was im ersten Feld erwartet wird, da dort erneut „1234“ angezeigt wurde.  
-    - Beim zweiten Eingabefeld auf der Seite „Haushalt erstellen“ war für einige Testpersonen unklar, was sie dort eintragen sollen. Erst nach genauerem Hinsehen wurde verstanden, dass damit der Name des Haushalts gemeint ist.  
+    - Beim zweiten Eingabefeld auf der Seite "Haushalt erstellen" war für einige Testpersonen unklar, was sie dort eintragen sollen. Erst nach genauerem Hinsehen wurde verstanden, dass damit der Name des Haushalts gemeint ist.  
     - Das Dashboard half dabei, die wichtigsten Bereiche schnell zu finden.  
     - Die Trennung zwischen Vorrat, Einkaufsliste, To-do-Liste und Wochenmenü war verständlich.  
     - Das Hinzufügen von Produkten war einfach nachvollziehbar.  
@@ -412,7 +412,7 @@ Nutzerinnen und Nutzer wünschten sich eine Funktion, mit der aus vorhandenen Pr
 Die ersten drei Verbesserungen wurden im Rahmen des Prototyps direkt berücksichtigt. Die Anzeige der erstellenden Person sowie Rezeptvorschläge bleiben als mögliche Weiterentwicklungen offen.
 
 ### 4.1 Klarere Eingabefelder beim Einstieg
-**Beschreibung & Nutzen:** Nach der Evaluation wurden die Eingabefelder auf der Startseite verständlicher gestaltet. In den Tests zeigte sich, dass einige Testpersonen den Platzhalter „1234“ als echten Code interpretierten und dachten, sie müssten genau diese Zahl eingeben. Dadurch entstand Unsicherheit beim Beitritt zu einem bestehenden Haushalt.
+**Beschreibung & Nutzen:** Nach der Evaluation wurden die Eingabefelder auf der Startseite verständlicher gestaltet. In den Tests zeigte sich, dass einige Testpersonen den Platzhalter "1234" als echten Code interpretierten und dachten, sie müssten genau diese Zahl eingeben. Dadurch entstand Unsicherheit beim Beitritt zu einem bestehenden Haushalt.
 Um dieses Problem zu reduzieren, wurde die Beschriftung beziehungsweise Darstellung des Eingabefeldes angepasst. Nutzerinnen und Nutzer sollen nun besser verstehen, dass sie dort den individuellen Haushalts-Code eingeben müssen, den sie von einem bestehenden Haushalt erhalten haben.
 Diese Anpassung verbessert den Einstieg in die App, weil die erste Interaktion klarer ist und weniger Erklärung benötigt wird.
 
@@ -462,7 +462,7 @@ Diese Anpassung erhöht die Sicherheit bei der Nutzung des Wochenmenüplans und 
 Diese Erweiterung bildet den realen Ablauf im Haushalt besser ab: Ein Produkt wird zuerst im Vorrat erfasst, bei Bedarf auf die Einkaufsliste gesetzt und nach dem Einkauf wieder in den Vorrat übernommen. Dadurch entsteht ein geschlossener Workflow zwischen Vorratsverwaltung und Einkaufsliste.
 
 **Wo umgesetzt:**  
-**Frontend:** Vorrat-Seite mit Button „+ Einkaufsliste“; Einkaufsliste mit Modal "In Vorrat übernehmen"  
+**Frontend:** Vorrat-Seite mit Button "+ Einkaufsliste"; Einkaufsliste mit Modal "In Vorrat übernehmen"  
 **Backend:** SvelteKit Form Actions zum Hinzufügen von Vorratsartikeln zur Einkaufsliste und zum Übernehmen von Einkaufslisten-Artikeln zurück in den Vorrat  
 **Datenbank:** MongoDB-Collections "vorrat" und "einkaufsliste", verknüpft über die Haushalts-ID  
 
