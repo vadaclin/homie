@@ -79,12 +79,12 @@ In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Pe
 **Problem:** Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt. Zusätzlich plant er Mahlzeiten spontan und verliert dadurch manchmal den Überblick über vorhandene Lebensmittel.  
 **Ziel:** Eine einfache App nutzen, mit der er Vorräte, fehlende Produkte, Aufgaben und Mahlzeiten schnell erfassen kann.  
 
-**Proto-Persona 2: Gemeinsamer Haushalt**
-**Name:** Lara
-**Alter:**  24 Jahre
-**Situation:** Lebt in einer WG mit drei Mitbewohnerinnen und Mitbewohnern
-**Bedürfnis:** Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind, was noch gekauft werden muss, welche Aufgaben offen sind und welche Mahlzeiten geplant sind.
-**Problem:** In ihrer WG werden Einkaufslisten und Aufgaben oft über WhatsApp geführt. Dadurch gehen Nachrichten unter, Produkte werden mehrfach gekauft oder Aufgaben bleiben unklar verteilt.
+**Proto-Persona 2: Gemeinsamer Haushalt**  
+**Name:** Lara  
+**Alter:**  24 Jahre  
+**Situation:** Lebt in einer WG mit drei Mitbewohnerinnen und Mitbewohnern  
+**Bedürfnis:** Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind, was noch gekauft werden muss, welche Aufgaben offen sind und welche Mahlzeiten geplant sind.  
+**Problem:** In ihrer WG werden Einkaufslisten und Aufgaben oft über WhatsApp geführt. Dadurch gehen Nachrichten unter, Produkte werden mehrfach gekauft oder Aufgaben bleiben unklar verteilt.  
 **Ziel:** Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand zu Vorräten, Einkaufsliste und Aufgaben sehen.
 
 **Wesentliche Erkenntnisse:**
