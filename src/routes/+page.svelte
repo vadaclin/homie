@@ -38,7 +38,7 @@
           {oninput}
           maxlength={MAX_CODE_LENGTH}
           inputmode="numeric"
-          placeholder="z.B. 1234"
+          placeholder="z. B. 4729"
           required
         />
 
