@@ -71,13 +71,13 @@ Das Vorgehen orientierte sich an einem Design-Thinking-ähnlichen Prozess. Dabei
 Bei Einzelpersonen entsteht das Problem häufig dadurch, dass Einkäufe spontan geplant werden und vorhandene Produkte nicht bewusst überprüft werden. Man kauft zum Beispiel ein Produkt nochmals, obwohl es zuhause noch vorhanden ist, oder vergisst wichtige Dinge, weil keine aktuelle Einkaufsliste geführt wird. Auch Aufgaben oder geplante Mahlzeiten werden oft nur im Kopf behalten oder auf einzelnen Notizen festgehalten.
 In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Personen Produkte verbrauchen, einkaufen oder Aufgaben übernehmen. Dadurch entstehen Missverständnisse: Eine Person geht davon aus, dass ein Produkt noch vorhanden ist, während eine andere es bereits aufgebraucht hat. Einkaufslisten oder Aufgaben werden oft über verschiedene Kanäle geführt, zum Beispiel über WhatsApp oder mündliche Absprachen. Dadurch ist der aktuelle Stand nicht für alle klar ersichtlich.
 
-**Proto-Persona 1: Einzelperson**  
-**Name:** Thomas  
-**Alter:** 39 Jahre  
-**Situation:**  Lebt alleine in einer Wohnung  
-**Bedürfnis:** Thomas möchte beim Einkaufen besser wissen, welche Produkte er noch zuhause hat, welche Aufgaben anstehen und was er in der Woche kochen möchte.  
-**Problem:** Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt. Zusätzlich plant er Mahlzeiten spontan und verliert dadurch manchmal den Überblick über vorhandene Lebensmittel.  
-**Ziel:** Eine einfache App nutzen, mit der er Vorräte, fehlende Produkte, Aufgaben und Mahlzeiten schnell erfassen kann.  
+**Proto-Persona 1: Einzelperson**
+**Name:** Thomas
+**Alter:** 39 Jahre
+**Situation:**  Lebt alleine in einer Wohnung
+**Bedürfnis:** Thomas möchte beim Einkaufen besser wissen, welche Produkte er noch zuhause hat, welche Aufgaben anstehen und was er in der Woche kochen möchte.
+**Problem:** Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt. Zusätzlich plant er Mahlzeiten spontan und verliert dadurch manchmal den Überblick über vorhandene Lebensmittel.
+**Ziel:** Eine einfache App nutzen, mit der er Vorräte, fehlende Produkte, Aufgaben und Mahlzeiten schnell erfassen kann.
 
 **Proto-Persona 2: Gemeinsamer Haushalt**  
 **Name:** Lara  
