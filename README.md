@@ -40,7 +40,7 @@ Homie bündelt die wichtigsten Funktionen der Haushaltsorganisation an einem zen
     - Markierung von Artikeln, die bald leer sind  
     - Übernahme von Artikeln aus dem Vorrat in die Einkaufsliste  
     - Gemeinsame Einkaufsliste mit Hinzufügen, Anzeigen, Löschen und Übernehmen von Artikeln in den Vorrat  
-    - Speicherung von Mengenangaben und Einheiten wie Stück, Pack, kg, g, Liter oder eigener Angabe  
+    - Speicherung von Mengenangaben und Einheiten wie Stück, Pack, Kilogramm, Gramm, Liter oder eigener Angabe  
     - To-do-Liste für Aufgaben im Haushalt  
     - Wochenmenüplan mit Einträgen pro Wochentag  
     - Möglichkeit, mehrere Menüeinträge pro Tag zu erfassen  
@@ -249,7 +249,7 @@ Diese Struktur wurde gewählt, weil sie den Alltag in einem Haushalt einfach abb
 
 **Designentscheidungen:** Eine zentrale Designentscheidung war die Nutzung eines vierstelligen Haushalts-Codes anstelle eines klassischen Logins. Dadurch können Nutzerinnen und Nutzer schnell starten, ohne ein Konto erstellen zu müssen. Gleichzeitig können mehrere Personen über denselben Code auf denselben Haushalt zugreifen.
 Die Bereiche Vorräte, Einkaufsliste, To-do-Liste und Wochenmenüplan wurden klar getrennt, damit keine Verwirrung entsteht. Vorräte zeigen, was bereits vorhanden ist. Die Einkaufsliste zeigt, was noch gekauft werden muss. Die To-do-Liste zeigt offene Aufgaben. Der Wochenmenüplan unterstützt die Planung von Mahlzeiten.
-Ausserdem wurde entschieden, Produkte mit Menge und Einheit zu speichern. Dadurch kann genauer nachvollzogen werden, wie viel von einem Produkt vorhanden ist oder gekauft werden muss. Unterstützt werden feste Einheiten wie Stück, Pack, kg, g und Liter sowie eine eigene Angabe.
+Ausserdem wurde entschieden, Produkte mit Menge und Einheit zu speichern. Dadurch kann genauer nachvollzogen werden, wie viel von einem Produkt vorhanden ist oder gekauft werden muss. Unterstützt werden feste Einheiten wie Stück, Pack, Kilogramm, Gramm, Liter sowie eine eigene Angabe.
 Wenn die Menge eines Vorratsprodukts niedrig ist, kann es direkt zur Einkaufsliste hinzugefügt werden. Wird ein Produkt in der Einkaufsliste abgehakt, kann es wieder in den Vorrat übernommen werden. Dabei werden Name, Menge, Einheit und Kategorie berücksichtigt.
 Beim Wochenmenüplan wurde darauf geachtet, dass Einträge flexibel bearbeitet werden können. Pro Tag können mehrere Gerichte eingetragen werden, und durch Drag & Drop lassen sich Menüeinträge einfach zwischen den Tagen verschieben.
 Das visuelle Design wurde bewusst weich und freundlich gestaltet. Abgerundete Karten, warme Farben und klare Abstände sollen dafür sorgen, dass die Web-App übersichtlich wirkt und angenehm zu bedienen ist. Besonders wichtig war auch die mobile Ansicht, da die Web-App häufig im Alltag nebenbei genutzt wird, zum Beispiel beim Einkaufen oder Planen.
@@ -269,12 +269,12 @@ Verwendete Technologien:
 **Tooling:** Für die Entwicklung wurde eine lokale Entwicklungsumgebung verwendet. Der Code wurde in einer integriertem Entwicklungsumgebung (IDE) bearbeitet und über den lokalen Entwicklungsserver getestet.
 
 Verwendete Tools:  
-    - Visual Studio Code  
-    - Terminal  
-    - Node.js / npm  
+    - Visual Studio Code als Entwicklungsumgebung zum Schreiben und Bearbeiten des Codes. 
+    - Terminal. zum Ausführen von Befehlen und Starten der Entwicklungsumgebung
+    - Node.js / npm zum Ausführen des Projekts und Verwalten von Abhängigkeiten. 
     - Browser-Entwicklertools zum Testen und Debuggen  
     - Git / GitHub zur Versionsverwaltung  
-    - Netlify  
+    - Netlify  zum Veröffentlichen und Bereitstellen der Web-App. 
 
 **Struktur & Komponenten:** Die Web-App wurde in mehrere Bereiche und Komponenten aufgeteilt. Dadurch bleibt der Code übersichtlich und die einzelnen Funktionen können einfacher angepasst werden.
 
@@ -473,7 +473,7 @@ Diese Erweiterung bildet den realen Ablauf im Haushalt besser ab: Ein Produkt wi
 **Aus Evaluation abgeleitet?:** Nein. Die Funktion entstand nicht direkt aus der Evaluation, sondern wurde bereits während der Konzeption und Umsetzung als sinnvoller Bestandteil der Web-App geplant. Die Evaluation hat jedoch bestätigt, dass diese Verknüpfung für den Alltag nützlich ist, da Nutzerinnen und Nutzer Artikel nicht doppelt erfassen müssen und der Ablauf zwischen Vorrat und Einkaufsliste verständlich ist.
 
 ### 4.5 Mengenangaben und Einheiten
-**Beschreibung & Nutzen:** Die Web-App wurde so erweitert, dass Produkte nicht nur mit einem Namen gespeichert werden, sondern zusätzlich mit Menge und Einheit. Nutzerinnen und Nutzer können dadurch genauer festhalten, wie viel von einem Produkt vorhanden ist oder gekauft werden muss. Unterstützt werden feste Einheiten wie Stück, Pack, kg, g und Liter sowie eine eigene Angabe.
+**Beschreibung & Nutzen:** Die Web-App wurde so erweitert, dass Produkte nicht nur mit einem Namen gespeichert werden, sondern zusätzlich mit Menge und Einheit. Nutzerinnen und Nutzer können dadurch genauer festhalten, wie viel von einem Produkt vorhanden ist oder gekauft werden muss. Unterstützt werden feste Einheiten wie Stück, Pack, Kilogramm, Gramm, Liter sowie eine eigene Angabe.
 
 Besonders wichtig ist, dass Mengenangaben und Einheiten beim Wechsel zwischen Vorrat und Einkaufsliste erhalten bleiben. Wenn ein Artikel aus dem Vorrat zur Einkaufsliste hinzugefügt wird, werden Menge und Einheit mitgespeichert. Wird ein gekaufter Artikel später von der Einkaufsliste wieder in den Vorrat übernommen, werden diese Angaben ebenfalls übernommen. Dadurch müssen Nutzerinnen und Nutzer die gleichen Informationen nicht erneut eingeben.
 
@@ -503,7 +503,7 @@ Diese Erweiterung unterstützt die Essensplanung und hilft dabei, Einkäufe bess
 **Aus Evaluation abgeleitet?:** Teilweise. Der Wochenmenüplan entstand bereits während der Weiterentwicklung, weil Haushaltsorganisation nicht nur Vorräte und Einkäufe umfasst, sondern auch die Planung von Mahlzeiten. In der Evaluation wurde bestätigt, dass diese Funktion besonders für Einzelpersonen, Paare und Familien nützlich ist. Gleichzeitig zeigte die Evaluation, dass die Rückmeldung beim Speichern von Menüeinträgen klarer gestaltet werden sollte.
 
 ## 5. Projektorganisation
-**Repository & Struktur:** https://github.com/vadaclin/homie
+**Repository & Struktur:** https://github.com/vadaclin/homie  
 Das Repository enthält die zentrale SvelteKit-Projektstruktur. Im Ordner src befinden sich die Seiten, Server-Logik und wiederverwendbare Bestandteile der Web-App. Der Ordner static enthält statische Dateien wie Bilder oder Icons. Zusätzlich gibt es verschiedene Konfigurationsdateien, zum Beispiel für SvelteKit, Vite und Netlify.
 Die Struktur des Projekts ist so aufgebaut, dass die wichtigsten Bereiche der Web-App klar voneinander getrennt sind. Die einzelnen Routen wie Dashboard, Vorrat, Einkaufsliste und Haushaltserstellung sind jeweils in eigenen Ordnern abgelegt. Dadurch bleibt der Code übersichtlich und die Weiterentwicklung einzelner Funktionen ist einfacher möglich.
 
@@ -527,7 +527,7 @@ Die KI-Ausgaben wurden nicht ungeprüft übernommen. Der Code wurde getestet, an
 ### 6.2 Prompt-Vorgehen
 Beim Prompting wurde meist sehr konkret gearbeitet. Es wurde beschrieben, welche Funktion umgesetzt werden soll, in welcher Datei sich der Code befindet und welches Verhalten erwartet wird. Häufig wurden bestehende Codeausschnitte eingefügt, damit die KI den aktuellen Stand berücksichtigen konnte. Anschliessend wurden die Vorschläge getestet und bei Problemen erneut mit Fehlermeldungen oder Screenshots zurückgegeben.
 
-Das Vorgehen war iterativ. Besonders bei CSS- und Layout-Fragen wurden mehrere Anpassungen ausprobiert, weil visuelle Details nicht immer direkt korrekt umgesetzt wurden. Beispiele dafür waren die mobile Ansicht, die Ausrichtung von Texten im Wochenmenüplan oder die Grösse der weissen Box beim Eingeben beziehungsweise Erstellen eines Haushalts-Codes.
+Das Vorgehen war iterativ. Besonders bei Layout-Fragen wurden mehrere Anpassungen ausprobiert, weil visuelle Details nicht immer direkt korrekt umgesetzt wurden. Beispiele dafür waren die mobile Ansicht, die Ausrichtung von Texten im Wochenmenüplan oder die Grösse der weissen Box beim Eingeben beziehungsweise Erstellen eines Haushalts-Codes.
 
 ChatGPT und Claude waren beide hilfreich. Bei reinem Code oder Textentwürfen lieferten beide Tools meistens gute Ergebnisse. Bei visuellen Anpassungen gab es jedoch Unterschiede. Ein Beispiel war die weisse Box beim Haushalts-Code eingeben und beim Haushalts-Code erstellen: Die Boxen sollten gleich gross und optisch einheitlich sein. Claude konnte dieses Layoutproblem nicht zufriedenstellend lösen, während ChatGPT eine passende Lösung liefern konnte.
 
