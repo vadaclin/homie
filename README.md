@@ -21,17 +21,18 @@
 <!-- Diese Vorlage ist für eine README.md im Repository gedacht. Abschnitte mit [Optional] können weggelassen werden, wenn in den Übungen nichts anderes verlangt wird. -->
 
 ## 1. Ausgangslage
-Viele Menschen verlieren im Alltag schnell den Überblick darüber, welche Produkte zuhause noch vorhanden sind, was bald aufgebraucht ist und was beim nächsten Einkauf wirklich benötigt wird. Das betrifft nicht nur WGs, Paare oder Familien, sondern auch Einzelpersonen, die ihren Haushalt selbst organisieren. Einkaufslisten entstehen häufig über WhatsApp, mündliche Absprachen, Notizen oder im Kopf. Dadurch gehen Informationen schnell verloren, Produkte werden doppelt gekauft oder wichtige Dinge fehlen beim Einkauf.
-Die Web-App Homie setzt genau hier an: Sie unterstützt sowohl Einzelpersonen als auch gemeinsame Haushalte dabei, Vorräte, Einkaufslisten, To-do’s und das Wochenmenü übersichtlich zu organisieren. So wird der Alltag besser strukturiert, Einkäufe können gezielter geplant werden und alle wichtigen Haushaltsinformationen sind an einem zentralen Ort verfügbar.
+Viele Menschen verlieren im Alltag schnell den Überblick darüber, welche Produkte zuhause noch vorhanden sind, was bald aufgebraucht ist und was beim nächsten Einkauf wirklich benötigt wird. Das betrifft nicht nur WGs, Paare oder Familien, sondern auch Einzelpersonen, die ihren Haushalt selbst organisieren. Einkaufslisten entstehen häufig über WhatsApp, mündliche Absprachen, Notizen, klassische Einkaufszettel oder im Kopf. Dadurch gehen Informationen schnell verloren, Produkte werden doppelt gekauft oder wichtige Dinge fehlen beim Einkauf. Besonders bei Einkaufszetteln auf Papier entsteht oft das Problem, dass sie beim Einkaufen nicht dabei sind, weil sie zuhause vergessen wurden oder weil zum Beispiel der Partner oder die Partnerin spontan den Einkauf auf dem Nachhauseweg übernimmt.
+
+Die Web-App Homie setzt genau hier an: Sie unterstützt sowohl Einzelpersonen als auch gemeinsame Haushalte dabei, Vorräte, Einkaufslisten, To-do’s und das Wochenmenü übersichtlich zu organisieren. Eine digitale Einkaufsliste ist jederzeit auf dem Smartphone verfügbar und kann dadurch auch spontan genutzt werden. Zusätzlich können Einkaufslisten von mehreren Personen gemeinsam ergänzt und abgearbeitet werden, sodass alle im Haushalt denselben aktuellen Stand sehen. So wird der Alltag besser strukturiert, Einkäufe können gezielter geplant werden und alle wichtigen Haushaltsinformationen sind an einem zentralen Ort verfügbar.
 
 **Problem:** Es fehlt eine einfache, zentrale Lösung, mit der Einzelpersonen und gemeinsame Haushalte Vorräte, Einkaufslisten, Aufgaben und Mahlzeiten planen können. Dadurch entstehen Doppelkäufe, vergessene Produkte, unklare Absprachen und unnötige Verschwendung.  
-**Ziele:** Ziel ist die Entwicklung einer intuitiven Web-App, mit der Nutzerinnen und Nutzer ihre Vorräte verwalten, Einkaufslisten erstellen, To-do’s organisieren und ein Wochenmenü planen können. Die App soll helfen, den Überblick im Alltag zu verbessern, Einkäufe gezielter zu planen, Lebensmittelverschwendung zu reduzieren und die Haushaltsorganisation zu vereinfachen.  
-**Primäre Zielgruppe:** Die App richtet sich an Einzelpersonen sowie an Personen in gemeinsamen Haushalten wie WGs, Paare und Familien, die ihren Alltag besser organisieren möchten. Homie eignet sich somit für alle, die Vorräte, Einkäufe, Aufgaben und Mahlzeiten übersichtlich planen möchten.
+**Ziele:** Ziel ist die Entwicklung einer intuitiven Web-App, mit der Nutzerinnen und Nutzer ihre Vorräte verwalten, Einkaufslisten erstellen, To-do’s organisieren und ein Wochenmenü planen können. Die Web-App soll helfen, den Überblick im Alltag zu verbessern, Einkäufe gezielter zu planen, Lebensmittelverschwendung zu reduzieren und die Haushaltsorganisation zu vereinfachen.  
+**Primäre Zielgruppe:** Die Web-App richtet sich an Einzelpersonen sowie an Personen in gemeinsamen Haushalten wie WGs, Paare und Familien, die ihren Alltag besser organisieren möchten. Homie eignet sich somit für alle, die Vorräte, Einkäufe, Aufgaben und Mahlzeiten übersichtlich planen möchten.
 
 
 ## 2. Lösungsidee
-Die entwickelte Web-App Homie ermöglicht es, Vorräte, Einkaufslisten, To-do’s und Wochenmenüs einfach und übersichtlich zu verwalten. Die App kann sowohl von Einzelpersonen als auch von mehreren Personen in einem gemeinsamen Haushalt genutzt werden. Über einen vierstelligen Haushalts-Code können Nutzerinnen und Nutzer einem Haushalt beitreten oder einen neuen Haushalt erstellen, ohne ein Benutzerkonto anlegen zu müssen. Dadurch bleibt der Einstieg bewusst unkompliziert und alltagstauglich.
-Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen Ort. Nutzerinnen und Nutzer können ihren Vorrat erfassen, Produkte nach Kategorien anzeigen lassen, Artikel auf die Einkaufsliste setzen und erledigte Einkäufe wieder in den Vorrat übernehmen. Zusätzlich unterstützt die App mit einer To-do-Liste und einem Wochenmenüplan die Planung des Haushaltsalltags.  
+Die entwickelte Web-App Homie ermöglicht es, Vorräte, Einkaufslisten, To-do’s und Wochenmenüs einfach und übersichtlich zu verwalten. Die Web-App kann sowohl von Einzelpersonen als auch von mehreren Personen in einem gemeinsamen Haushalt genutzt werden. Über einen vierstelligen Haushalts-Code können Nutzerinnen und Nutzer einem Haushalt beitreten oder einen neuen Haushalt erstellen, ohne ein Benutzerkonto anlegen zu müssen. Dadurch bleibt der Einstieg bewusst unkompliziert und alltagstauglich.
+Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen Ort. Nutzerinnen und Nutzer können ihren Vorrat erfassen, Produkte nach Kategorien anzeigen lassen, Artikel auf die Einkaufsliste setzen und erledigte Einkäufe wieder in den Vorrat übernehmen. Zusätzlich unterstützt die Web-App mit einer To-do-Liste und einem Wochenmenüplan die Planung des Haushaltsalltags.  
 **Kernfunktionalität:**  
     - Nutzung ohne klassisches Benutzerkonto oder Login  
     - Verwaltung von Vorräten mit Artikelname, Menge, Einheit und Kategorie  
@@ -50,7 +51,7 @@ Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen 
     - Eine einfache Lösung ohne komplexen Login wird eher genutzt als umfangreiche Systeme  
     - Nutzerinnen und Nutzer bevorzugen eine schnelle, intuitive und mobile Bedienung  
     - Ein gemeinsamer Haushalts-Code reicht aus, um Haushalte voneinander zu trennen  
-    - Die App wird hauptsächlich im Alltag nebenbei genutzt, zum Beispiel beim Einkaufen, Kochen oder Planen  
+    - Die Web-App wird hauptsächlich im Alltag nebenbei genutzt, zum Beispiel beim Einkaufen, Kochen oder Planen  
     - Eine klare visuelle Struktur hilft dabei, den Überblick über Vorräte, Einkäufe und Aufgaben zu behalten  
     - Die Kombination aus Vorrat, Einkaufsliste, To-do’s und Wochenmenü deckt zentrale Bedürfnisse der Haushaltsorganisation ab  
 **Abgrenzung:**  
@@ -62,8 +63,8 @@ Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen 
 
 ## 3. Vorgehen & Artefakte
 Die Entwicklung des Projekts erfolgte in mehreren Phasen. Zu Beginn wurde das Problem der Haushaltsorganisation im Alltag analysiert. Ursprünglich lag der Fokus der Idee auf zwei zentralen Funktionen: der Verwaltung von Vorräten und einer gemeinsamen Einkaufsliste. Damit sollte zuerst das Kernproblem gelöst werden, nämlich den Überblick über vorhandene Produkte und benötigte Einkäufe zu verbessern.
-Während der Weiterentwicklung wurde deutlich, dass Haushaltsorganisation mehr umfasst als nur Vorräte und Einkäufe. Deshalb wurde die App schrittweise erweitert. Es kamen ein Dashboard als zentrale Übersichtsseite, eine To-do-Liste für Aufgaben im Haushalt sowie ein Wochenmenüplan zur Essensplanung hinzu. Dadurch entwickelte sich Homie von einer einfachen Vorrats- und Einkaufslisten-App zu einer umfassenderen Lösung für die alltägliche Organisation im Haushalt.
-Anschliessend wurden die Funktionen schrittweise als Prototyp umgesetzt und laufend angepasst. Im Fokus standen eine einfache Bedienung, eine klare visuelle Struktur und die Möglichkeit, die App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen.
+Während der Weiterentwicklung wurde deutlich, dass Haushaltsorganisation mehr umfasst als nur Vorräte und Einkäufe. Deshalb wurde die Web-App schrittweise erweitert. Es kamen ein Dashboard als zentrale Übersichtsseite, eine To-do-Liste für Aufgaben im Haushalt sowie ein Wochenmenüplan zur Essensplanung hinzu. Dadurch entwickelte sich Homie von einer einfachen Vorrats- und Einkaufslisten Web-App zu einer umfassenderen Lösung für die alltägliche Organisation im Haushalt.
+Anschliessend wurden die Funktionen schrittweise als Prototyp umgesetzt und laufend angepasst. Im Fokus standen eine einfache Bedienung, eine klare visuelle Struktur und die Möglichkeit, die Web-App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen.
 Das Vorgehen orientierte sich an einem Design-Thinking-ähnlichen Prozess. Dabei standen die Bedürfnisse der Nutzerinnen und Nutzer im Mittelpunkt. Ziel war es, eine Lösung zu entwickeln, die nicht nur technisch funktioniert, sondern auch im Alltag verständlich, schnell nutzbar und hilfreich ist.
 
 ### 3.1 Understand & Define  
@@ -77,7 +78,7 @@ In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Pe
 **Situation:**  Lebt alleine in einer Wohnung  
 **Bedürfnis:** Thomas möchte beim Einkaufen besser wissen, welche Produkte er noch zuhause hat, welche Aufgaben anstehen und was er in der Woche kochen möchte.  
 **Problem:** Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt. Zusätzlich plant er Mahlzeiten spontan und verliert dadurch manchmal den Überblick über vorhandene Lebensmittel.  
-**Ziel:** Eine einfache App nutzen, mit der er Vorräte, fehlende Produkte, Aufgaben und Mahlzeiten schnell erfassen kann.  
+**Ziel:** Eine einfache Web-App nutzen, mit der er Vorräte, fehlende Produkte, Aufgaben und Mahlzeiten schnell erfassen kann.  
 
 **Proto-Persona 2: Gemeinsamer Haushalt**  
 **Name:** Lara  
@@ -85,12 +86,12 @@ In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Pe
 **Situation:** Lebt in einer WG mit drei Mitbewohnerinnen und Mitbewohnern  
 **Bedürfnis:** Lara möchte schnell sehen können, welche Produkte im Haushalt vorhanden sind, was noch gekauft werden muss, welche Aufgaben offen sind und welche Mahlzeiten geplant sind.  
 **Problem:** In ihrer WG werden Einkaufslisten und Aufgaben oft über WhatsApp geführt. Dadurch gehen Nachrichten unter, Produkte werden mehrfach gekauft oder Aufgaben bleiben unklar verteilt.  
-**Ziel:** Eine gemeinsame App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand zu Vorräten, Einkaufsliste und Aufgaben sehen.
+**Ziel:** Eine gemeinsame Web-App nutzen, in der alle WG-Mitglieder denselben aktuellen Stand zu Vorräten, Einkaufsliste und Aufgaben sehen.
 
 **Wesentliche Erkenntnisse:**  
-    - Die App muss sowohl für Einzelpersonen als auch für gemeinsame Haushalte funktionieren.  
+    - Die Web-App muss sowohl für Einzelpersonen als auch für gemeinsame Haushalte funktionieren.  
     - Die Bedienung muss sehr einfach und schnell verständlich sein.  
-    - Ein klassischer Login könnte für eine kleine Haushalts-App unnötig kompliziert wirken.  
+    - Ein klassischer Login könnte für eine kleine Haushalts Web-App unnötig kompliziert wirken.  
     - Eine gemeinsame Nutzung über einen Haushalts-Code senkt die Einstiegshürde.  
     - Vorräte, Einkaufsliste und To-do’s sollten in gemeinsamen Haushalten zentral und für alle sichtbar sein.  
     - Der Wochenmenüplan ist besonders für Einzelpersonen oder Haushalte sinnvoll, in denen gemeinsam geplant wird.  
@@ -98,12 +99,12 @@ In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Pe
     - Vorräte und Einkaufsliste sollten klar voneinander getrennt sein.  
     - Kategorien verbessern die Übersichtlichkeit im Vorrat.  
     - Mengenangaben und Einheiten sind wichtig, damit Artikel genauer erfasst werden können.  
-    - Die App sollte besonders auf mobilen Geräten gut nutzbar sein.  
+    - Die Web-App sollte besonders auf mobilen Geräten gut nutzbar sein.  
     - Der Fokus soll auf Alltagstauglichkeit liegen.  
     - Wenige, gut funktionierende Kernfunktionen sind wichtiger als zu viele komplexe Zusatzfunktionen.  
 
 ### 3.2 Sketch
-**Variantenüberblick:** In der Sketch-Phase wurden verschiedene Möglichkeiten überlegt, wie die App aufgebaut sein könnte. Dabei wurde besonders darauf geachtet, dass die App sowohl für Einzelpersonen als auch für gemeinsame Haushalte verständlich bleibt. Zu Beginn lag der Fokus auf Vorräten und Einkaufsliste. Später wurde die Idee erweitert, sodass auch ein Dashboard, To-do’s und ein Wochenmenüplan berücksichtigt wurden.
+**Variantenüberblick:** In der Sketch-Phase wurden verschiedene Möglichkeiten überlegt, wie die Web-App aufgebaut sein könnte. Dabei wurde besonders darauf geachtet, dass die App sowohl für Einzelpersonen als auch für gemeinsame Haushalte verständlich bleibt. Zu Beginn lag der Fokus auf Vorräten und Einkaufsliste. Später wurde die Idee erweitert, sodass auch ein Dashboard, To-do’s und ein Wochenmenüplan berücksichtigt wurden.
 
 **Variante 1: Einfache Listenansicht**
 In dieser Variante werden alle Artikel in einer einfachen Liste dargestellt. Nutzerinnen und Nutzer können Produkte hinzufügen und löschen.
@@ -120,7 +121,7 @@ In dieser Variante werden alle Artikel in einer einfachen Liste dargestellt. Nut
 - Keine zentrale Übersicht über Aufgaben oder Planung
 
 **Variante 2: Getrennte Bereiche für Vorrat und Einkaufsliste**
-Diese Variante trennt die App in zwei Hauptbereiche: Vorräte und Einkaufsliste. Dadurch ist klar ersichtlich, welche Produkte bereits vorhanden sind und welche noch gekauft werden müssen.
+Diese Variante trennt die Web-App in zwei Hauptbereiche: Vorräte und Einkaufsliste. Dadurch ist klar ersichtlich, welche Produkte bereits vorhanden sind und welche noch gekauft werden müssen.
 
 **Vorteile:**  
 - Gute Übersicht  
@@ -148,7 +149,7 @@ Diese Variante sieht ein zentrales Haushalts-Dashboard mit Code-Zugang vor. Von 
 - Keine individuelle Benutzerverwaltung  
 
 **Skizzen:**  
-Für die App wurden mehrere grobe Skizzen erstellt.
+Für die Web-App wurden mehrere grobe Skizzen erstellt.
 
 ![skizzen](screens/skizze1.png)
 ![skizzen](screens/skizze2.png)
@@ -156,10 +157,10 @@ Für die App wurden mehrere grobe Skizzen erstellt.
 
  *Skizzen*
 
-Die Skizzen halfen dabei, die Struktur der App früh zu überprüfen. Besonders wichtig war, dass Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen, fehlende Artikel eintragen, Aufgaben erfassen und Mahlzeiten planen können.
+Die Skizzen halfen dabei, die Struktur der Web-App früh zu überprüfen. Besonders wichtig war, dass Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen, fehlende Artikel eintragen, Aufgaben erfassen und Mahlzeiten planen können.
 
 ### 3.3 Decide
-**Gewählte Variante & Begründung:** Nach dem Vergleich der verschiedenen Varianten wurde die Variante "Haushalts-Dashboard mit Code-Zugang" ausgewählt. Diese Lösung verbindet eine einfache Bedienung mit der Möglichkeit, die App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen. Der vierstellige Haushalts-Code wurde gewählt, weil dadurch kein klassisches Login-System notwendig ist. Das senkt die Einstiegshürde und macht die App besonders schnell nutzbar.
+**Gewählte Variante & Begründung:** Nach dem Vergleich der verschiedenen Varianten wurde die Variante "Haushalts-Dashboard mit Code-Zugang" ausgewählt. Diese Lösung verbindet eine einfache Bedienung mit der Möglichkeit, die Web-App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen. Der vierstellige Haushalts-Code wurde gewählt, weil dadurch kein klassisches Login-System notwendig ist. Das senkt die Einstiegshürde und macht die Web-App besonders schnell nutzbar.
 
 Die Entscheidung fiel auf diese Variante, weil sie die wichtigsten Anforderungen des Projekts am besten erfüllt:  
 - einfache Nutzung ohne Registrierung  
@@ -175,7 +176,7 @@ Die Entscheidung fiel auf diese Variante, weil sie die wichtigsten Anforderungen
 Nach dem Beitritt gelangt die Person zur Hauptansicht, dem Dashboard. Dort sind die wichtigsten Bereiche sichtbar: To-do’s, Einkaufsliste, bald leere Vorratsartikel und der Wochenmenüplan. Von dort aus kann die Person in die einzelnen Bereiche wechseln.
 Im Vorratsbereich können vorhandene Produkte mit Namen, Menge, Einheit und Kategorie hinzugefügt werden. Die Produkte werden nach Kategorien gruppiert angezeigt. Wenn die Menge eines Vorratsprodukts auf 1 sinkt, wird es als bald leer erkennbar und kann mit einem Klick zur Einkaufsliste hinzugefügt werden.
 In der Einkaufsliste können fehlende Produkte eingetragen, angezeigt, gelöscht und nach dem Einkauf wieder in den Vorrat übernommen werden. Dabei werden Mengenangaben und Einheiten mitgeführt, sodass die Informationen nicht erneut eingegeben werden müssen.
-Zusätzlich können in der To-do-Liste Haushaltsaufgaben erfasst und erledigt werden. Der Wochenmenüplan ermöglicht es, Mahlzeiten für einzelne Wochentage einzutragen. Pro Tag können auch mehrere Menüeinträge erfasst und per Drag & Drop verschoben werden. Dadurch unterstützt die App nicht nur den Einkauf, sondern auch die Planung des Haushaltsalltags.
+Zusätzlich können in der To-do-Liste Haushaltsaufgaben erfasst und erledigt werden. Der Wochenmenüplan ermöglicht es, Mahlzeiten für einzelne Wochentage einzutragen. Pro Tag können auch mehrere Menüeinträge erfasst und per Drag & Drop verschoben werden. Dadurch unterstützt die Web-App nicht nur den Einkauf, sondern auch die Planung des Haushaltsalltags.
 
 **User Journey:** 
 1. Nutzerin oder Nutzer öffnet die Web-App.
@@ -198,7 +199,7 @@ Zusätzlich können in der To-do-Liste Haushaltsaufgaben erfasst und erledigt we
 18. Alle Daten werden automatisch in der Datenbank gespeichert.
 19. Alle Personen im Haushalt sehen denselben aktuellen Stand und können gemeinsam Vorräte, Einkäufe und Aufgaben verwalten.
 
-**Mockup:** Das Mockup zeigt die wichtigsten Ansichten der App Homie: Login, Dashboard, Vorrat und Einkaufsliste. Es verdeutlicht, wie Nutzerinnen und Nutzer einem Haushalt beitreten, Vorräte verwalten und bald leere Produkte zur Einkaufsliste hinzufügen können.
+**Mockup:** Das Mockup zeigt die wichtigsten Ansichten der Web-App Homie: Login, Dashboard, Vorrat und Einkaufsliste. Es verdeutlicht, wie Nutzerinnen und Nutzer einem Haushalt beitreten, Vorräte verwalten und bald leere Produkte zur Einkaufsliste hinzufügen können.
 
 ![Mockup](screens/mockup.png)
 
@@ -209,8 +210,8 @@ Zusätzlich können in der To-do-Liste Haushaltsaufgaben erfasst und erledigt we
 
 #### 3.4.1. Entwurf (Design)
 Der Prototyp von Homie wurde so gestaltet, dass die wichtigsten Funktionen schnell verständlich und einfach erreichbar sind. Der Fokus liegt auf einer klaren Struktur, einer einfachen Bedienung und einer alltagstauglichen Nutzung auf Desktop und mobilen Geräten. Nutzerinnen und Nutzer sollen ohne lange Erklärung verstehen, wo sie Vorräte, Einkaufslisten, Aufgaben und das Wochenmenü verwalten können.  
-**Informationsarchitektur:**   Die App ist in wenige zentrale Bereiche aufgeteilt. Nach dem Öffnen der Web-App gelangen Nutzerinnen und Nutzer zuerst zur Startseite. Dort können sie entweder einen bestehenden vierstelligen Haushalts-Code eingeben oder einen neuen Haushalt erstellen.
-Nach dem Beitritt zu einem Haushalt öffnet sich das Dashboard. Dieses bildet die Hauptansicht der App und zeigt die wichtigsten Informationen auf einen Blick. Von dort aus sind die zentralen Bereiche erreichbar:  
+**Informationsarchitektur:**   Die Web-App ist in wenige zentrale Bereiche aufgeteilt. Nach dem Öffnen der Web-App gelangen Nutzerinnen und Nutzer zuerst zur Startseite. Dort können sie entweder einen bestehenden vierstelligen Haushalts-Code eingeben oder einen neuen Haushalt erstellen.
+Nach dem Beitritt zu einem Haushalt öffnet sich das Dashboard. Dieses bildet die Hauptansicht der Web-App und zeigt die wichtigsten Informationen auf einen Blick. Von dort aus sind die zentralen Bereiche erreichbar:  
 - Vorräte  
 - Einkaufsliste  
 - To-do-Liste  
@@ -225,7 +226,7 @@ Diese Struktur wurde gewählt, weil sie den Alltag in einem Haushalt einfach abb
 **User Interface Design:** Die folgenden Screenshots zeigen die wichtigsten Ansichten der Homie-App.
 
 ![Startseite](prototype/FirstPage.png)
-*Startseite der App, auf der Nutzerinnen und Nutzer einem Haushalt per Code beitreten können.*
+*Startseite der Web-App, auf der Nutzerinnen und Nutzer einem Haushalt per Code beitreten können.*
 
 ![Haushalt erstellen](prototype/CreateHaushalt.png)
  *Ansicht zum Erstellen eines neuen Haushalts.*
@@ -250,12 +251,12 @@ Die Bereiche Vorräte, Einkaufsliste, To-do-Liste und Wochenmenüplan wurden kla
 Ausserdem wurde entschieden, Produkte mit Menge und Einheit zu speichern. Dadurch kann genauer nachvollzogen werden, wie viel von einem Produkt vorhanden ist oder gekauft werden muss. Unterstützt werden feste Einheiten wie Stück, Pack, kg, g und Liter sowie eine eigene Angabe.
 Wenn die Menge eines Vorratsprodukts niedrig ist, kann es direkt zur Einkaufsliste hinzugefügt werden. Wird ein Produkt in der Einkaufsliste abgehakt, kann es wieder in den Vorrat übernommen werden. Dabei werden Name, Menge, Einheit und Kategorie berücksichtigt.
 Beim Wochenmenüplan wurde darauf geachtet, dass Einträge flexibel bearbeitet werden können. Pro Tag können mehrere Gerichte eingetragen werden, und durch Drag & Drop lassen sich Menüeinträge einfach zwischen den Tagen verschieben.
-Das visuelle Design wurde bewusst weich und freundlich gestaltet. Abgerundete Karten, warme Farben und klare Abstände sollen dafür sorgen, dass die App übersichtlich wirkt und angenehm zu bedienen ist. Besonders wichtig war auch die mobile Ansicht, da die App häufig im Alltag nebenbei genutzt wird, zum Beispiel beim Einkaufen oder Planen.
-Diese Entscheidungen unterstützen das Hauptziel der App: den Haushalt übersichtlich, einfach und gemeinsam zu organisieren.
+Das visuelle Design wurde bewusst weich und freundlich gestaltet. Abgerundete Karten, warme Farben und klare Abstände sollen dafür sorgen, dass die Web-App übersichtlich wirkt und angenehm zu bedienen ist. Besonders wichtig war auch die mobile Ansicht, da die Web-App häufig im Alltag nebenbei genutzt wird, zum Beispiel beim Einkaufen oder Planen.
+Diese Entscheidungen unterstützen das Hauptziel der Web-App: den Haushalt übersichtlich, einfach und gemeinsam zu organisieren.
 
 #### 3.4.2. Umsetzung (Technik)
-Der Prototyp wurde als Web-App umgesetzt. Ziel war es, die wichtigsten Funktionen funktionsfähig darzustellen und eine einfache Nutzung für Einzelpersonen sowie gemeinsame Haushalte zu ermöglichen. Die App speichert alle relevanten Daten in einer Datenbank, sodass der aktuelle Stand auch nach dem Neuladen der Seite oder beim erneuten Beitritt zu einem Haushalt erhalten bleibt.
-**Technologie-Stack:** Für die Umsetzung wurde SvelteKit verwendet. SvelteKit eignet sich gut für moderne Web-Apps, da Seiten, Serverlogik und Formularaktionen übersichtlich strukturiert werden können. Die App wurde mit HTML, CSS, JavaScript und Svelte umgesetzt. Für die dauerhafte Speicherung der Daten wird MongoDB verwendet.
+Der Prototyp wurde als Web-App umgesetzt. Ziel war es, die wichtigsten Funktionen funktionsfähig darzustellen und eine einfache Nutzung für Einzelpersonen sowie gemeinsame Haushalte zu ermöglichen. Die Web-App speichert alle relevanten Daten in einer Datenbank, sodass der aktuelle Stand auch nach dem Neuladen der Seite oder beim erneuten Beitritt zu einem Haushalt erhalten bleibt.
+**Technologie-Stack:** Für die Umsetzung wurde SvelteKit verwendet. SvelteKit eignet sich gut für moderne Web-Apps, da Seiten, Serverlogik und Formularaktionen übersichtlich strukturiert werden können. Die Web-App wurde mit HTML, CSS, JavaScript und Svelte umgesetzt. Für die dauerhafte Speicherung der Daten wird MongoDB verwendet.
 
 Verwendete Technologien:  
     - SvelteKit  
@@ -264,7 +265,7 @@ Verwendete Technologien:
     - CSS  
     - MongoDB  
 
-**Tooling:** Für die Entwicklung wurde eine lokale Entwicklungsumgebung verwendet. Der Code wurde in einer IDE bearbeitet und über den lokalen Entwicklungsserver getestet.
+**Tooling:** Für die Entwicklung wurde eine lokale Entwicklungsumgebung verwendet. Der Code wurde in einer integriertem Entwicklungsumgebung (IDE) bearbeitet und über den lokalen Entwicklungsserver getestet.
 
 Verwendete Tools:  
     - Visual Studio Code  
@@ -274,7 +275,7 @@ Verwendete Tools:
     - Git / GitHub zur Versionsverwaltung  
     - Netlify  
 
-**Struktur & Komponenten:** Die App wurde in mehrere Bereiche und Komponenten aufgeteilt. Dadurch bleibt der Code übersichtlich und die einzelnen Funktionen können einfacher angepasst werden.
+**Struktur & Komponenten:** Die Web-App wurde in mehrere Bereiche und Komponenten aufgeteilt. Dadurch bleibt der Code übersichtlich und die einzelnen Funktionen können einfacher angepasst werden.
 
 Wichtige Bestandteile:  
     - Startseite für Haushalts-Code und Haushaltserstellung  
@@ -289,7 +290,7 @@ Wichtige Bestandteile:
 
 Die Navigation ist bewusst einfach gehalten. Nach dem Beitritt zu einem Haushalt befindet sich die Nutzerin oder der Nutzer direkt im Dashboard und kann von dort aus alle Hauptfunktionen verwenden.
 
-**Daten & Schnittstellen:** Alle Daten der App werden in MongoDB gespeichert. Dazu gehören Haushalte, Vorratsprodukte, Einkaufslisten-Einträge, To-do-Einträge und Wochenmenü-Einträge. Der vierstellige Haushalts-Code dient dazu, einem Haushalt beizutreten. Intern werden die gespeicherten Daten dem jeweiligen Haushalt zugeordnet. Wenn mehrere Personen denselben Code verwenden, greifen sie auf dieselben Daten in MongoDB zu.
+**Daten & Schnittstellen:** Alle Daten der Web-App werden in MongoDB gespeichert. Dazu gehören Haushalte, Vorratsprodukte, Einkaufslisten-Einträge, To-do-Einträge und Wochenmenü-Einträge. Der vierstellige Haushalts-Code dient dazu, einem Haushalt beizutreten. Intern werden die gespeicherten Daten dem jeweiligen Haushalt zugeordnet. Wenn mehrere Personen denselben Code verwenden, greifen sie auf dieselben Daten in MongoDB zu.
 
 Für jeden Haushalt werden die relevanten Informationen gespeichert:  
     - Haushalts-Code  
@@ -300,12 +301,12 @@ Für jeden Haushalt werden die relevanten Informationen gespeichert:
     - To-do-Einträge  
     - Wochenmenü-Einträge pro Kalenderwoche und Wochentag  
 
-Die App ruft die Daten aus MongoDB ab und zeigt sie im jeweiligen Bereich an. Wenn ein Produkt, ein Einkaufslisten-Eintrag, eine To-do-Aufgabe oder ein Menüeintrag hinzugefügt wird, wird dieser Eintrag in MongoDB gespeichert. Änderungen wie Löschen, Abhaken, Übernehmen von der Einkaufsliste in den Vorrat oder Verschieben von Menüeinträgen per Drag & Drop werden ebenfalls in MongoDB aktualisiert.
-Beim Wochenmenüplan werden die Einträge pro Kalenderwoche gespeichert. Dadurch kann die App die aktuelle Woche anzeigen und alte Menüeinträge automatisch entfernen, wenn sie nicht mehr zur aktuellen Woche gehören.
+Die Web-App ruft die Daten aus MongoDB ab und zeigt sie im jeweiligen Bereich an. Wenn ein Produkt, ein Einkaufslisten-Eintrag, eine To-do-Aufgabe oder ein Menüeintrag hinzugefügt wird, wird dieser Eintrag in MongoDB gespeichert. Änderungen wie Löschen, Abhaken, Übernehmen von der Einkaufsliste in den Vorrat oder Verschieben von Menüeinträgen per Drag & Drop werden ebenfalls in MongoDB aktualisiert.
+Beim Wochenmenüplan werden die Einträge pro Kalenderwoche gespeichert. Dadurch kann die Web-App die aktuelle Woche anzeigen und alte Menüeinträge automatisch entfernen, wenn sie nicht mehr zur aktuellen Woche gehören.
 
 **Deployment:** https://homie-appl.netlify.app
 
-**Besondere Entscheidungen:** Eine wichtige Entscheidung war der Verzicht auf ein klassisches Login-System. Stattdessen wird ein vierstelliger Haushalts-Code verwendet. Diese Lösung ist einfacher und passt besser zum Ziel der App, da Nutzerinnen und Nutzer möglichst schnell starten können.
+**Besondere Entscheidungen:** Eine wichtige Entscheidung war der Verzicht auf ein klassisches Login-System. Stattdessen wird ein vierstelliger Haushalts-Code verwendet. Diese Lösung ist einfacher und passt besser zum Ziel der Web-App, da Nutzerinnen und Nutzer möglichst schnell starten können.
 Alle Personen mit demselben Haushalts-Code haben dieselben Rechte. Es gibt keine Rollen wie Admin oder Mitglied. Diese Vereinfachung reduziert die Komplexität des Prototyps und macht die Bedienung verständlicher.
 Ausserdem wurde entschieden, Mengenangaben und Einheiten bei Vorräten und Einkaufslisten zu speichern. Dadurch bleiben wichtige Informationen erhalten, wenn ein Artikel vom Vorrat auf die Einkaufsliste oder von der Einkaufsliste zurück in den Vorrat übernommen wird.
 Beim Wochenmenüplan wurde Drag & Drop umgesetzt, damit Menüeinträge flexibel zwischen den Tagen verschoben werden können. Dies verbessert die Bedienung, da Pläne im Alltag häufig geändert werden.
@@ -330,10 +331,10 @@ Geprüft wurden folgende Fragen:
 - Ist klar, dass mehrere Menüeinträge pro Tag möglich sind?  
 - Ist klar ersichtlich, ob ein Menüeintrag gespeichert wurde?  
 - Ist das Verschieben von Menüeinträgen per Drag & Drop verständlich?  
-- Funktioniert die App auch auf mobilen Geräten übersichtlich?  
+- Funktioniert die Web-App auch auf mobilen Geräten übersichtlich?  
 
 **Vorgehen:** Die Tests wurden mit einfachen Nutzungsszenarien durchgeführt. Die Testpersonen erhielten konkrete Aufgaben und sollten diese möglichst selbstständig lösen. Währenddessen wurde beobachtet, ob sie die Funktionen finden, verstehen und korrekt verwenden können.
-Das Vorgehen war leicht moderiert. Falls eine Testperson nicht weiterkam, wurde notiert, an welcher Stelle das Problem auftrat. Es wurde aber möglichst wenig geholfen, damit sichtbar wurde, ob die App auch ohne Erklärung verständlich ist.
+Das Vorgehen war leicht moderiert. Falls eine Testperson nicht weiterkam, wurde notiert, an welcher Stelle das Problem auftrat. Es wurde aber möglichst wenig geholfen, damit sichtbar wurde, ob die Web-App auch ohne Erklärung verständlich ist.
 
 **Stichprobe:** Getestet wurde mit Personen, die zur Zielgruppe der App passen. Dazu gehören Einzelpersonen sowie Personen aus gemeinsamen Haushalten wie WGs, Paarhaushalten oder Familien.
 
@@ -389,10 +390,10 @@ Kennzahlen:
     - Häufigste Schwierigkeit: Die Platzhaltertexte „1234“ und „z. B. WG Zürich“ waren nicht für alle Testpersonen eindeutig. Zusätzlich war beim Wochenmenü nicht immer klar ersichtlich, ob ein Menüeintrag gespeichert wurde.  
 
 **Zusammenfassung der Resultate:** Die Validierung zeigte, dass die Grundidee von Homie verständlich ist und die wichtigsten Funktionen sinnvoll zusammenarbeiten. Besonders positiv bewertet wurden das übersichtliche Dashboard, die klare Aufteilung in Vorrat, Einkaufsliste, To-do-Liste und Wochenmenü sowie die zuverlässige Speicherung der Daten in MongoDB.
-Alle getesteten Aufgaben konnten erfolgreich abgeschlossen werden. Die App wurde als alltagstauglich wahrgenommen, besonders für das schnelle Erfassen von Vorräten, das Verwalten einer Einkaufsliste und die Planung von Aufgaben oder Mahlzeiten.
-Beim Einstieg in die App zeigte sich jedoch, dass die Eingabefelder noch klarer beschriftet werden sollten. Einige Testpersonen verstanden den Platzhalter "1234" als tatsächlichen Code und waren unsicher, ob sie genau diese Zahl eingeben müssen. Auch beim Erstellen eines Haushalts war nicht sofort klar, was im ersten und zweiten Feld eingetragen werden soll. Besonders das zweite Feld sollte deutlicher als Haushaltsname erkennbar sein.
+Alle getesteten Aufgaben konnten erfolgreich abgeschlossen werden. Die Web-App wurde als alltagstauglich wahrgenommen, besonders für das schnelle Erfassen von Vorräten, das Verwalten einer Einkaufsliste und die Planung von Aufgaben oder Mahlzeiten.
+Beim Einstieg in die Web-App zeigte sich jedoch, dass die Eingabefelder noch klarer beschriftet werden sollten. Einige Testpersonen verstanden den Platzhalter "1234" als tatsächlichen Code und waren unsicher, ob sie genau diese Zahl eingeben müssen. Auch beim Erstellen eines Haushalts war nicht sofort klar, was im ersten und zweiten Feld eingetragen werden soll. Besonders das zweite Feld sollte deutlicher als Haushaltsname erkennbar sein.
 Beim Wochenmenü wurde ausserdem festgestellt, dass nicht immer klar war, ob ein eingetragener Menüpunkt gespeichert wurde. Einige Testpersonen waren unsicher, ob sie nach der Eingabe noch eine zusätzliche Aktion ausführen müssen. Eine klare Rückmeldung, zum Beispiel durch eine kurze Speicherbestätigung oder eine deutlichere Anzeige des gespeicherten Eintrags, würde hier helfen.
-Verbesserungspotenzial gibt es ausserdem bei der Nutzung in gemeinsamen Haushalten wie WGs oder Familien. Dort wäre es hilfreich, wenn sichtbar wäre, welche Person einen Eintrag erstellt hat. Zusätzlich wurde von Testpersonen der Wunsch geäussert, dass die App in Zukunft Rezeptvorschläge machen soll. Diese Rezeptvorschläge sollen auf den Produkten basieren, die bereits im Vorrat vorhanden sind.
+Verbesserungspotenzial gibt es ausserdem bei der Nutzung in gemeinsamen Haushalten wie WGs oder Familien. Dort wäre es hilfreich, wenn sichtbar wäre, welche Person einen Eintrag erstellt hat. Zusätzlich wurde von Testpersonen der Wunsch geäussert, dass die Web-App in Zukunft Rezeptvorschläge machen soll. Diese Rezeptvorschläge sollen auf den Produkten basieren, die bereits im Vorrat vorhanden sind.
 
 **Abgeleitete Verbesserungen:** Aus der Validierung wurden mehrere Verbesserungen abgeleitet, die in einer nächsten Version umgesetzt werden sollten.
 
@@ -405,7 +406,7 @@ Beim Wochenmenü sollte klarer angezeigt werden, ob ein Menüeintrag gespeichert
 4. Anzeige, wer einen Eintrag erstellt hat
 In gemeinsamen Haushalten wie WGs oder Familien wäre es hilfreich zu sehen, welche Person einen Eintrag erstellt hat. So könnten Haushaltsmitglieder besser nachvollziehen, wer ein Produkt zur Einkaufsliste hinzugefügt, eine Aufgabe erstellt oder einen Vorratsartikel eingetragen hat. Das würde die Transparenz und Kommunikation im Haushalt verbessern.
 5. Rezeptvorschläge anhand vorhandener Vorräte
-Nutzerinnen und Nutzer wünschten sich eine Funktion, mit der aus vorhandenen Produkten passende Rezeptideen vorgeschlagen werden. Dadurch könnte die App nicht nur beim Einkaufen helfen, sondern auch dabei, vorhandene Lebensmittel sinnvoll zu verwenden und Lebensmittelverschwendung zu reduzieren.
+Nutzerinnen und Nutzer wünschten sich eine Funktion, mit der aus vorhandenen Produkten passende Rezeptideen vorgeschlagen werden. Dadurch könnte die Web-App nicht nur beim Einkaufen helfen, sondern auch dabei, vorhandene Lebensmittel sinnvoll zu verwenden und Lebensmittelverschwendung zu reduzieren.
 
 ## 4. Erweiterungen
 
@@ -414,7 +415,7 @@ Die ersten drei Verbesserungen wurden im Rahmen des Prototyps direkt berücksich
 ### 4.1 Klarere Eingabefelder beim Einstieg
 **Beschreibung & Nutzen:** Nach der Evaluation wurden die Eingabefelder auf der Startseite verständlicher gestaltet. In den Tests zeigte sich, dass einige Testpersonen den Platzhalter "1234" als echten Code interpretierten und dachten, sie müssten genau diese Zahl eingeben. Dadurch entstand Unsicherheit beim Beitritt zu einem bestehenden Haushalt.
 Um dieses Problem zu reduzieren, wurde die Beschriftung beziehungsweise Darstellung des Eingabefeldes angepasst. Nutzerinnen und Nutzer sollen nun besser verstehen, dass sie dort den individuellen Haushalts-Code eingeben müssen, den sie von einem bestehenden Haushalt erhalten haben.
-Diese Anpassung verbessert den Einstieg in die App, weil die erste Interaktion klarer ist und weniger Erklärung benötigt wird.
+Diese Anpassung verbessert den Einstieg in die Web-App, weil die erste Interaktion klarer ist und weniger Erklärung benötigt wird.
 
 **Wo umgesetzt:**  
 **Frontend:** Anpassung der Startseite mit klarerer Beschriftung des Code-Feldes und verständlicherem Hinweistext  
@@ -468,10 +469,10 @@ Diese Erweiterung bildet den realen Ablauf im Haushalt besser ab: Ein Produkt wi
 
 **Referenz:** Beschrieben in Kapitel 3.3 bei der User Journey sowie in Kapitel 3.4.1 bei den Screenshots zur Vorratsübersicht, Einkaufsliste und Übernahme in den Vorrat.
 
-**Aus Evaluation abgeleitet?:** Nein. Die Funktion entstand nicht direkt aus der Evaluation, sondern wurde bereits während der Konzeption und Umsetzung als sinnvoller Bestandteil der App geplant. Die Evaluation hat jedoch bestätigt, dass diese Verknüpfung für den Alltag nützlich ist, da Nutzerinnen und Nutzer Artikel nicht doppelt erfassen müssen und der Ablauf zwischen Vorrat und Einkaufsliste verständlich ist.
+**Aus Evaluation abgeleitet?:** Nein. Die Funktion entstand nicht direkt aus der Evaluation, sondern wurde bereits während der Konzeption und Umsetzung als sinnvoller Bestandteil der Web-App geplant. Die Evaluation hat jedoch bestätigt, dass diese Verknüpfung für den Alltag nützlich ist, da Nutzerinnen und Nutzer Artikel nicht doppelt erfassen müssen und der Ablauf zwischen Vorrat und Einkaufsliste verständlich ist.
 
 ### 4.5 Mengenangaben und Einheiten
-**Beschreibung & Nutzen:** Die App wurde so erweitert, dass Produkte nicht nur mit einem Namen gespeichert werden, sondern zusätzlich mit Menge und Einheit. Nutzerinnen und Nutzer können dadurch genauer festhalten, wie viel von einem Produkt vorhanden ist oder gekauft werden muss. Unterstützt werden feste Einheiten wie Stück, Pack, kg, g und Liter sowie eine eigene Angabe.
+**Beschreibung & Nutzen:** Die Web-App wurde so erweitert, dass Produkte nicht nur mit einem Namen gespeichert werden, sondern zusätzlich mit Menge und Einheit. Nutzerinnen und Nutzer können dadurch genauer festhalten, wie viel von einem Produkt vorhanden ist oder gekauft werden muss. Unterstützt werden feste Einheiten wie Stück, Pack, kg, g und Liter sowie eine eigene Angabe.
 
 Besonders wichtig ist, dass Mengenangaben und Einheiten beim Wechsel zwischen Vorrat und Einkaufsliste erhalten bleiben. Wenn ein Artikel aus dem Vorrat zur Einkaufsliste hinzugefügt wird, werden Menge und Einheit mitgespeichert. Wird ein gekaufter Artikel später von der Einkaufsliste wieder in den Vorrat übernommen, werden diese Angaben ebenfalls übernommen. Dadurch müssen Nutzerinnen und Nutzer die gleichen Informationen nicht erneut eingeben.
 
@@ -487,7 +488,7 @@ Diese Erweiterung macht die Vorrats- und Einkaufslistenfunktion deutlich alltags
 **Aus Evaluation abgeleitet?:** Nein. Die Funktion entstand bereits während der Weiterentwicklung, weil eine reine Artikelliste für den Alltag nicht genau genug ist. Die Evaluation hat jedoch bestätigt, dass Mengenangaben und Einheiten hilfreich sind und die Nutzung verständlicher machen.
 
 ### 4.6 Wochenmenüplan mit mehreren Einträgen und Drag & Drop
-**Beschreibung & Nutzen:** Die App wurde um einen Wochenmenüplan erweitert, der direkt auf dem Dashboard angezeigt wird. Nutzerinnen und Nutzer können dadurch ihre geplanten Mahlzeiten direkt in der zentralen Übersicht erfassen und bearbeiten, ohne zuerst auf eine separate Seite wechseln zu müssen. Der Wochenmenüplan bezieht sich immer auf die aktuelle Kalenderwoche. Sobald eine neue Woche beginnt, wird eine leere neue Woche angezeigt und alte Wochenmenüeinträge werden aus der Datenbank entfernt.
+**Beschreibung & Nutzen:** Die Web-App wurde um einen Wochenmenüplan erweitert, der direkt auf dem Dashboard angezeigt wird. Nutzerinnen und Nutzer können dadurch ihre geplanten Mahlzeiten direkt in der zentralen Übersicht erfassen und bearbeiten, ohne zuerst auf eine separate Seite wechseln zu müssen. Der Wochenmenüplan bezieht sich immer auf die aktuelle Kalenderwoche. Sobald eine neue Woche beginnt, wird eine leere neue Woche angezeigt und alte Wochenmenüeinträge werden aus der Datenbank entfernt.
 Für jeden Wochentag können Mahlzeiten eingetragen werden. Pro Tag können mehrere Menüeinträge erstellt werden, zum Beispiel für Mittag- und Abendessen. Zusätzlich können Menüeinträge per Drag & Drop zwischen den Tagen verschoben werden.
 Diese Erweiterung unterstützt die Essensplanung und hilft dabei, Einkäufe besser vorzubereiten und vorhandene Lebensmittel gezielter zu verwenden. Besonders für Einzelpersonen, Paare oder Familien kann der Wochenmenüplan helfen, den Alltag besser zu strukturieren.
 
@@ -503,7 +504,7 @@ Diese Erweiterung unterstützt die Essensplanung und hilft dabei, Einkäufe bess
 ## 5. Projektorganisation
 **Repository & Struktur:** https://github.com/vadaclin/homie
 Das Repository enthält die zentrale SvelteKit-Projektstruktur. Im Ordner src befinden sich die Seiten, Server-Logik und wiederverwendbare Bestandteile der Web-App. Der Ordner static enthält statische Dateien wie Bilder oder Icons. Zusätzlich gibt es verschiedene Konfigurationsdateien, zum Beispiel für SvelteKit, Vite und Netlify.
-Die Struktur des Projekts ist so aufgebaut, dass die wichtigsten Bereiche der App klar voneinander getrennt sind. Die einzelnen Routen wie Dashboard, Vorrat, Einkaufsliste und Haushaltserstellung sind jeweils in eigenen Ordnern abgelegt. Dadurch bleibt der Code übersichtlich und die Weiterentwicklung einzelner Funktionen ist einfacher möglich.
+Die Struktur des Projekts ist so aufgebaut, dass die wichtigsten Bereiche der Web-App klar voneinander getrennt sind. Die einzelnen Routen wie Dashboard, Vorrat, Einkaufsliste und Haushaltserstellung sind jeweils in eigenen Ordnern abgelegt. Dadurch bleibt der Code übersichtlich und die Weiterentwicklung einzelner Funktionen ist einfacher möglich.
 
 **Commit-Praxis:** Die Entwicklung wurde mit Git und GitHub versioniert. Änderungen wurden regelmässig committed, sodass die Entstehung des Prototyps grundsätzlich nachvollziehbar ist. Die Commits dokumentieren verschiedene Entwicklungsschritte, zum Beispiel den Aufbau der Grundstruktur, die Umsetzung einzelner Funktionen, Designanpassungen sowie Fehlerbehebungen.
 Die Commit-Nachrichten waren teilweise beschreibend, jedoch nicht immer einheitlich oder sehr detailliert. Dadurch lässt sich der allgemeine Entwicklungsverlauf erkennen, auch wenn nicht jeder einzelne Commit exakt beschreibt, welche Änderung vorgenommen wurde.
@@ -518,9 +519,9 @@ Die folgende Deklaration ist verpflichtend und beschreibt den Einsatz von KI im 
 
 Ein grosser Teil des Codes wurde mithilfe von KI-Unterstützung erstellt oder überarbeitet. Die KI wurde dabei nicht nur für einzelne Codezeilen genutzt, sondern auch für grössere zusammenhängende Funktionen, zum Beispiel für die Vorratsverwaltung, Einkaufsliste, Dashboard-Ansicht, To-do-Liste und den Wochenmenüplan.
 
-**Eigene Leistung (Abgrenzung):**  Die Grundidee der App, die Projektanforderungen, die gewünschte Funktionalität und die Entscheidungen zur Gestaltung wurden selbst erarbeitet. Die Ordnerstruktur des SvelteKit-Projekts wurde selbst angelegt und verwaltet. Anschliessend wurde der KI jeweils erklärt, welche Datei oder Funktion angepasst werden soll.
+**Eigene Leistung (Abgrenzung):**  Die Grundidee der Web-App, die Projektanforderungen, die gewünschte Funktionalität und die Entscheidungen zur Gestaltung wurden selbst erarbeitet. Die Ordnerstruktur des SvelteKit-Projekts wurde selbst angelegt und verwaltet. Anschliessend wurde der KI jeweils erklärt, welche Datei oder Funktion angepasst werden soll.
 
-Die KI-Ausgaben wurden nicht ungeprüft übernommen. Der Code wurde getestet, angepasst und bei Fehlern schrittweise verbessert. Besonders bei der visuellen Gestaltung wurden die Ergebnisse im Browser überprüft und mit Screenshots oder Beschreibungen weiter angepasst. Auch die Entscheidung, welche Funktionen in die App aufgenommen werden, wurde selbst getroffen.
+Die KI-Ausgaben wurden nicht ungeprüft übernommen. Der Code wurde getestet, angepasst und bei Fehlern schrittweise verbessert. Besonders bei der visuellen Gestaltung wurden die Ergebnisse im Browser überprüft und mit Screenshots oder Beschreibungen weiter angepasst. Auch die Entscheidung, welche Funktionen in die Web-App aufgenommen werden, wurde selbst getroffen.
 
 ### 6.2 Prompt-Vorgehen
 Beim Prompting wurde meist sehr konkret gearbeitet. Es wurde beschrieben, welche Funktion umgesetzt werden soll, in welcher Datei sich der Code befindet und welches Verhalten erwartet wird. Häufig wurden bestehende Codeausschnitte eingefügt, damit die KI den aktuellen Stand berücksichtigen konnte. Anschliessend wurden die Vorschläge getestet und bei Problemen erneut mit Fehlermeldungen oder Screenshots zurückgegeben.
@@ -538,4 +539,4 @@ Ein grosser Vorteil war, dass Fehlermeldungen direkt analysiert und mögliche L�
 
 Gleichzeitig zeigte sich, dass KI-Ergebnisse immer überprüft werden müssen. Nicht jeder Vorschlag funktionierte sofort. Teilweise wurden Funktionen vorgeschlagen, die nicht zur vorhandenen Struktur passten oder neue Fehler verursachten. Besonders bei visuellen Details musste viel getestet und nachkorrigiert werden. Die KI konnte zwar Code liefern, aber die finale Kontrolle im Browser und die Entscheidung, ob das Ergebnis wirklich passt, musste selbst erfolgen.
 
-Insgesamt war KI ein wichtiges Hilfsmittel, ersetzte aber nicht das eigene Verständnis des Projekts. Die Anforderungen, die Struktur, das Testen, die Auswahl der passenden Lösungen und die finale Bewertung der App blieben eigene Leistungen.
+Insgesamt war KI ein wichtiges Hilfsmittel, ersetzte aber nicht das eigene Verständnis des Projekts. Die Anforderungen, die Struktur, das Testen, die Auswahl der passenden Lösungen und die finale Bewertung der Web-App blieben eigene Leistungen.
