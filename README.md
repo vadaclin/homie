@@ -27,12 +27,12 @@ Die Web-App Homie setzt genau hier an: Sie unterstützt sowohl Einzelpersonen al
 
 **Problem:** Es fehlt eine einfache, zentrale Lösung, mit der Einzelpersonen und gemeinsame Haushalte Vorräte, Einkaufslisten, Aufgaben und Mahlzeiten planen können. Dadurch entstehen Doppelkäufe, vergessene Produkte, unklare Absprachen und unnötige Verschwendung.  
 **Ziele:** Ziel ist die Entwicklung einer intuitiven Web-App, mit der Nutzerinnen und Nutzer ihre Vorräte verwalten, Einkaufslisten erstellen, To-do’s organisieren und ein Wochenmenü planen können. Die Web-App soll helfen, den Überblick im Alltag zu verbessern, Einkäufe gezielter zu planen, Lebensmittelverschwendung zu reduzieren und die Haushaltsorganisation zu vereinfachen.  
-**Primäre Zielgruppe:** Die Web-App richtet sich an Einzelpersonen sowie an Personen in gemeinsamen Haushalten wie WGs, Paare und Familien, die ihren Alltag besser organisieren möchten. Homie eignet sich somit für alle, die Vorräte, Einkäufe, Aufgaben und Mahlzeiten übersichtlich planen möchten.
+**Primäre Zielgruppe:** Die Web-App richtet sich an Einzelpersonen, WGs, Paare und Familien, die ihren Haushalt übersichtlich organisieren möchten.
 
 
 ## 2. Lösungsidee
-Die entwickelte Web-App Homie ermöglicht es, Vorräte, Einkaufslisten, To-do’s und Wochenmenüs einfach und übersichtlich zu verwalten. Die Web-App kann sowohl von Einzelpersonen als auch von mehreren Personen in einem gemeinsamen Haushalt genutzt werden. Über einen vierstelligen Haushalts-Code können Nutzerinnen und Nutzer einem Haushalt beitreten oder einen neuen Haushalt erstellen, ohne ein Benutzerkonto anlegen zu müssen. Dadurch bleibt der Einstieg bewusst unkompliziert und alltagstauglich.
-Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen Ort. Nutzerinnen und Nutzer können ihren Vorrat erfassen, Produkte nach Kategorien anzeigen lassen, Artikel auf die Einkaufsliste setzen und erledigte Einkäufe wieder in den Vorrat übernehmen. Zusätzlich unterstützt die Web-App mit einer To-do-Liste und einem Wochenmenüplan die Planung des Haushaltsalltags.  
+Homie bündelt die wichtigsten Funktionen der Haushaltsorganisation an einem zentralen Ort. Über einen vierstelligen Haushalts-Code können Personen einen gemeinsamen Haushalt organisieren. Vorräte, Einkaufslisten, To-do’s und Wochenmenüs lassen sich einfach verwalten und gemeinsam nutzen.
+
 **Kernfunktionalität:**  
     - Nutzung ohne klassisches Benutzerkonto oder Login  
     - Verwaltung von Vorräten mit Artikelname, Menge, Einheit und Kategorie  
@@ -55,7 +55,8 @@ Homie bündelt wichtige Funktionen der Haushaltsorganisation an einem zentralen 
     - Eine klare visuelle Struktur hilft dabei, den Überblick über Vorräte, Einkäufe und Aufgaben zu behalten  
     - Die Kombination aus Vorrat, Einkaufsliste, To-do’s und Wochenmenü deckt zentrale Bedürfnisse der Haushaltsorganisation ab  
 **Abgrenzung:**  
-    - Keine Benutzerkonten oder Login-Systeme  
+    - Keine Benutzerkonten oder Login-Systeme
+    - Kein Fokus auf Datenschutz und Zugriffsschutz, da keine sensiblen Daten verarbeitet werden
     - Keine detaillierte Rechteverwaltung (alle im Haushalt haben dieselben Rechte)  
     - Keine automatische Erkennung von Produkten oder Barcode-Scan  
     - Keine komplexe Lagerverwaltung oder Statistiken  
@@ -76,9 +77,9 @@ In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Pe
 **Name:** Thomas  
 **Alter:** 39 Jahre  
 **Situation:**  Lebt alleine in einer Wohnung  
-**Bedürfnis:** Thomas möchte beim Einkaufen besser wissen, welche Produkte er noch zuhause hat, welche Aufgaben anstehen und was er in der Woche kochen möchte.  
-**Problem:** Er kauft oft Dinge doppelt oder vergisst wichtige Produkte, weil er keine feste Einkaufsliste führt. Zusätzlich plant er Mahlzeiten spontan und verliert dadurch manchmal den Überblick über vorhandene Lebensmittel.  
-**Ziel:** Eine einfache Web-App nutzen, mit der er Vorräte, fehlende Produkte, Aufgaben und Mahlzeiten schnell erfassen kann.  
+**Bedürfnis:** Thomas möchte vermeiden, dass unnötig Lebensmittel weggeworfen werden. Gleichzeitig möchte er mehr Abwechslung in seine Essensplanung bringen, jedoch vorhandene Lebensmittel wiederverwenden.   
+**Problem:** Er kauft oft Dinge doppelt, weil er vergisst, was er noch zuhause hat. Einkäufe finden manchmal spontan statt, weshalb der Einkaufszettel nicht immer dabei ist. Aufgrund von Zeitmangel möchte er nur einmal pro Woche einkaufen. Deshalb muss er seine Mahlzeiten nach der Haltbarkeit der Lebensmittel planen.  
+**Ziel:** Eine einfache Web-App nutzen, die ihn bei diesen Bedürfnissen und Problemen unterstützt.  
 
 **Proto-Persona 2: Gemeinsamer Haushalt**  
 **Name:** Lara  
@@ -92,7 +93,7 @@ In gemeinsamen Haushalten ist das Problem zusätzlich komplexer, weil mehrere Pe
     - Die Web-App muss sowohl für Einzelpersonen als auch für gemeinsame Haushalte funktionieren.  
     - Die Bedienung muss sehr einfach und schnell verständlich sein.  
     - Ein klassischer Login könnte für eine kleine Haushalts Web-App unnötig kompliziert wirken.  
-    - Eine gemeinsame Nutzung über einen Haushalts-Code senkt die Einstiegshürde.  
+    - Eine gemeinsame Nutzung über einen Haushalts-Code erhöht die Benutzerakzeptanz.  
     - Vorräte, Einkaufsliste und To-do’s sollten in gemeinsamen Haushalten zentral und für alle sichtbar sein.  
     - Der Wochenmenüplan ist besonders für Einzelpersonen oder Haushalte sinnvoll, in denen gemeinsam geplant wird.  
     - In WGs kann der Wochenmenüplan weniger relevant sein, da viele Personen ihre Mahlzeiten individuell planen.  
@@ -160,7 +161,7 @@ Für die Web-App wurden mehrere grobe Skizzen erstellt.
 Die Skizzen halfen dabei, die Struktur der Web-App früh zu überprüfen. Besonders wichtig war, dass Nutzerinnen und Nutzer schnell verstehen, wo sie Produkte hinzufügen, fehlende Artikel eintragen, Aufgaben erfassen und Mahlzeiten planen können.
 
 ### 3.3 Decide
-**Gewählte Variante & Begründung:** Nach dem Vergleich der verschiedenen Varianten wurde die Variante "Haushalts-Dashboard mit Code-Zugang" ausgewählt. Diese Lösung verbindet eine einfache Bedienung mit der Möglichkeit, die Web-App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen. Der vierstellige Haushalts-Code wurde gewählt, weil dadurch kein klassisches Login-System notwendig ist. Das senkt die Einstiegshürde und macht die Web-App besonders schnell nutzbar.
+**Gewählte Variante & Begründung:** Nach dem Vergleich der verschiedenen Varianten wurde die Variante "Haushalts-Dashboard mit Code-Zugang" ausgewählt. Diese Lösung verbindet eine einfache Bedienung mit der Möglichkeit, die Web-App sowohl alleine als auch gemeinsam in einem Haushalt zu nutzen. Der vierstellige Haushalts-Code wurde gewählt, weil dadurch kein klassisches Login-System notwendig ist. Das erhöht die Benutzerakzeptanz und macht die Web-App besonders schnell nutzbar.
 
 Die Entscheidung fiel auf diese Variante, weil sie die wichtigsten Anforderungen des Projekts am besten erfüllt:  
 - einfache Nutzung ohne Registrierung  
@@ -490,7 +491,7 @@ Diese Erweiterung macht die Vorrats- und Einkaufslistenfunktion deutlich alltags
 ### 4.6 Wochenmenüplan mit mehreren Einträgen und Drag & Drop
 **Beschreibung & Nutzen:** Die Web-App wurde um einen Wochenmenüplan erweitert, der direkt auf dem Dashboard angezeigt wird. Nutzerinnen und Nutzer können dadurch ihre geplanten Mahlzeiten direkt in der zentralen Übersicht erfassen und bearbeiten, ohne zuerst auf eine separate Seite wechseln zu müssen. Der Wochenmenüplan bezieht sich immer auf die aktuelle Kalenderwoche. Sobald eine neue Woche beginnt, wird eine leere neue Woche angezeigt und alte Wochenmenüeinträge werden aus der Datenbank entfernt.
 Für jeden Wochentag können Mahlzeiten eingetragen werden. Pro Tag können mehrere Menüeinträge erstellt werden, zum Beispiel für Mittag- und Abendessen. Zusätzlich können Menüeinträge per Drag & Drop zwischen den Tagen verschoben werden.
-Diese Erweiterung unterstützt die Essensplanung und hilft dabei, Einkäufe besser vorzubereiten und vorhandene Lebensmittel gezielter zu verwenden. Besonders für Einzelpersonen, Paare oder Familien kann der Wochenmenüplan helfen, den Alltag besser zu strukturieren.
+Diese Erweiterung unterstützt die Essensplanung und hilft dabei, Einkäufe besser vorzubereiten und vorhandene Lebensmittel gezielter zu verwenden. Wenn sich Pläne spontan ändern, zum Beispiel durch eine Einladung bei Nachbarn, kann ein geplantes Menü einfach auf einen anderen Tag verschoben werden.
 
 **Wo umgesetzt:**  
 **Frontend:** Wochenmenü-Karte direkt auf dem Dashboard mit Anzeige der aktuellen Kalenderwoche, Eingabefeldern pro Wochentag, Plus-Button für zusätzliche Menüeinträge und Drag-&-Drop-Funktion  
