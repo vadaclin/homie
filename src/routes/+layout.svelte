@@ -24,6 +24,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Homie</title>
+</svelte:head>
+
 {#if showTopbar}
   <header class="topbar">
     <a href="/dashboard" class="brand">Homie</a>

@@ -32,6 +32,7 @@
   let einkaufMenge = $state("");
   let einkaufEinheitAuswahl = $state("");
   let einkaufEigeneEinheit = $state("");
+  let einkaufKategorie = $state(KATEGORIEN[0]);
 
   let vorratModal = $state(null);
   let vorratMenge = $state("1");
@@ -77,6 +78,7 @@
     einkaufMenge = "";
     einkaufEinheitAuswahl = "";
     einkaufEigeneEinheit = "";
+    einkaufKategorie = KATEGORIEN[0];
   }
 
   function formatMenge(item) {
@@ -128,6 +130,14 @@
         >
           {#each EINHEITEN as option}
             <option value={option.value}>{option.label}</option>
+          {/each}
+        </select>
+      </div>
+
+      <div class="select-wrapper">
+        <select name="kategorie" bind:value={einkaufKategorie}>
+          {#each KATEGORIEN as option}
+            <option value={option}>{option}</option>
           {/each}
         </select>
       </div>
@@ -317,12 +327,12 @@
   }
 
   .add-detail-row > input {
-    flex: 0.85;
+    flex: 0.9;
     min-width: 0;
   }
 
   .add-detail-row > .select-wrapper {
-    flex: 1.15;
+    flex: 1;
     min-width: 0;
   }
 
@@ -608,12 +618,16 @@
       order: 3;
     }
 
+    .add-detail-row > .select-wrapper + .select-wrapper {
+      order: 5;
+    }
+
     .custom-unit {
       order: 4;
     }
 
     .add-card button {
-      order: 5;
+      order: 6;
       width: 100%;
     }
 
